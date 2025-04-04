@@ -1,0 +1,4 @@
+packages:
+    - "packages/dapp"
+    - "packages/wallet"
+    - "packages/shared/*"

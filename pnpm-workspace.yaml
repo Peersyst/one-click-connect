@@ -1,0 +1,5 @@
+packages:
+    - "docs"
+    - "packages/dapp"
+    - "packages/wallet"
+    - "packages/shared/*"

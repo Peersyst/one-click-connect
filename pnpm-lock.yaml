@@ -63,6 +63,9 @@ importers:
 
   packages/dapp:
     devDependencies:
+      '@one-click-connect/core':
+        specifier: workspace:*
+        version: link:../shared/core
       '@shared/tsconfig':
         specifier: workspace:*
         version: link:../shared/tsconfig

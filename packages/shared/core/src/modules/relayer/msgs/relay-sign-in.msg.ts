@@ -1,4 +1,4 @@
-import { MsgError, MsgErrorCodes } from "../../common/msgs/errors";
+import { MsgError, MsgErrorCodes } from "../../common/msgs";
 
 /**
  * Message for relaying a sign in request.

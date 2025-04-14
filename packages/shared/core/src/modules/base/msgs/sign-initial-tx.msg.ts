@@ -1,7 +1,7 @@
 import { Transaction } from "near-api-js/lib/transaction";
 import { PublicKey } from "near-api-js/lib/utils";
-import { MsgError, MsgErrorCodes } from "./errors";
-import { PermissionsCodec, PublicKeyCodec, TransactionCodec } from "../codecs";
+import { MsgError, MsgErrorCodes } from "../../common/msgs";
+import { PermissionsCodec, PublicKeyCodec, TransactionCodec } from "../../common/codecs";
 
 /**
  * Message for signing an initial transaction.

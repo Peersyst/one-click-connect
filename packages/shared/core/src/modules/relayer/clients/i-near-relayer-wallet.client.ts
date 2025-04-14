@@ -1,4 +1,4 @@
-import { INearWalletClient } from "../../common/clients/i-near-wallet.client";
+import { INearWalletClient } from "../../base/clients/i-near-wallet.client";
 import { MsgRelaySignIn } from "../msgs";
 
 /**

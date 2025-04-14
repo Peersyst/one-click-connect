@@ -1,5 +1,4 @@
-import { MsgSignIn } from "../../../../src/modules/common/msgs";
-import { MsgErrorCodes } from "../../../../src/modules/common/msgs/errors";
+import { MsgErrorCodes, MsgSignIn } from "../../../../src/modules";
 
 describe("MsgSignIn", () => {
     describe("fromURL", () => {

@@ -1,4 +1,4 @@
-import { MsgErrorCodes } from "../../../../src/modules/common/msgs/errors";
+import { MsgErrorCodes } from "../../../../src/modules";
 import { MsgRelaySignIn } from "../../../../src/modules/relayer/msgs";
 
 describe("RelaySignInMsg", () => {

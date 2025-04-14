@@ -6,7 +6,7 @@ import { MsgSignIn } from "../msgs";
 export interface INearWalletClient {
     /**
      * @description Signs in to the wallet.
-     * @param msg - The message to sign.
+     * @param msg The message to sign.
      */
     signIn(msg: MsgSignIn): void;
 }

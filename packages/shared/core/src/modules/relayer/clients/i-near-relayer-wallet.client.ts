@@ -7,7 +7,7 @@ import { MsgRelaySignIn } from "../msgs";
 export interface INearRelayerWalletClient extends INearWalletClient {
     /**
      * @description Signs in to the wallet with a relayer.
-     * @param msg - The message to sign.
+     * @param msg The message to sign.
      */
     signInWithRelayer(msg: MsgRelaySignIn): void;
 }

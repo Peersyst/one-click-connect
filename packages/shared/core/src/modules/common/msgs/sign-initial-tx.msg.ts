@@ -4,7 +4,7 @@ import { MsgError, MsgErrorCodes } from "./errors";
 import { PermissionsCodec, PublicKeyCodec, TransactionCodec } from "../codecs";
 
 /**
- * @description Message for signing an initial transaction.
+ * Message for signing an initial transaction.
  */
 export class MsgSignInitialTx {
     _transaction: Transaction;
@@ -13,11 +13,11 @@ export class MsgSignInitialTx {
     _publicKey: PublicKey;
 
     /**
-     * @description Creates a new MsgSignInitialTx object.
-     * @param transaction - The transaction to sign.
-     * @param redirectURL - The redirect URL.
-     * @param permissions - The permissions.
-     * @param publicKey - The public key.
+     * Creates a new MsgSignInitialTx object.
+     * @param transaction The transaction to sign.
+     * @param redirectURL The redirect URL.
+     * @param permissions The permissions.
+     * @param publicKey The public key.
      */
     constructor(transaction: Transaction, redirectURL: string, permissions: object, publicKey: PublicKey) {
         this._transaction = transaction;
@@ -27,8 +27,8 @@ export class MsgSignInitialTx {
     }
 
     /**
-     * @description Creates a new MsgSignInitialTx object from a URL.
-     * @param url - The URL to create the MsgSignInitialTx object from.
+     * Creates a new MsgSignInitialTx object from a URL.
+     * @param url The URL to create the MsgSignInitialTx object from.
      * @returns A new MsgSignInitialTx object.
      */
     static fromURL(url: string): MsgSignInitialTx {
@@ -51,8 +51,8 @@ export class MsgSignInitialTx {
     }
 
     /**
-     * @description Creates a URL from the MsgSignInitialTx object.
-     * @param url - The URL to create the MsgSignInitialTx object from.
+     * Creates a URL from the MsgSignInitialTx object.
+     * @param url The URL to create the MsgSignInitialTx object from.
      * @returns A URL.
      */
     toURL(url: string): string {
@@ -66,7 +66,7 @@ export class MsgSignInitialTx {
     }
 
     /**
-     * @description Gets the transaction from the MsgSignInitialTx object.
+     * Gets the transaction from the MsgSignInitialTx object.
      * @returns The transaction.
      */
     get transaction(): Transaction {
@@ -74,7 +74,7 @@ export class MsgSignInitialTx {
     }
 
     /**
-     * @description Gets the redirect URL from the MsgSignInitialTx object.
+     * Gets the redirect URL from the MsgSignInitialTx object.
      * @returns The redirect URL.
      */
     get redirectURL(): string {
@@ -82,7 +82,7 @@ export class MsgSignInitialTx {
     }
 
     /**
-     * @description Gets the permissions from the MsgSignInitialTx object.
+     * Gets the permissions from the MsgSignInitialTx object.
      * @returns The permissions.
      */
     get permissions(): object {
@@ -90,7 +90,7 @@ export class MsgSignInitialTx {
     }
 
     /**
-     * @description Gets the public key from the MsgSignInitialTx object.
+     * Gets the public key from the MsgSignInitialTx object.
      * @returns The public key.
      */
     get publicKey(): PublicKey {

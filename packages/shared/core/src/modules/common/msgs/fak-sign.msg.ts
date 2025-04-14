@@ -3,16 +3,16 @@ import { MsgError, MsgErrorCodes } from "./errors";
 import { TransactionCodec } from "../codecs";
 
 /**
- * @description Message for signing a transaction.
+ * Message for signing a transaction.
  */
 export class MsgFakSign {
     _transaction: Transaction;
     _redirectURL: string;
 
     /**
-     * @description Creates a new MsgFakSign object.
-     * @param transaction - The transaction to sign.
-     * @param redirectURL - The redirect URL.
+     * Creates a new MsgFakSign object.
+     * @param transaction The transaction to sign.
+     * @param redirectURL The redirect URL.
      */
     constructor(transaction: Transaction, redirectURL: string) {
         this._transaction = transaction;
@@ -20,8 +20,8 @@ export class MsgFakSign {
     }
 
     /**
-     * @description Creates a new MsgFakSign object from a URL.
-     * @param url - The URL to create the MsgFakSign object from.
+     * Creates a new MsgFakSign object from a URL.
+     * @param url The URL to create the MsgFakSign object from.
      * @returns A new MsgFakSign object.
      */
     static fromURL(url: string): MsgFakSign {
@@ -38,8 +38,8 @@ export class MsgFakSign {
     }
 
     /**
-     * @description Creates a URL from the MsgFakSign object.
-     * @param url - The URL to create the MsgFakSign object from.
+     * Creates a URL from the MsgFakSign object.
+     * @param url The URL to create the MsgFakSign object from.
      * @returns A URL.
      */
     toURL(url: string): string {
@@ -51,7 +51,7 @@ export class MsgFakSign {
     }
 
     /**
-     * @description Gets the transaction from the MsgFakSign object.
+     * Gets the transaction from the MsgFakSign object.
      * @returns The transaction.
      */
     get transaction(): Transaction {
@@ -59,7 +59,7 @@ export class MsgFakSign {
     }
 
     /**
-     * @description Gets the redirect URL from the MsgFakSign object.
+     * Gets the redirect URL from the MsgFakSign object.
      * @returns The redirect URL.
      */
     get redirectURL(): string {

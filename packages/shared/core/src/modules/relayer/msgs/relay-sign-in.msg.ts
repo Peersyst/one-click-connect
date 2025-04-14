@@ -1,7 +1,7 @@
 import { MsgError, MsgErrorCodes } from "../../common/msgs/errors";
 
 /**
- * @description Message for relaying a sign in request.
+ * Message for relaying a sign in request.
  */
 export class MsgRelaySignIn {
     _accountID: string;
@@ -9,10 +9,10 @@ export class MsgRelaySignIn {
     _relayerAPI: string;
 
     /**
-     * @description Creates a new MsgRelaySignIn object.
-     * @param accountID - The account ID.
-     * @param signingURL - The signing URL.
-     * @param relayerAPI - The relayer API.
+     * Creates a new MsgRelaySignIn object.
+     * @param accountID The account ID.
+     * @param signingURL The signing URL.
+     * @param relayerAPI The relayer API.
      */
     constructor(accountID: string, signingURL: string, relayerAPI: string) {
         this._accountID = accountID;
@@ -21,8 +21,8 @@ export class MsgRelaySignIn {
     }
 
     /**
-     * @description Creates a new MsgRelaySignIn object from a URL.
-     * @param url - The URL.
+     * Creates a new MsgRelaySignIn object from a URL.
+     * @param url The URL.
      * @returns A new MsgRelaySignIn object.
      */
     static fromURL(url: string): MsgRelaySignIn {
@@ -39,8 +39,8 @@ export class MsgRelaySignIn {
     }
 
     /**
-     * @description Creates a URL from the MsgRelaySignIn object.
-     * @param url - The URL.
+     * Creates a URL from the MsgRelaySignIn object.
+     * @param url The URL.
      * @returns A URL.
      */
     toURL(url: string): string {
@@ -52,7 +52,7 @@ export class MsgRelaySignIn {
     }
 
     /**
-     * @description Gets the account ID from the MsgRelaySignIn object.
+     * Gets the account ID from the MsgRelaySignIn object.
      * @returns The account ID.
      */
     get accountID(): string {
@@ -60,7 +60,7 @@ export class MsgRelaySignIn {
     }
 
     /**
-     * @description Gets the signing URL from the MsgRelaySignIn object.
+     * Gets the signing URL from the MsgRelaySignIn object.
      * @returns The signing URL.
      */
     get signingURL(): string {
@@ -68,7 +68,7 @@ export class MsgRelaySignIn {
     }
 
     /**
-     * @description Gets the relayer API from the MsgRelaySignIn object.
+     * Gets the relayer API from the MsgRelaySignIn object.
      * @returns The relayer API.
      */
     get relayerAPI(): string {

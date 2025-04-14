@@ -1,5 +1,4 @@
-import { MsgSignInitialTx } from "../../../../src/modules/common/msgs";
-import { MsgErrorCodes } from "../../../../src/modules/common/msgs/errors";
+import { MsgErrorCodes, MsgSignInitialTx } from "../../../../src/modules";
 import { PermissionsCodecGlobalMock } from "../../../mocks/permissions.codec.global-mock";
 import { PublicKeyCodecGlobalMock } from "../../../mocks/public-key.codec.global-mock";
 import { TransactionCodecGlobalMock } from "../../../mocks/transaction.codec.mock";

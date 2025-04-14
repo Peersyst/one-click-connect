@@ -1,5 +1,4 @@
-import { MsgFakSign } from "../../../../src/modules/common/msgs";
-import { MsgErrorCodes } from "../../../../src/modules/common/msgs/errors";
+import { MsgErrorCodes, MsgFakSign } from "../../../../src/modules";
 import { TransactionCodecGlobalMock } from "../../../mocks";
 import { TransactionMock } from "../../../mocks/transaction.mock";
 

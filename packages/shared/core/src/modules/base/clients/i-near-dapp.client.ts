@@ -1,17 +1,29 @@
-import { MsgFakSign, MsgSignIn } from "../msgs";
+import { MsgFakSign, MsgSignInitialTx } from "../msgs";
 
 /**
  * @description Interface for a client.
  */
 export interface INearDAppClient {
     /**
-     * @description Signs an initial transaction.
-     * @param msg The message to sign.
+     * Returns the account ID.
+     * @returns The account ID.
      */
-    signInitialTx(msg: MsgSignIn): void;
+    accountId(): string;
 
     /**
-     * @description Signs a transaction with a fake signature.
+     * Returns the account ID.
+     * @returns The signing URL.
+     */
+    signingURL(): string;
+
+    /**
+     * Signs an initial transaction.
+     * @param msg The message to sign.
+     */
+    signInitialTx(msg: MsgSignInitialTx): void;
+
+    /**
+     * Signs a transaction with a fake signature.
      * @param msg The message to sign.
      */
     signWithFak(msg: MsgFakSign): void;

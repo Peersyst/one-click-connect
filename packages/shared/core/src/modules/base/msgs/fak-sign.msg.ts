@@ -1,6 +1,6 @@
 import { Transaction } from "near-api-js/lib/transaction";
-import { MsgError, MsgErrorCodes } from "./errors";
-import { TransactionCodec } from "../codecs";
+import { MsgError, MsgErrorCodes } from "../../common/msgs";
+import { TransactionCodec } from "../../common/codecs";
 
 /**
  * Message for signing a transaction.

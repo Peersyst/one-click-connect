@@ -1,4 +1,4 @@
-import { MsgError, MsgErrorCodes } from "./errors";
+import { MsgError, MsgErrorCodes } from "../../common/msgs";
 
 /**
  * Message for signing in to the app.

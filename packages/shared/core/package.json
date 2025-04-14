@@ -23,5 +23,12 @@
     },
     "peerDependencies": {
         "near-api-js": "^5.1.1"
+    },
+    "exports": {
+        "./codecs": "./src/modules/common/codecs/index.ts",
+        "./base": "./src/modules/base/index.ts",
+        "./common": "./src/modules/common/index.ts",
+        "./relayer": "./src/modules/relayer/index.ts",
+        "./ena": "./src/modules/ena/index.ts"
     }
 }

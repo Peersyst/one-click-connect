@@ -1,4 +1,4 @@
-import { AccountState } from "../state";
+import { AccountStoreState } from "../states";
 import { IAccountRepository } from "../interfaces";
 import { KeyPair } from "near-api-js/lib/utils";
 import { Account } from "../account.types";
@@ -10,7 +10,7 @@ export class AccountLocalStorageRepository implements IAccountRepository {
      * Retrieves the current state from local storage.
      * @returns The current account state.
      */
-    private getState(): AccountState {
+    private getState(): AccountStoreState {
         const stored = localStorage.getItem(this.STORAGE_KEY);
         return stored ? JSON.parse(stored) : { active: "", accounts: {} };
     }
@@ -19,14 +19,14 @@ export class AccountLocalStorageRepository implements IAccountRepository {
      * Saves the state to local storage.
      * @param state The account state to save.
      */
-    private setState(state: AccountState): void {
+    private setState(state: AccountStoreState): void {
         localStorage.setItem(this.STORAGE_KEY, JSON.stringify(state));
     }
 
     /**
      * @inheritdoc
      */
-    getActive(): { accountID: string; keypair: KeyPair } {
+    getActive(): Account {
         const state = this.getState();
         const accountID = state.active;
         const keypair = state.accounts[accountID];

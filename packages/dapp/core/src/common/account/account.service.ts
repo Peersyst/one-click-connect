@@ -29,8 +29,8 @@ export class AccountService implements IAccountService {
     /**
      * @inheritdoc
      */
-    createAccountKeypair(accountId: string): Account {
-        const keypair = KeyPair.fromRandom();
+    createAccountKeypair(accountId: string, curve: string = "ed25519"): Account {
+        const keypair = KeyPair.fromRandom(curve);
         const account = this.accountRepository.create(accountId, keypair);
         this.accountRepository.setActive(accountId);
         return account;

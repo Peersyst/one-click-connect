@@ -2,8 +2,8 @@ import { INearDAppClient, MsgFakSign, MsgSignInitialTx } from "@one-click-connec
 import { DAppClient } from "../../common/client/client";
 import { NearDAppClientConfig } from "./base.client.config";
 import { IAccountService } from "../../common/client/interfaces/i-account.service";
-import { ServiceError } from "../../common/errors";
 import { SignInitialTxRequest } from "@one-click-connect/core/common";
+import { ClientError, ClientErrorCodes } from "../../common/client/errors";
 
 /**
  * A client for the Near DApp.
@@ -24,11 +24,12 @@ export class NearDAppClient extends DAppClient<NearDAppClientConfig> implements 
 
         const account = this.accountService.getAccountKeypair(accountID);
         if (account) {
-            throw new ServiceError(NearDAppClient.name, "ACCOUNT_ALREADY_EXISTS");
+            throw new ClientError(ClientErrorCodes.ACCOUNT_ALREADY_EXISTS);
         }
 
-        const createdAccount = this.accountService.createAccountKeypair(accountID);
-        const msg = new MsgSignInitialTx(transaction, this.config.redirectURL, permissions, createdAccount.keypair.getPublicKey());
+        const { keypair } = this.accountService.createAccountKeypair(accountID);
+
+        const msg = new MsgSignInitialTx(transaction, this.config.redirectURL, permissions, keypair.getPublicKey());
         return msg.toURL(signingURL);
     }
 

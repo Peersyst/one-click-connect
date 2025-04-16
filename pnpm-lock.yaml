@@ -66,6 +66,9 @@ importers:
       '@one-click-connect/core':
         specifier: workspace:*
         version: link:../../shared/core
+      '@shared/test':
+        specifier: workspace:*
+        version: link:../../shared/test
       '@shared/tsconfig':
         specifier: workspace:*
         version: link:../../shared/tsconfig
@@ -81,6 +84,9 @@ importers:
       near-api-js:
         specifier: ^5.1.1
         version: 5.1.1
+      ts-jest:
+        specifier: ^29.1.4
+        version: 29.2.5(@babel/core@7.26.0)(@jest/transform@29.7.0)(@jest/types@29.6.3)(babel-jest@29.7.0(@babel/core@7.26.0))(esbuild@0.24.2)(jest@29.7.0(@types/node@22.14.1)(babel-plugin-macros@3.1.0)(ts-node@10.9.2(@types/node@22.14.1)(typescript@5.8.3)))(typescript@5.8.3)
 
   packages/dapp/vanilla:
     devDependencies:
@@ -212,6 +218,9 @@ importers:
 
   packages/wallet:
     devDependencies:
+      '@one-click-connect/core':
+        specifier: workspace:*
+        version: link:../shared/core
       '@shared/tsconfig':
         specifier: workspace:*
         version: link:../shared/tsconfig
@@ -224,6 +233,9 @@ importers:
       jest:
         specifier: ^29.7.0
         version: 29.7.0(@types/node@22.14.0)(babel-plugin-macros@3.1.0)(ts-node@10.9.2(@types/node@22.14.0)(typescript@5.8.3))
+      near-api-js:
+        specifier: ^5.1.1
+        version: 5.1.1
 
 packages:
 

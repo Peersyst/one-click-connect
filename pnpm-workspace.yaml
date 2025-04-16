@@ -1,5 +1,6 @@
 packages:
     - "docs"
-    - "packages/dapp"
+    - "packages/dapp/core"
+    - "packages/dapp/vanilla"
     - "packages/wallet"
     - "packages/shared/*"

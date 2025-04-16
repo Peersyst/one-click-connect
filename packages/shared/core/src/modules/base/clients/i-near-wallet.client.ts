@@ -1,12 +1,12 @@
-import { MsgSignIn } from "../msgs";
-
 /**
  * @description Interface for a wallet.
  */
 export interface INearWalletClient {
     /**
      * @description Signs in to the wallet.
-     * @param msg The message to sign.
+     * @param accountID The account ID to sign in to.
+     * @param url The URL to sign in to.
+     * @returns The sign in URL.
      */
-    signIn(msg: MsgSignIn): void;
+    signIn(accountID: string, url: string): string;
 }

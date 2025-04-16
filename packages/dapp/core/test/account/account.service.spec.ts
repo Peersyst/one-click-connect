@@ -1,5 +1,4 @@
 import { AccountService } from "../../src/common/account/account.service";
-import { AccountErrorCodes } from "../../src/common/account/errors";
 import { AccountRepositoryMock } from "../mocks/account";
 
 describe("AccountService", () => {
@@ -26,14 +25,6 @@ describe("AccountService", () => {
             accountService.getAccountKeypair("mockAccountID");
 
             expect(accountRepositoryMock.get).toHaveBeenCalledWith("mockAccountID");
-        });
-
-        it("should throw an error if the account does not exist", () => {
-            accountRepositoryMock.get.mockReturnValue(undefined);
-
-            expect(() => accountService.getAccountKeypair("mockAccountID")).toThrow(
-                `${AccountService.name}: ${AccountErrorCodes.ACCOUNT_NOT_FOUND}`,
-            );
         });
     });
 

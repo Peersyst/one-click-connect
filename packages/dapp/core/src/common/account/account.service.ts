@@ -2,8 +2,6 @@ import { KeyPair } from "near-api-js/lib/utils";
 import { IAccountRepository } from "./interfaces";
 import { IAccountService } from "../client/interfaces/i-account.service";
 import { Account } from "./account.types";
-import { ServiceError } from "../errors";
-import { AccountErrorCodes } from "./errors";
 
 export class AccountService implements IAccountService {
     constructor(private readonly accountRepository: IAccountRepository) {}
@@ -11,19 +9,15 @@ export class AccountService implements IAccountService {
     /**
      * @inheritdoc
      */
-    getActive(): Account {
+    getActive(): Account | undefined {
         return this.accountRepository.getActive();
     }
 
     /**
      * @inheritdoc
      */
-    getAccountKeypair(accountId: string): Account {
-        const account = this.accountRepository.get(accountId);
-        if (!account) {
-            throw new ServiceError(AccountService.name, AccountErrorCodes.ACCOUNT_NOT_FOUND);
-        }
-        return account;
+    getAccountKeypair(accountId: string): Account | undefined {
+        return this.accountRepository.get(accountId);
     }
 
     /**

@@ -8,19 +8,16 @@ import { ClientError, ClientErrorCodes } from "../../common/client/errors";
 /**
  * A client for the Near DApp.
  */
-export class NearDAppClient extends DAppClient<NearDAppClientConfig> implements INearDAppClient {
-    constructor(
-        config: NearDAppClientConfig,
-        private readonly accountService: IAccountService,
-    ) {
-        super(config);
+export class NearDAppClient<C extends NearDAppClientConfig> extends DAppClient<C> implements INearDAppClient {
+    constructor(config: C, accountService: IAccountService) {
+        super(config, accountService);
     }
 
     /**
      * @inheritdoc
      */
     signInitialTx(request: SignInitialTxRequest): string {
-        const { accountID, signingURL, transaction, permissions } = request;
+        const { accountID, signingURL, permissions } = request;
 
         const account = this.accountService.getAccountKeypair(accountID);
         if (account) {
@@ -29,7 +26,7 @@ export class NearDAppClient extends DAppClient<NearDAppClientConfig> implements 
 
         const { keypair } = this.accountService.createAccountKeypair(accountID);
 
-        const msg = new MsgSignInitialTx(transaction, this.config.redirectURL, permissions, keypair.getPublicKey());
+        const msg = new MsgSignInitialTx(this.config.redirectURL, permissions, keypair.getPublicKey());
         return msg.toURL(signingURL);
     }
 
@@ -43,7 +40,7 @@ export class NearDAppClient extends DAppClient<NearDAppClientConfig> implements 
     /**
      * @inheritdoc
      */
-    getConfig(): NearDAppClientConfig {
+    getConfig(): C {
         return this.config;
     }
 }

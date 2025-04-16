@@ -6,7 +6,7 @@ export interface IAccountRepository {
      * Gets the currently active account ID.
      * @returns The active account ID.
      */
-    getActive(): Account;
+    getActive(): Account | undefined;
     /**
      * Gets the value associated with an account ID.
      * @param accountId The account ID to look up.

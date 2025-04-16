@@ -1,12 +1,11 @@
-import { NearDAppClient } from "../../src/clients";
+import { NearDAppClient, NearDAppClientConfig } from "../../src/clients";
 import { ClientErrorCodes } from "../../src/common/client/errors";
 import { AccountServiceMock } from "../mocks/account/account.service.mock";
 import { MsgSignInitialTxGlobalMock } from "../mocks/core/sign-initial-tx.msg.globalMock";
-import { TransactionMock } from "../mocks/near";
 import { KeyPairMock } from "../mocks/near/keypair-ed25519";
 
 describe("NearDAppClient", () => {
-    let client: NearDAppClient;
+    let client: NearDAppClient<NearDAppClientConfig>;
 
     const accountService = new AccountServiceMock();
     const msgSignInitialTxGlobalMock = new MsgSignInitialTxGlobalMock();
@@ -25,7 +24,6 @@ describe("NearDAppClient", () => {
                 client.signInitialTx({
                     accountID: "mockAccountID",
                     signingURL: "https://example.com",
-                    transaction: new TransactionMock(),
                     permissions: [],
                 }),
             ).toThrow(ClientErrorCodes.ACCOUNT_ALREADY_EXISTS);
@@ -41,7 +39,6 @@ describe("NearDAppClient", () => {
             const url = client.signInitialTx({
                 accountID: "mockAccountID",
                 signingURL: "https://example.com",
-                transaction: new TransactionMock(),
                 permissions: [],
             });
 
@@ -61,7 +58,6 @@ describe("NearDAppClient", () => {
                 client.signInitialTx({
                     accountID: "mockAccountID",
                     signingURL: "https://example.com",
-                    transaction: new TransactionMock(),
                     permissions: [],
                 }),
             ).toThrow(expectedError);

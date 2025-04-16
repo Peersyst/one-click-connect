@@ -26,11 +26,11 @@ export class AccountLocalStorageRepository implements IAccountRepository {
     /**
      * @inheritdoc
      */
-    getActive(): Account {
+    getActive(): Account | undefined {
         const state = this.getState();
         const accountID = state.active;
         const keypair = state.accounts[accountID];
-        return { accountID, keypair };
+        return keypair ? { accountID, keypair: KeyPair.fromString(keypair) } : undefined;
     }
 
     /**
@@ -39,7 +39,7 @@ export class AccountLocalStorageRepository implements IAccountRepository {
     get(accountId: string): Account | undefined {
         const state = this.getState();
         const keypair = state.accounts[accountId];
-        return keypair ? { accountID: accountId, keypair } : undefined;
+        return keypair ? { accountID: accountId, keypair: KeyPair.fromString(keypair) } : undefined;
     }
 
     /**
@@ -47,7 +47,7 @@ export class AccountLocalStorageRepository implements IAccountRepository {
      */
     create(accountId: string, keypair: KeyPair): Account {
         const state = this.getState();
-        state.accounts[accountId] = keypair;
+        state.accounts[accountId] = keypair.toString();
         this.setState(state);
         return { accountID: accountId, keypair };
     }
@@ -58,7 +58,7 @@ export class AccountLocalStorageRepository implements IAccountRepository {
     update(accountId: string, keypair: KeyPair): void {
         const state = this.getState();
         if (state.accounts[accountId]) {
-            state.accounts[accountId] = keypair;
+            state.accounts[accountId] = keypair.toString();
             this.setState(state);
         }
     }

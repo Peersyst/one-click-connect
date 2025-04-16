@@ -25,5 +25,9 @@
     },
     "peerDependencies": {
         "near-api-js": "^5.1.1"
+    },
+    "exports": {
+        "./clients": "./src/clients/index.ts",
+        "./account": "./src/common/account/index.ts"
     }
 }

@@ -13,7 +13,6 @@ export class MsgSignInitialTx {
 
     /**
      * Creates a new MsgSignInitialTx object.
-     * @param transaction The transaction to sign.
      * @param redirectURL The redirect URL.
      * @param permissions The permissions.
      * @param publicKey The public key.

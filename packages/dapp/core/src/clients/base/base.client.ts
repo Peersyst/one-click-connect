@@ -14,6 +14,9 @@ export class NearDAppClient<C extends NearDAppClientConfig> extends DAppClient<C
         super(config, accountService);
     }
 
+    /**
+     * @inheritdoc
+     */
     getActiveAccount(): Account | undefined {
         return this.accountService.getActive();
     }

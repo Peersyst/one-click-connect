@@ -3,7 +3,7 @@ import { ClientErrorCodes } from "../../src/common/errors";
 import { MsgSignInGlobalMock } from "../mocks/sign-in.msg.globalMock";
 
 describe("WalletClient", () => {
-    let msgSignInGlobalMock = new MsgSignInGlobalMock();
+    const msgSignInGlobalMock = new MsgSignInGlobalMock();
 
     beforeEach(() => {
         msgSignInGlobalMock.clearMocks();

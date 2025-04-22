@@ -6,6 +6,12 @@ import { FunctionCallPermission } from "near-api-js/lib/transaction";
  * @description Codec for permissions.
  */
 export class PermissionsCodec {
+    /**
+     * Reviver for permissions.
+     * @param key The key of the permission.
+     * @param value The value of the permission.
+     * @returns The decoded permissions object.
+     */
     private static permissionsReviver(key: string, value: any) {
         if (key === "allowance" && typeof value === "string") {
             return BigInt(value);
@@ -35,8 +41,7 @@ export class PermissionsCodec {
     static toURLParam(permissions: FunctionCallPermission): string {
         try {
             return Buffer.from(JSON.stringify(permissions, (_, v) => (typeof v === "bigint" ? v.toString() : v))).toString("base64");
-        } catch (e: unknown) {
-            console.error(e);
+        } catch (_: unknown) {
             throw new CodecError(CodecType.PERMISSIONS_CODEC, CodecErrorCodes.ERROR_ENCODING_URL);
         }
     }

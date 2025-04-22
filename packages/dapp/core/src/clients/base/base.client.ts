@@ -4,6 +4,7 @@ import { NearDAppClientConfig } from "./base.client.config";
 import { IAccountService } from "../../common/client/interfaces/i-account.service";
 import { SignInitialTxRequest } from "@one-click-connect/core/common";
 import { ClientError, ClientErrorCodes } from "../../common/client/errors";
+import { Account } from "../../common/account";
 
 /**
  * A client for the Near DApp.
@@ -11,6 +12,10 @@ import { ClientError, ClientErrorCodes } from "../../common/client/errors";
 export class NearDAppClient<C extends NearDAppClientConfig> extends DAppClient<C> implements INearDAppClient {
     constructor(config: C, accountService: IAccountService) {
         super(config, accountService);
+    }
+
+    getActiveAccount(): Account | undefined {
+        return this.accountService.getActive();
     }
 
     /**

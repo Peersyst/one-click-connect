@@ -1,6 +1,7 @@
 packages:
     - "docs"
     - "examples/dapp/near/vanilla"
+    - "examples/wallet/web"
     - "packages/dapp/core"
     - "packages/dapp/vanilla"
     - "packages/wallet/core"

@@ -35,10 +35,6 @@ h1 {
     line-height: 1.1;
 }
 
-h3 {
-    color: #000;
-}
-
 button {
     border-radius: 8px;
     border: 1px solid transparent;
@@ -56,6 +52,14 @@ button:hover {
 button:focus,
 button:focus-visible {
     outline: 4px auto -webkit-focus-ring-color;
+}
+
+span {
+    color: #000;
+}
+
+li {
+    color: #000;
 }
 
 @media (prefers-color-scheme: light) {

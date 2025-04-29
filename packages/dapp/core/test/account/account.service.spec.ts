@@ -8,7 +8,6 @@ describe("AccountService", () => {
 
     beforeEach(() => {
         accountService = new AccountService(accountRepositoryMock);
-
         accountRepositoryMock.clearMocks();
     });
 
@@ -18,6 +17,32 @@ describe("AccountService", () => {
 
             expect(accountRepositoryMock.getActive).toHaveBeenCalled();
         });
+
+        it("should throw error if repository throws", () => {
+            const expectedError = new Error("Repository error");
+            accountRepositoryMock.getActive.mockImplementation(() => {
+                throw expectedError;
+            });
+
+            expect(() => accountService.getActive()).toThrow(expectedError);
+        });
+    });
+
+    describe("setActive", () => {
+        it("should set the active account", () => {
+            accountService.setActive("mockAccountID");
+
+            expect(accountRepositoryMock.setActive).toHaveBeenCalledWith("mockAccountID");
+        });
+
+        it("should throw error if repository throws", () => {
+            const expectedError = new Error("Repository error");
+            accountRepositoryMock.setActive.mockImplementationOnce(() => {
+                throw expectedError;
+            });
+
+            expect(() => accountService.setActive("mockAccountID")).toThrow(expectedError);
+        });
     });
 
     describe("clearActiveAccount", () => {
@@ -26,30 +51,83 @@ describe("AccountService", () => {
 
             expect(accountRepositoryMock.setActive).toHaveBeenCalledWith(undefined);
         });
-    });
 
-    describe("getAccountKeypair", () => {
-        it("should return the account keypair if it exists", () => {
-            accountService.getAccountKeypair("mockAccountID");
+        it("should throw error if repository throws", () => {
+            const expectedError = new Error("Repository error");
+            accountRepositoryMock.setActive.mockImplementationOnce(() => {
+                throw expectedError;
+            });
 
-            expect(accountRepositoryMock.get).toHaveBeenCalledWith("mockAccountID");
+            expect(() => accountService.clearActiveAccount()).toThrow(expectedError);
         });
     });
 
-    describe("createAccountKeypair", () => {
+    describe("getAccount", () => {
+        it("should return the account keypair if it exists", () => {
+            accountService.getAccount("mockAccountID");
+
+            expect(accountRepositoryMock.get).toHaveBeenCalledWith("mockAccountID");
+        });
+
+        it("should throw error if repository throws", () => {
+            const expectedError = new Error("Repository error");
+            accountRepositoryMock.get.mockImplementationOnce(() => {
+                throw expectedError;
+            });
+
+            expect(() => accountService.getAccount("mockAccountID")).toThrow(expectedError);
+        });
+    });
+
+    describe("createAccount", () => {
         it("should create a new account keypair", () => {
-            accountService.createAccountKeypair("mockAccountID", "mockSigningURL");
+            accountService.createAccount("mockAccountID", "mockSigningURL");
 
             expect(accountRepositoryMock.create).toHaveBeenCalled();
             expect(accountRepositoryMock.setActive).toHaveBeenCalledWith("mockAccountID");
         });
+
+        it("should throw error if repository throws", () => {
+            const expectedError = new Error("Repository error");
+            accountRepositoryMock.create.mockImplementationOnce(() => {
+                throw expectedError;
+            });
+
+            expect(() => accountService.createAccount("mockAccountID", "mockSigningURL")).toThrow(expectedError);
+        });
     });
 
-    describe("deleteAccountKeypair", () => {
+    describe("deleteAccount", () => {
         it("should delete the account keypair", () => {
-            accountService.deleteAccountKeypair("mockAccountID");
+            accountService.deleteAccount("mockAccountID");
 
             expect(accountRepositoryMock.delete).toHaveBeenCalledWith("mockAccountID");
+        });
+
+        it("should throw error if repository throws", () => {
+            const expectedError = new Error("Repository error");
+            accountRepositoryMock.delete.mockImplementationOnce(() => {
+                throw expectedError;
+            });
+
+            expect(() => accountService.deleteAccount("mockAccountID")).toThrow(expectedError);
+        });
+    });
+
+    describe("updateAccount", () => {
+        it("should update the account keypair", () => {
+            accountService.updateAccount("mockAccountID", "mockSigningURL");
+
+            expect(accountRepositoryMock.update).toHaveBeenCalledWith("mockAccountID", "mockSigningURL");
+        });
+
+        it("should throw error if repository throws", () => {
+            const expectedError = new Error("Repository error");
+            accountRepositoryMock.update.mockImplementationOnce(() => {
+                throw expectedError;
+            });
+
+            expect(() => accountService.updateAccount("mockAccountID", "mockSigningURL")).toThrow(expectedError);
         });
     });
 });

@@ -16,12 +16,59 @@ describe("NearDAppClient", () => {
         accountService.clearMocks();
     });
 
+    describe("signIn", () => {
+        const mockAccountID = "mockAccountID";
+        const mockSigningURL = "https://signing-url.com";
+
+        it("should return true if account is already active", () => {
+            accountService.getActive.mockReturnValue({ accountID: mockAccountID });
+
+            const result = client.signIn(mockAccountID, mockSigningURL);
+
+            expect(result).toBe(true);
+            expect(accountService.getAccount).not.toHaveBeenCalled();
+        });
+
+        it("should return false if account does not exist", () => {
+            accountService.getActive.mockReturnValue(undefined);
+            accountService.getAccount.mockReturnValue(undefined);
+
+            const result = client.signIn(mockAccountID, mockSigningURL);
+
+            expect(result).toBe(false);
+            expect(accountService.getAccount).toHaveBeenCalledWith(mockAccountID);
+        });
+
+        it("should update signing URL if different from stored URL", () => {
+            const storedSigningURL = "https://old-url.com";
+            accountService.getActive.mockReturnValue(undefined);
+            accountService.getAccount.mockReturnValue({ signingURL: storedSigningURL });
+
+            const result = client.signIn(mockAccountID, mockSigningURL);
+
+            expect(result).toBe(true);
+            expect(accountService.updateAccount).toHaveBeenCalledWith(mockAccountID, mockSigningURL);
+            expect(accountService.setActive).toHaveBeenCalledWith(mockAccountID);
+        });
+
+        it("should not update signing URL if same as stored URL", () => {
+            accountService.getActive.mockReturnValue(undefined);
+            accountService.getAccount.mockReturnValue({ signingURL: mockSigningURL });
+
+            const result = client.signIn(mockAccountID, mockSigningURL);
+
+            expect(result).toBe(true);
+            expect(accountService.updateAccount).not.toHaveBeenCalled();
+            expect(accountService.setActive).toHaveBeenCalledWith(mockAccountID);
+        });
+    });
+
     describe("signInitialTx", () => {
         const mockAccountID = "mockAccountID";
         const mockSigningURL = "https://signing-url.com";
 
         it("should throw an error if the account already exists", () => {
-            accountService.getAccountKeypair.mockReturnValue({ keypair: new KeyPairMock() });
+            accountService.getAccount.mockReturnValue({ keypair: new KeyPairMock() });
 
             expect(() =>
                 client.signInitialTx({
@@ -48,8 +95,8 @@ describe("NearDAppClient", () => {
         it("should create a new account if the account does not exists", () => {
             const expectedURL = "mockURL";
 
-            accountService.getAccountKeypair.mockReturnValue(undefined);
-            accountService.createAccountKeypair.mockReturnValue({ keypair: new KeyPairMock() });
+            accountService.getAccount.mockReturnValue(undefined);
+            accountService.createAccount.mockReturnValue({ keypair: new KeyPairMock() });
             msgSignInitialTxGlobalMock.toURL.mockReturnValue(expectedURL);
 
             const url = client.signInitialTx({
@@ -58,8 +105,8 @@ describe("NearDAppClient", () => {
                 permissions: [],
             });
 
-            expect(accountService.getAccountKeypair).toHaveBeenCalledWith(mockAccountID);
-            expect(accountService.createAccountKeypair).toHaveBeenCalledWith(mockAccountID, mockSigningURL);
+            expect(accountService.getAccount).toHaveBeenCalledWith(mockAccountID);
+            expect(accountService.createAccount).toHaveBeenCalledWith(mockAccountID, mockSigningURL);
 
             expect(url).toEqual(expectedURL);
         });

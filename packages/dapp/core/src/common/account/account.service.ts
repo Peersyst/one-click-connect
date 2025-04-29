@@ -16,6 +16,13 @@ export class AccountService implements IAccountService {
     /**
      * @inheritdoc
      */
+    setActive(accountId: string): void {
+        this.accountRepository.setActive(accountId);
+    }
+
+    /**
+     * @inheritdoc
+     */
     clearActiveAccount(): void {
         this.accountRepository.setActive(undefined);
     }
@@ -23,14 +30,14 @@ export class AccountService implements IAccountService {
     /**
      * @inheritdoc
      */
-    getAccountKeypair(accountId: string): Account | undefined {
+    getAccount(accountId: string): Account | undefined {
         return this.accountRepository.get(accountId);
     }
 
     /**
      * @inheritdoc
      */
-    createAccountKeypair(accountId: string, signingURL: string, curve: string = "ed25519"): Account {
+    createAccount(accountId: string, signingURL: string, curve: string = "ed25519"): Account {
         const keypair = KeyPair.fromRandom(curve);
         const account = this.accountRepository.create(accountId, keypair, signingURL);
         this.accountRepository.setActive(accountId);
@@ -40,7 +47,14 @@ export class AccountService implements IAccountService {
     /**
      * @inheritdoc
      */
-    deleteAccountKeypair(accountId: string): void {
+    deleteAccount(accountId: string): void {
         this.accountRepository.delete(accountId);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    updateAccount(accountId: string, signingURL: string): void {
+        this.accountRepository.update(accountId, signingURL);
     }
 }

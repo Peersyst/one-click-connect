@@ -7,6 +7,11 @@ export interface IAccountService {
      */
     getActive(): Account | undefined;
     /**
+     * Sets the active account.
+     * @param accountId The ID of the account to set as active.
+     */
+    setActive(accountId: string): void;
+    /**
      * Clears the active account.
      */
     clearActiveAccount(): void;
@@ -15,16 +20,22 @@ export interface IAccountService {
      * @param accountId The ID of the account to get.
      * @returns The account.
      */
-    getAccountKeypair(accountId: string): Account | undefined;
+    getAccount(accountId: string): Account | undefined;
     /**
      * Creates a new account.
      * @param accountId The ID of the account to create.
      * @returns The created account.
      */
-    createAccountKeypair(accountId: string, signingURL: string): Account;
+    createAccount(accountId: string, signingURL: string): Account;
     /**
      * Deletes an account.
      * @param accountId The ID of the account to delete.
      */
-    deleteAccountKeypair(accountId: string): void;
+    deleteAccount(accountId: string): void;
+    /**
+     * Updates an account.
+     * @param accountId The ID of the account to update.
+     * @param signingURL The signing URL of the account.
+     */
+    updateAccount(accountId: string, signingURL: string): void;
 }

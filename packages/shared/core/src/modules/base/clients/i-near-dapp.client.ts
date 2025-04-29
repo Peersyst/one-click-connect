@@ -6,6 +6,13 @@ import { SignInitialTxRequest } from "../../common/requests/sign-initial-tx.requ
  */
 export interface INearDAppClient {
     /**
+     * Signs in the user.
+     * @param accountID The account ID to sign in.
+     * @param signingURL The signing URL to sign in.
+     * @returns True if the user is signed in, false otherwise.
+     */
+    signIn(accountID: string, signingURL: string): boolean;
+    /**
      * Signs an initial transaction.
      * @param request The request to sign the transaction for.
      */

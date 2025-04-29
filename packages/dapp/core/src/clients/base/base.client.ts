@@ -17,6 +17,27 @@ export class NearDAppClient<C extends NearDAppClientConfig> extends DAppClient<C
     /**
      * @inheritdoc
      */
+    signIn(accountID: string, signingURL: string): boolean {
+        if (this.getActiveAccount()?.accountID === accountID) {
+            return true;
+        }
+
+        const account = this.accountService.getAccount(accountID);
+        if (!account) {
+            return false;
+        }
+
+        if (account.signingURL !== signingURL) {
+            this.accountService.updateAccount(accountID, signingURL);
+        }
+
+        this.accountService.setActive(accountID);
+        return true;
+    }
+
+    /**
+     * @inheritdoc
+     */
     getActiveAccount(): Account | undefined {
         return this.accountService.getActive();
     }
@@ -31,12 +52,12 @@ export class NearDAppClient<C extends NearDAppClientConfig> extends DAppClient<C
 
         const { accountID, signingURL, permissions } = request;
 
-        const account = this.accountService.getAccountKeypair(accountID);
+        const account = this.accountService.getAccount(accountID);
         if (account) {
             throw new ClientError(ClientErrorCodes.ACCOUNT_ALREADY_EXISTS);
         }
 
-        const { keypair } = this.accountService.createAccountKeypair(accountID, signingURL);
+        const { keypair } = this.accountService.createAccount(accountID, signingURL);
 
         const msg = new MsgSignInitialTx(this.config.redirectURL, permissions, keypair.getPublicKey());
         return msg.toURL(signingURL);

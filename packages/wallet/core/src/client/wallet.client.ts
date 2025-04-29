@@ -1,6 +1,7 @@
-import { INearWalletClient, MsgSignIn } from "@one-click-connect/core/base";
+import { INearWalletClient, MsgFakSign, MsgSignIn } from "@one-click-connect/core/base";
 import { WalletClientConfig } from "./wallet.client.config";
 import { ClientError, ClientErrorCodes } from "../common/errors";
+import { Transaction } from "near-api-js/lib/transaction";
 
 export class WalletClient<C extends WalletClientConfig> implements INearWalletClient {
     private config: C;
@@ -18,6 +19,15 @@ export class WalletClient<C extends WalletClientConfig> implements INearWalletCl
         }
         const msg = new MsgSignIn(accountID, this.config.signingURL);
         return msg.toURL(url);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    signWithFullAccessKey(url: string): { transaction: Transaction; redirectURL: string } {
+        const msg = MsgFakSign.fromURL(url);
+
+        return { transaction: msg.transaction, redirectURL: msg.redirectURL };
     }
 
     /**

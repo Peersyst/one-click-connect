@@ -36,7 +36,7 @@ export class NearDAppClient<C extends NearDAppClientConfig> extends DAppClient<C
             throw new ClientError(ClientErrorCodes.ACCOUNT_ALREADY_EXISTS);
         }
 
-        const { keypair } = this.accountService.createAccountKeypair(accountID);
+        const { keypair } = this.accountService.createAccountKeypair(accountID, signingURL);
 
         const msg = new MsgSignInitialTx(this.config.redirectURL, permissions, keypair.getPublicKey());
         return msg.toURL(signingURL);

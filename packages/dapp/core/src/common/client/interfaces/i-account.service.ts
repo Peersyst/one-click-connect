@@ -17,7 +17,7 @@ export interface IAccountService {
      * @param accountId The ID of the account to create.
      * @returns The created account.
      */
-    createAccountKeypair(accountId: string): Account;
+    createAccountKeypair(accountId: string, signingURL: string): Account;
     /**
      * Deletes an account.
      * @param accountId The ID of the account to delete.

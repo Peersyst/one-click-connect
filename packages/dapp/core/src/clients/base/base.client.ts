@@ -2,7 +2,7 @@ import { INearDAppClient, MsgFakSign, MsgSignInitialTx } from "@one-click-connec
 import { DAppClient } from "../../common/client/client";
 import { NearDAppClientConfig } from "./base.client.config";
 import { IAccountService } from "../../common/client/interfaces/i-account.service";
-import { SignInitialTxRequest } from "@one-click-connect/core/common";
+import { SignInitialTxRequest, SignWithFakRequest } from "@one-click-connect/core/common";
 import { ClientError, ClientErrorCodes } from "../../common/client/errors";
 import { Account } from "../../common/account";
 
@@ -25,6 +25,10 @@ export class NearDAppClient<C extends NearDAppClientConfig> extends DAppClient<C
      * @inheritdoc
      */
     signInitialTx(request: SignInitialTxRequest): string {
+        if (!this.config.redirectURL) {
+            throw new ClientError(ClientErrorCodes.REDIRECT_URL_NOT_SET);
+        }
+
         const { accountID, signingURL, permissions } = request;
 
         const account = this.accountService.getAccountKeypair(accountID);
@@ -32,7 +36,7 @@ export class NearDAppClient<C extends NearDAppClientConfig> extends DAppClient<C
             throw new ClientError(ClientErrorCodes.ACCOUNT_ALREADY_EXISTS);
         }
 
-        const { keypair } = this.accountService.createAccountKeypair(accountID);
+        const { keypair } = this.accountService.createAccountKeypair(accountID, signingURL);
 
         const msg = new MsgSignInitialTx(this.config.redirectURL, permissions, keypair.getPublicKey());
         return msg.toURL(signingURL);
@@ -41,8 +45,15 @@ export class NearDAppClient<C extends NearDAppClientConfig> extends DAppClient<C
     /**
      * @inheritdoc
      */
-    signWithFak(_msg: MsgFakSign): void {
-        throw new Error("Method not implemented.");
+    signWithFullAccessKey(request: SignWithFakRequest): string {
+        if (!this.config.redirectURL) {
+            throw new ClientError(ClientErrorCodes.REDIRECT_URL_NOT_SET);
+        }
+
+        const { transaction, signingURL } = request;
+
+        const msg = new MsgFakSign(transaction, this.config.redirectURL);
+        return msg.toURL(signingURL);
     }
 
     /**

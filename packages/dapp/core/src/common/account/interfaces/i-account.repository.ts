@@ -18,13 +18,13 @@ export interface IAccountRepository {
      * @param accountId The account ID to create.
      * @param keypair The keypair to associate with the account.
      */
-    create(accountId: string, keypair: KeyPair): Account;
+    create(accountId: string, keypair: KeyPair, signingURL: string): Account;
     /**
      * Updates an existing account entry.
      * @param accountId The account ID to update.
      * @param keypair The new keypair to associate with the account.
      */
-    update(accountId: string, keypair: KeyPair): void;
+    update(accountId: string, keypair?: KeyPair, signingURL?: string): void;
     /**
      * Deletes an account entry.
      * @param accountId The account ID to delete.

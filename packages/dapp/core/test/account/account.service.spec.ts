@@ -30,7 +30,7 @@ describe("AccountService", () => {
 
     describe("createAccountKeypair", () => {
         it("should create a new account keypair", () => {
-            accountService.createAccountKeypair("mockAccountID");
+            accountService.createAccountKeypair("mockAccountID", "mockSigningURL");
 
             expect(accountRepositoryMock.create).toHaveBeenCalled();
             expect(accountRepositoryMock.setActive).toHaveBeenCalledWith("mockAccountID");

@@ -20,13 +20,15 @@ describe("NearDAppClient", () => {
     });
 
     describe("signInitialTx", () => {
+        const mockSigningURL = "https://example.com";
+        const mockAccountID = "mockAccountID";
         it("should throw an error if the account already exists", () => {
             accountService.getAccountKeypair.mockReturnValue({ keypair: new KeyPairMock() });
 
             expect(() =>
                 client.signInitialTx({
-                    accountID: "mockAccountID",
-                    signingURL: "https://example.com",
+                    accountID: mockAccountID,
+                    signingURL: mockSigningURL,
                     permissions: [],
                 }),
             ).toThrow(ClientErrorCodes.ACCOUNT_ALREADY_EXISTS);
@@ -36,7 +38,7 @@ describe("NearDAppClient", () => {
             // @ts-ignore
             client = new NearDAppClient({ redirectURL: undefined }, accountService);
 
-            expect(() => client.signInitialTx({ accountID: "mockAccountID", signingURL: "https://example.com", permissions: [] })).toThrow(
+            expect(() => client.signInitialTx({ accountID: mockAccountID, signingURL: mockSigningURL, permissions: [] })).toThrow(
                 ClientErrorCodes.REDIRECT_URL_NOT_SET,
             );
         });
@@ -49,13 +51,13 @@ describe("NearDAppClient", () => {
             msgSignInitialTxGlobalMock.toURL.mockReturnValue(expectedURL);
 
             const url = client.signInitialTx({
-                accountID: "mockAccountID",
-                signingURL: "https://example.com",
+                accountID: mockAccountID,
+                signingURL: mockSigningURL,
                 permissions: [],
             });
 
-            expect(accountService.getAccountKeypair).toHaveBeenCalledWith("mockAccountID");
-            expect(accountService.createAccountKeypair).toHaveBeenCalledWith("mockAccountID");
+            expect(accountService.getAccountKeypair).toHaveBeenCalledWith(mockAccountID);
+            expect(accountService.createAccountKeypair).toHaveBeenCalledWith(mockAccountID, mockSigningURL);
 
             expect(url).toEqual(expectedURL);
         });
@@ -68,8 +70,8 @@ describe("NearDAppClient", () => {
 
             expect(() =>
                 client.signInitialTx({
-                    accountID: "mockAccountID",
-                    signingURL: "https://example.com",
+                    accountID: mockAccountID,
+                    signingURL: mockSigningURL,
                     permissions: [],
                 }),
             ).toThrow(expectedError);

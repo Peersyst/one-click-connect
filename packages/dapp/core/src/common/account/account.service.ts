@@ -16,6 +16,13 @@ export class AccountService implements IAccountService {
     /**
      * @inheritdoc
      */
+    clearActiveAccount(): void {
+        this.accountRepository.setActive(undefined);
+    }
+
+    /**
+     * @inheritdoc
+     */
     getAccountKeypair(accountId: string): Account | undefined {
         return this.accountRepository.get(accountId);
     }

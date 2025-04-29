@@ -45,6 +45,13 @@ export class NearDAppClient<C extends NearDAppClientConfig> extends DAppClient<C
     /**
      * @inheritdoc
      */
+    signOut(): void {
+        this.accountService.clearActiveAccount();
+    }
+
+    /**
+     * @inheritdoc
+     */
     signWithFullAccessKey(request: SignWithFakRequest): string {
         if (!this.config.redirectURL) {
             throw new ClientError(ClientErrorCodes.REDIRECT_URL_NOT_SET);

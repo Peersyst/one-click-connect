@@ -7,4 +7,5 @@ export const AccountServiceMock = createMock<IAccountService>({
     getAccountKeypair: new MethodMock("mockReturnValue", new AccountMock()),
     createAccountKeypair: new MethodMock("mockReturnValue", new AccountMock()),
     deleteAccountKeypair: new MethodMock("mockReturnValue"),
+    clearActiveAccount: new MethodMock("mockReturnValue"),
 });

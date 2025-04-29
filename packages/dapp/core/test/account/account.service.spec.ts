@@ -20,6 +20,14 @@ describe("AccountService", () => {
         });
     });
 
+    describe("clearActiveAccount", () => {
+        it("should clear the active account", () => {
+            accountService.clearActiveAccount();
+
+            expect(accountRepositoryMock.setActive).toHaveBeenCalledWith(undefined);
+        });
+    });
+
     describe("getAccountKeypair", () => {
         it("should return the account keypair if it exists", () => {
             accountService.getAccountKeypair("mockAccountID");

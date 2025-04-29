@@ -17,4 +17,9 @@ export interface INearDAppClient {
      * @returns The signed transaction.
      */
     signWithFullAccessKey(transaction: Transaction): string;
+
+    /**
+     * @description Signs out the user.
+     */
+    signOut(): void;
 }

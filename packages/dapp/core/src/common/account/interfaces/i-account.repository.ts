@@ -34,5 +34,5 @@ export interface IAccountRepository {
      * Sets the active account.
      * @param accountId The account ID to set as active.
      */
-    setActive(accountId: string): void;
+    setActive(accountId: string | undefined): void;
 }

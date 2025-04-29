@@ -110,4 +110,12 @@ describe("NearDAppClient", () => {
             expect(url).toEqual(expectedURL);
         });
     });
+
+    describe("signOut", () => {
+        it("should clear the active account", () => {
+            client.signOut();
+
+            expect(accountService.clearActiveAccount).toHaveBeenCalled();
+        });
+    });
 });

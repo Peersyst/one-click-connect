@@ -7,6 +7,10 @@ export interface IAccountService {
      */
     getActive(): Account | undefined;
     /**
+     * Clears the active account.
+     */
+    clearActiveAccount(): void;
+    /**
      * Gets an account by its ID.
      * @param accountId The ID of the account to get.
      * @returns The account.

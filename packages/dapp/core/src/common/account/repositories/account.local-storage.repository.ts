@@ -85,11 +85,13 @@ export class AccountLocalStorageRepository implements IAccountRepository {
     /**
      * @inheritdoc
      */
-    setActive(accountId: string): void {
+    setActive(accountId: string | undefined): void {
         const state = this.getState();
-        if (state.accounts[accountId]) {
+        if (accountId) {
             state.active = accountId;
-            this.setState(state);
+        } else {
+            state.active = "";
         }
+        this.setState(state);
     }
 }

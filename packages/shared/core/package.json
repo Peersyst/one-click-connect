@@ -30,6 +30,7 @@
         "./base": "./src/modules/base/index.ts",
         "./common": "./src/modules/common/index.ts",
         "./relayer": "./src/modules/relayer/index.ts",
-        "./ena": "./src/modules/ena/index.ts"
+        "./ena": "./src/modules/ena/index.ts",
+        "./mocks": "./test/mocks/index.ts"
     }
 }

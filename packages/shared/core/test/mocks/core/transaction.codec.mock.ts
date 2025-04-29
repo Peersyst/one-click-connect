@@ -1,5 +1,5 @@
 import { createGlobalMock, MethodMock } from "@shared/test";
-import { TransactionCodec } from "../../src/modules/common/codecs";
+import { TransactionCodec } from "../../../src/modules/common/codecs";
 import { Transaction } from "near-api-js/lib/transaction";
 
 export const TransactionCodecGlobalMock = createGlobalMock(TransactionCodec, {

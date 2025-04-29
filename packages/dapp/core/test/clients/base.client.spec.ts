@@ -1,10 +1,7 @@
 import { NearDAppClient, NearDAppClientConfig } from "../../src/clients";
 import { ClientErrorCodes } from "../../src/common/client/errors";
 import { AccountServiceMock } from "../mocks/account/account.service.mock";
-import { MsgFakSignGlobalMock } from "../mocks/core/fak-sign.msg.global-mock";
-import { MsgSignInitialTxGlobalMock } from "../mocks/core/sign-initial-tx.msg.global-mock";
-import { TransactionMock } from "../mocks/near";
-import { KeyPairMock } from "../mocks/near/keypair-ed25519";
+import { MsgFakSignGlobalMock, MsgSignInitialTxGlobalMock, KeyPairMock, TransactionMock } from "@one-click-connect/core/mocks";
 
 describe("NearDAppClient", () => {
     let client: NearDAppClient<NearDAppClientConfig>;
@@ -20,13 +17,16 @@ describe("NearDAppClient", () => {
     });
 
     describe("signInitialTx", () => {
+        const mockAccountID = "mockAccountID";
+        const mockSigningURL = "https://signing-url.com";
+
         it("should throw an error if the account already exists", () => {
             accountService.getAccountKeypair.mockReturnValue({ keypair: new KeyPairMock() });
 
             expect(() =>
                 client.signInitialTx({
-                    accountID: "mockAccountID",
-                    signingURL: "https://example.com",
+                    accountID: mockAccountID,
+                    signingURL: mockSigningURL,
                     permissions: [],
                 }),
             ).toThrow(ClientErrorCodes.ACCOUNT_ALREADY_EXISTS);
@@ -36,9 +36,13 @@ describe("NearDAppClient", () => {
             // @ts-ignore
             client = new NearDAppClient({ redirectURL: undefined }, accountService);
 
-            expect(() => client.signInitialTx({ accountID: "mockAccountID", signingURL: "https://example.com", permissions: [] })).toThrow(
-                ClientErrorCodes.REDIRECT_URL_NOT_SET,
-            );
+            expect(() =>
+                client.signInitialTx({
+                    accountID: mockAccountID,
+                    signingURL: mockSigningURL,
+                    permissions: [],
+                }),
+            ).toThrow(ClientErrorCodes.REDIRECT_URL_NOT_SET);
         });
 
         it("should create a new account if the account does not exists", () => {
@@ -49,13 +53,13 @@ describe("NearDAppClient", () => {
             msgSignInitialTxGlobalMock.toURL.mockReturnValue(expectedURL);
 
             const url = client.signInitialTx({
-                accountID: "mockAccountID",
-                signingURL: "https://example.com",
+                accountID: mockAccountID,
+                signingURL: mockSigningURL,
                 permissions: [],
             });
 
-            expect(accountService.getAccountKeypair).toHaveBeenCalledWith("mockAccountID");
-            expect(accountService.createAccountKeypair).toHaveBeenCalledWith("mockAccountID");
+            expect(accountService.getAccountKeypair).toHaveBeenCalledWith(mockAccountID);
+            expect(accountService.createAccountKeypair).toHaveBeenCalledWith(mockAccountID, mockSigningURL);
 
             expect(url).toEqual(expectedURL);
         });
@@ -68,8 +72,8 @@ describe("NearDAppClient", () => {
 
             expect(() =>
                 client.signInitialTx({
-                    accountID: "mockAccountID",
-                    signingURL: "https://example.com",
+                    accountID: mockAccountID,
+                    signingURL: mockSigningURL,
                     permissions: [],
                 }),
             ).toThrow(expectedError);

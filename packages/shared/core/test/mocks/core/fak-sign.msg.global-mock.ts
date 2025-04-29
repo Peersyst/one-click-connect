@@ -7,3 +7,10 @@ export const MsgFakSignGlobalMock = createGlobalMock(MsgFakSign.prototype, {
     _transaction: new TransactionMock(),
     transaction: new TransactionMock(),
 });
+
+export const MsgFakSignStaticGlobalMock = createGlobalMock(MsgFakSign, {
+    fromURL: new MethodMock("mockReturnValue", {
+        transaction: new TransactionMock(),
+        redirectURL: "mockRedirectURL",
+    }),
+});

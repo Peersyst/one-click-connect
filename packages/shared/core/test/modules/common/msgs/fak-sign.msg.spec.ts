@@ -1,6 +1,6 @@
 import { MsgErrorCodes, MsgFakSign } from "../../../../src/modules";
 import { TransactionCodecGlobalMock } from "../../../mocks";
-import { TransactionMock } from "../../../mocks/transaction.mock";
+import { TransactionMock } from "../../../mocks/near/transaction.mock";
 
 describe("MsgFakSign", () => {
     const transactionCodecGlobalMock = new TransactionCodecGlobalMock();

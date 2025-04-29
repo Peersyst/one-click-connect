@@ -1,3 +1,5 @@
+import { Transaction } from "near-api-js/lib/transaction";
+
 /**
  * @description Interface for a wallet.
  */
@@ -9,4 +11,11 @@ export interface INearWalletClient {
      * @returns The sign in URL.
      */
     signIn(accountID: string, url: string): string;
+
+    /**
+     * @description Signs a transaction with the full access key.
+     * @param url The URL to sign the transaction to.
+     * @returns The signed transaction URL.
+     */
+    signWithFullAccessKey(url: string): { transaction: Transaction; redirectURL: string };
 }

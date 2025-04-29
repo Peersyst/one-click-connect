@@ -1,5 +1,5 @@
 import { createGlobalMock, MethodMock } from "@shared/test";
-import { PublicKeyCodec } from "../../src/modules/common/codecs";
+import { PublicKeyCodec } from "../../../src/modules/common/codecs";
 import { PublicKey } from "near-api-js/lib/utils";
 
 export const PublicKeyCodecGlobalMock = createGlobalMock(PublicKeyCodec, {

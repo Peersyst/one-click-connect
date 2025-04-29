@@ -5,6 +5,20 @@ export class NearRelayerDAppClient implements INearRelayerDAppClient {
     /**
      * @inheritdoc
      */
+    signIn(_accountID: string, _signingURL: string): boolean {
+        throw new Error("Method not implemented.");
+    }
+
+    /**
+     * @inheritdoc
+     */
+    signOut(): void {
+        throw new Error("Method not implemented.");
+    }
+
+    /**
+     * @inheritdoc
+     */
     signInitialTx(_request: SignInitialTxRequest): string {
         throw new Error("Method not implemented.");
     }

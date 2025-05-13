@@ -37,9 +37,9 @@ export class AccountService implements IAccountService {
     /**
      * @inheritdoc
      */
-    createAccount(accountId: string, signingURL: string, curve: string = "ed25519"): Account {
+    createAccount(accountId: string, signingURL: string, curve: string = "ed25519", relayerAPI?: string): Account {
         const keypair = KeyPair.fromRandom(curve);
-        const account = this.accountRepository.create(accountId, keypair, signingURL);
+        const account = this.accountRepository.create(accountId, keypair, signingURL, relayerAPI);
         this.accountRepository.setActive(accountId);
         return account;
     }

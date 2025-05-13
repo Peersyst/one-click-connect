@@ -24,9 +24,11 @@ export interface IAccountService {
     /**
      * Creates a new account.
      * @param accountId The ID of the account to create.
+     * @param signingURL The signing URL of the account.
+     * @param relayerAPI The relayer API of the account.
      * @returns The created account.
      */
-    createAccount(accountId: string, signingURL: string): Account;
+    createAccount(accountId: string, signingURL: string, relayerAPI?: string): Account;
     /**
      * Deletes an account.
      * @param accountId The ID of the account to delete.
@@ -36,6 +38,7 @@ export interface IAccountService {
      * Updates an account.
      * @param accountId The ID of the account to update.
      * @param signingURL The signing URL of the account.
+     * @param relayerAPI The relayer API of the account.
      */
-    updateAccount(accountId: string, signingURL: string): void;
+    updateAccount(accountId: string, signingURL: string, relayerAPI?: string): void;
 }

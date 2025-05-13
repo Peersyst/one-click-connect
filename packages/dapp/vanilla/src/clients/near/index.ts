@@ -1,2 +1,2 @@
-export * from "./near-dapp.client.factory";
+export * from "../client.factory";
 export * from "./near-dapp.client";

@@ -1,12 +1,12 @@
 {
     "name": "@one-click-connect/vanilla-dapp",
-    "version": "1.0.0",
+    "version": "0.1.0-alpha.0",
     "scripts": {
         "build": "npx tsc",
         "clean": "rimraf .turbo dist node_modules",
         "check-types": "npx tsc --noEmit",
         "lint": "eslint .",
-        "test": "jest"
+        "test": "jest --passWithNoTests"
     },
     "keywords": [],
     "author": "",

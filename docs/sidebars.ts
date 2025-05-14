@@ -17,19 +17,13 @@ const sidebars: SidebarsConfig = {
     docsSidebar: ["intro", "what_is_occ"],
     tutorialsSidebar: ["tutorials/intro"],
     changeLogSidebar: ["changelog/v0.1.x"],
-
-    // But you can create a sidebar manually
-    /*
-  tutorialSidebar: [
-    'intro',
-    'hello',
-    {
-      type: 'category',
-      label: 'Tutorial',
-      items: ['tutorial-basics/create-a-document'],
-    },
-  ],
-   */
+    sdksSidebar: [
+        "sdks/dapp/javascript/intro",
+        "sdks/dapp/javascript/installation",
+        "sdks/dapp/javascript/client",
+        "sdks/dapp/javascript/errors",
+        "sdks/dapp/javascript/report_an_issue",
+    ],
 };
 
 export default sidebars;

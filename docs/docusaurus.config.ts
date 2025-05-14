@@ -96,7 +96,7 @@ const config: Config = {
                         },
                         {
                             label: "JavaScript",
-                            to: "/docs/sdks/dapp/javascript",
+                            to: "/docs/sdks/dapp/javascript/intro",
                         },
                         {
                             type: "html",

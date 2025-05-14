@@ -3,4 +3,4 @@ import { NearDAppClientConfig as CoreNearDAppClientConfig } from "@one-click-con
 /**
  * The config for the Near DApp client.
  */
-export type NearDAppClientConfig = CoreNearDAppClientConfig;
+export type ClientConfig = CoreNearDAppClientConfig;

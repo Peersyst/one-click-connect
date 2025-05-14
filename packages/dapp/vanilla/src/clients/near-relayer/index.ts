@@ -1,2 +1,2 @@
-export * from "./near-relayer-dapp.client";
-export * from "./near-relayer-dapp.client.config";
+export * from "./relayer.client";
+export * from "./relayer.client.config";

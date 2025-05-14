@@ -1,11 +1,11 @@
 import { ClientFactory } from "../../src/clients/client.factory";
-import { NearRelayerDAppClientConfig } from "../../src/clients/near-relayer/near-relayer-dapp.client.config";
-import { NearDAppClientConfig } from "../../src/clients/near/near-dapp.client.config";
+import { RelayerClientConfig } from "../../src/clients/near-relayer/relayer.client.config";
+import { ClientConfig } from "../../src/clients/near/client.config";
 
 describe("ClientFactory", () => {
     describe("newClient", () => {
         it("should create a client from a given config", () => {
-            const config: NearDAppClientConfig = {
+            const config: ClientConfig = {
                 redirectURL: "https://example.com",
             };
 
@@ -17,7 +17,7 @@ describe("ClientFactory", () => {
 
     describe("newRelayerClient", () => {
         it("should create a client from a given config (with relayerAPI)", () => {
-            const config: NearRelayerDAppClientConfig = {
+            const config: RelayerClientConfig = {
                 redirectURL: "https://example.com",
                 relayerAPI: "https://example.com/relayer",
             };
@@ -28,7 +28,7 @@ describe("ClientFactory", () => {
         });
 
         it("should create a client from a given config (without relayerAPI)", () => {
-            const config: NearRelayerDAppClientConfig = {
+            const config: RelayerClientConfig = {
                 redirectURL: "https://example.com",
             };
 

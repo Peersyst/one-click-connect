@@ -11,4 +11,5 @@ This SDK is used to integrate 1ClickConnect into your Javascript browser applica
 - [Installation](./installation)
 - [Clients](./clients)
 - [Errors](./errors)
+- [Testing](./testing)
 - [Report an issue](./report_an_issue)

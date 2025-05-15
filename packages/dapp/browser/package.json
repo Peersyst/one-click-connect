@@ -1,5 +1,5 @@
 {
-    "name": "@one-click-connect/vanilla-dapp",
+    "name": "@one-click-connect/browser-dapp",
     "version": "1.0.0",
     "scripts": {
         "build": "npx tsc",

@@ -11,4 +11,5 @@ This SDK is used to integrate 1ClickConnect into your Javascript wallet. It cont
 - [Installation](./installation)
 - [Client](./client)
 - [Errors](./errors)
+- [Testing](./testing)
 - [Report an issue](./report_an_issue)

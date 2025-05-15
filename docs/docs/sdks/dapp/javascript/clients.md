@@ -37,6 +37,84 @@ Currently, all this data is stored in the browser's `localStorage`. Depending on
 
 ### Methods
 
+#### isSignedIn
+
+To sign in users, the parameters `accountID` and `signingURL` must be received through the URL. This allows calling the client's `isSignedIn` function.
+
+```typescript
+const result = client.isSignedIn(accountID, signingURL);
+```
+
+This call will return a boolean indicating whether the `accountID` already has an associated `KeyPair`. Otherwise, it will return `false`.
+
+:::info
+
+If an entry for the `accountID` exists but has a different `signingURL`, this field will be updated with the one provided as a parameter.
+
+:::
+
+#### signOut
+
+To sign out a user, you can use the `signOut` method. This action does not remove the user's account from the storage, but it will clear the active account state.
+
+```typescript
+client.signOut();
+```
+
+#### requestSignInitialTx
+
+For a user to start making transactions in the dapp, they must first sign an initial transaction. This initial transaction will generate a limited access key for the user with the permissions required by the dapp and send the transaction to the wallet to be signed.
+
+The `requestSignInitialTx` method will generate a URL that redirects the user to the wallet's signingURL with the necessary information to sign the initial transaction.
+
+The method requires an argument of type:
+
+```typescript
+import { FunctionCallPermission } from "near-api-js/lib/transaction";
+
+type SignInitialTxRequest = {
+    accountID: string;
+    signingURL: string;
+    permissions: FunctionCallPermission;
+};
+```
+
+```typescript
+const request: SignInitialTxRequest = {
+    accountID: accountID,
+    signingURL: signingURL,
+    permissions: permissions,
+};
+
+const url = client.requestSignInitialTx(request);
+```
+
+Once the URL has been generated, the dapp should redirect the user to the wallet.
+
+#### requestSignWithFullAccessKey
+
+When the dapp needs to sign a transaction that cannot be signed with the client's limited access key, this method can be called to generate a URL that will redirect the user to the wallet's signingURL with the required information.
+
+The method requires an argument of type:
+
+```typescript
+type SignWithFakRequest = {
+    transaction: Transaction;
+    signingURL: string;
+};
+```
+
+```typescript
+const request: SignWithFakRequest = {
+    transaction: transaction,
+    signingURL: signingURL,
+};
+
+const url = client.requestSignWithFullAccessKey(request);
+```
+
+Once the URL has been generated, the dapp should redirect the user to the wallet.
+
 ## RelayerClient
 
 ### Configuration
@@ -62,6 +140,18 @@ As previously mentioned in the [Storage](#storage) section of the `Client`, the 
 | `relayerAPI` | The URL of the relayer API that will be used to relay transactions | ✅       |
 
 ### Methods
+
+El `RelayerClient` extiende todos los métodos expuestos por el `Client` a excepción de `isSignedIn`.
+
+#### isSignedIn
+
+A diferencia de el `isSignedIn` del `Client`, el `isSignedIn` del `RelayerClient` requiere del parámetro adicional `relayerAPI`. Este parámetro debe ser proporcionado por el wallet cuando el usuario quiera enviar sus transacciones mediante un relayer.
+
+Al igual que el `isSignedIn` del `Client`, este método retornará `true` si el usuario ya está autenticado, o `false` en caso contrario. Al igual que con el campo de `signingURL`, si el campo de `relayerAPI` no coincide con el almacenado, se actualizará con el valor proporcionado.
+
+```typescript
+const result = client.isSignedIn(accountID, signingURL, relayerAPI);
+```
 
 ## ClientFactory
 

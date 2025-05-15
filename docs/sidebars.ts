@@ -20,7 +20,7 @@ const sidebars: SidebarsConfig = {
     sdksSidebar: [
         "sdks/dapp/javascript/intro",
         "sdks/dapp/javascript/installation",
-        "sdks/dapp/javascript/client",
+        "sdks/dapp/javascript/clients",
         "sdks/dapp/javascript/errors",
         "sdks/dapp/javascript/report_an_issue",
     ],

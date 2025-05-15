@@ -105,7 +105,7 @@ const config: Config = {
                         },
                         {
                             label: "JavaScript",
-                            to: "/docs/sdks/wallet/javascript",
+                            to: "/docs/sdks/wallet/javascript/intro",
                         },
                     ],
                 },

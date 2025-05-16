@@ -1,4 +1,4 @@
-import { MsgFakSignGlobalMock } from "@one-click-connect/core/mocks";
+import { MsgFakSignGlobalMock, RelayerAPIMock } from "@one-click-connect/core/mocks";
 import { MsgSignInitialTxGlobalMock } from "@one-click-connect/core/mocks";
 import { NearRelayerDAppClient } from "../../src";
 import { NearRelayerDAppClientConfig } from "../../src/clients/relayer/relayer.client.config";
@@ -17,7 +17,7 @@ describe("NearRelayerDAppClient", () => {
         client = new NearRelayerDAppClient(
             {
                 redirectURL: "https://example.com",
-                relayerAPI: "https://relayer-api.com",
+                relayerAPI: new RelayerAPIMock(),
             },
             accountService,
         );
@@ -28,7 +28,7 @@ describe("NearRelayerDAppClient", () => {
     describe("signIn", () => {
         const mockAccountID = "mockAccountID";
         const mockSigningURL = "https://signing-url.com";
-        const mockRelayerAPI = "https://relayer-api.com";
+        const mockRelayerAPI = new RelayerAPIMock();
 
         it("should return true if account is already active", () => {
             accountService.getActive.mockReturnValue({ accountID: mockAccountID });
@@ -222,7 +222,7 @@ describe("NearRelayerDAppClient", () => {
 
             expect(config).toEqual({
                 redirectURL: "https://example.com",
-                relayerAPI: "https://relayer-api.com",
+                relayerAPI: new RelayerAPIMock(),
             });
         });
     });

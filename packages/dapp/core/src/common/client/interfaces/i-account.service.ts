@@ -1,4 +1,5 @@
 import { Account } from "../../account/account.types";
+import { RelayerAPI } from "@one-click-connect/core/relayer";
 
 export interface IAccountService {
     /**
@@ -28,7 +29,7 @@ export interface IAccountService {
      * @param relayerAPI The relayer API of the account.
      * @returns The created account.
      */
-    createAccount(accountId: string, signingURL: string, relayerAPI?: string): Account;
+    createAccount(accountId: string, signingURL: string, relayerAPI?: RelayerAPI): Account;
     /**
      * Deletes an account.
      * @param accountId The ID of the account to delete.
@@ -40,5 +41,5 @@ export interface IAccountService {
      * @param signingURL The signing URL of the account.
      * @param relayerAPI The relayer API of the account.
      */
-    updateAccount(accountId: string, signingURL: string, relayerAPI?: string): void;
+    updateAccount(accountId: string, signingURL: string, relayerAPI?: RelayerAPI): void;
 }

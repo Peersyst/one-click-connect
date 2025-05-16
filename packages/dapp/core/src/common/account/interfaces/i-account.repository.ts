@@ -1,5 +1,6 @@
 import { KeyPair } from "near-api-js/lib/utils";
 import { Account } from "../account.types";
+import { RelayerAPI } from "@one-click-connect/core/relayer";
 
 export interface IAccountRepository {
     /**
@@ -18,13 +19,13 @@ export interface IAccountRepository {
      * @param accountId The account ID to create.
      * @param keypair The keypair to associate with the account.
      */
-    create(accountId: string, keypair: KeyPair, signingURL: string, relayerAPI?: string): Account;
+    create(accountId: string, keypair: KeyPair, signingURL: string, relayerAPI?: RelayerAPI): Account;
     /**
      * Updates an existing account entry.
      * @param accountId The account ID to update.
      * @param keypair The new keypair to associate with the account.
      */
-    update(accountId: string, keypair?: KeyPair, signingURL?: string, relayerAPI?: string): void;
+    update(accountId: string, keypair?: KeyPair, signingURL?: string, relayerAPI?: RelayerAPI): void;
     /**
      * Deletes an account entry.
      * @param accountId The account ID to delete.

@@ -212,6 +212,9 @@ importers:
 
   packages/dapp/vanilla:
     devDependencies:
+      '@one-click-connect/core':
+        specifier: workspace:*
+        version: link:../../shared/core
       '@one-click-connect/dapp-core':
         specifier: workspace:*
         version: link:../core

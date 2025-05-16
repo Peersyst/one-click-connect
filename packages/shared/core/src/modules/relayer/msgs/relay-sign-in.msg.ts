@@ -1,4 +1,6 @@
 import { MsgError, MsgErrorCodes } from "../../common/msgs";
+import { RelayerAPICodec } from "../codecs";
+import { RelayerAPI } from "../types/relayer-api";
 
 /**
  * Message for relaying a sign in request.
@@ -6,7 +8,7 @@ import { MsgError, MsgErrorCodes } from "../../common/msgs";
 export class MsgRelaySignIn {
     _accountID: string;
     _signingURL: string;
-    _relayerAPI: string;
+    _relayerAPI: RelayerAPI;
 
     /**
      * Creates a new MsgRelaySignIn object.
@@ -14,7 +16,7 @@ export class MsgRelaySignIn {
      * @param signingURL The signing URL.
      * @param relayerAPI The relayer API.
      */
-    constructor(accountID: string, signingURL: string, relayerAPI: string) {
+    constructor(accountID: string, signingURL: string, relayerAPI: RelayerAPI) {
         this._accountID = accountID;
         this._signingURL = signingURL;
         this._relayerAPI = relayerAPI;
@@ -35,7 +37,9 @@ export class MsgRelaySignIn {
             throw new MsgError(MsgErrorCodes.INVALID_URL);
         }
 
-        return new MsgRelaySignIn(accountID, signingURL, relayerAPI);
+        const relayer = RelayerAPICodec.fromURLParam(relayerAPI);
+
+        return new MsgRelaySignIn(accountID, signingURL, relayer);
     }
 
     /**
@@ -47,7 +51,7 @@ export class MsgRelaySignIn {
         const urlObj = new URL(url);
         urlObj.searchParams.set("accountID", this.accountID);
         urlObj.searchParams.set("signingURL", this.signingURL);
-        urlObj.searchParams.set("relayerAPI", this.relayerAPI);
+        urlObj.searchParams.set("relayerAPI", RelayerAPICodec.toURLParam(this.relayerAPI));
         return urlObj.toString();
     }
 
@@ -71,7 +75,7 @@ export class MsgRelaySignIn {
      * Gets the relayer API from the MsgRelaySignIn object.
      * @returns The relayer API.
      */
-    get relayerAPI(): string {
+    get relayerAPI(): RelayerAPI {
         return this._relayerAPI;
     }
 }

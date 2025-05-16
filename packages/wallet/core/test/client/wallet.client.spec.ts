@@ -1,6 +1,12 @@
 import { WalletClient } from "../../src/client/wallet.client";
 import { ClientErrorCodes } from "../../src/common/errors";
-import { MsgFakSignStaticGlobalMock, TransactionMock, MsgSignInGlobalMock, MsgRelaySignInGlobalMock } from "@one-click-connect/core/mocks";
+import {
+    MsgFakSignStaticGlobalMock,
+    TransactionMock,
+    MsgSignInGlobalMock,
+    MsgRelaySignInGlobalMock,
+    RelayerAPIMock,
+} from "@one-click-connect/core/mocks";
 
 describe("WalletClient", () => {
     const msgSignInGlobalMock = new MsgSignInGlobalMock();
@@ -32,7 +38,7 @@ describe("WalletClient", () => {
             const mockedUrl = "mockedUrl";
             msgRelaySignInGlobalMock.toURL.mockReturnValue(mockedUrl);
 
-            const walletClient = new WalletClient({ signingURL: "url", relayerAPI: "relayerAPI" });
+            const walletClient = new WalletClient({ signingURL: "url", relayerAPI: new RelayerAPIMock() });
 
             expect(walletClient.signIn("accountID", "url")).toBe(mockedUrl);
             expect(msgRelaySignInGlobalMock.toURL).toHaveBeenCalledWith("url");

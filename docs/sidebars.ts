@@ -22,6 +22,7 @@ const sidebars: SidebarsConfig = {
         "sdks/dapp/javascript/installation",
         "sdks/dapp/javascript/clients",
         "sdks/dapp/javascript/errors",
+        "sdks/dapp/javascript/testing",
         "sdks/dapp/javascript/report_an_issue",
     ],
     walletJavascriptSidebar: [

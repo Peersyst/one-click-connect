@@ -26,7 +26,7 @@ const Main: React.FC = () => {
         }
 
         console.log("Signing URL:", activeAccount.signingURL);
-        const url = client.signWithFullAccessKey({
+        const url = client.requestSignWithFullAccessKey({
             transaction: Transaction.decode(
                 Buffer.from(
                     "DAAAAG1vY2tTaWduZXJJZACcdRJ+JQOaKfqxr8M0e4Ylfcz1E107wi1yLO+td5FwvAEAAAAAAAAADgAAAG1vY2tSZWNlaXZlcklko7RnCT5MjkhJMV2ASLYPwYZorzhqPrGdadCYH6KZGxQAAAAA",

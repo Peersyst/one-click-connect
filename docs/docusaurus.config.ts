@@ -78,12 +78,12 @@ const config: Config = {
                     position: "left",
                     label: "Docs",
                 },
-                // {
-                //     type: "docSidebar",
-                //     sidebarId: "tutorialsSidebar",
-                //     position: "left",
-                //     label: "Tutorials",
-                // },
+                {
+                    type: "docSidebar",
+                    sidebarId: "guidesSidebar",
+                    position: "left",
+                    label: "Guides",
+                },
                 {
                     type: "dropdown",
                     label: "SDKs",

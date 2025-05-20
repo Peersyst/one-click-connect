@@ -14,8 +14,8 @@ import type { SidebarsConfig } from "@docusaurus/plugin-content-docs";
  */
 const sidebars: SidebarsConfig = {
     // By default, Docusaurus generates a sidebar from the docs folder structure
-    docsSidebar: ["intro", "what_is_occ"],
-    tutorialsSidebar: ["tutorials/intro"],
+    docsSidebar: ["intro"],
+    guidesSidebar: ["guides/intro", "guides/integrate_dapp"],
     changeLogSidebar: ["changelog/v0.1.x"],
     dappJavascriptSidebar: [
         "sdks/dapp/javascript/intro",

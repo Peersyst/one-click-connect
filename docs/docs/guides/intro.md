@@ -2,9 +2,9 @@
 sidebar_position: 1
 ---
 
-# Tutorials
+# Guides
 
-Welcome to the OneClickConnect tutorials! Here you'll find step-by-step guides to help you integrate OneClickConnect into your applications.
+Welcome to the OneClickConnect guides! Here you'll find step-by-step guides to help you integrate OneClickConnect into your applications.
 
 ## What you'll find here
 

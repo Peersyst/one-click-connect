@@ -10,3 +10,11 @@ export const MsgSignInitialTxGlobalMock = createGlobalMock(MsgSignInitialTx.prot
     _permissions: new FunctionCallPermissionMock(),
     permissions: new FunctionCallPermissionMock(),
 });
+
+export const MsgSignInitialTxStaticGlobalMock = createGlobalMock(MsgSignInitialTx, {
+    fromURL: new MethodMock("mockReturnValue", {
+        permissions: new FunctionCallPermissionMock(),
+        redirectURL: "mockRedirectURL",
+        publicKey: new PublicKeyMock(),
+    }),
+});

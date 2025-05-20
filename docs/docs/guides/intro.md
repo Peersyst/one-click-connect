@@ -2,25 +2,18 @@
 sidebar_position: 1
 ---
 
-# Guides
+# Overview
 
-Welcome to the OneClickConnect guides! Here you'll find step-by-step guides to help you integrate OneClickConnect into your applications.
+Welcome to the 1ClickConnect guides! Here you'll find step-by-step guides to help you integrate 1ClickConnect into your applications.
 
 ## What you'll find here
 
-- **DApp Integration**: Learn how to integrate OneClickConnect into your decentralized applications
-- **Wallet Integration**: Discover how to add OneClickConnect support to your wallet
+- [DApp Integration](./integrate_dapp.md): Learn how to integrate 1ClickConnect into your decentralized applications.
+- [Wallet Integration](./integrate_wallet.md): Discover how to add 1ClickConnect support to your wallet.
 
 ## Getting Started
 
-Choose a tutorial from the sidebar based on your needs:
+Choose a guide from the sidebar based on your needs:
 
-- If you're building a DApp, start with the DApp Integration tutorials
-- If you're developing a wallet, begin with the Wallet Integration tutorials
-
-Each tutorial includes:
-
-- Step-by-step instructions
-- Code examples
-- Best practices
-- Common pitfalls to avoid
+- If you're building a DApp, start with the DApp Integration guide.
+- If you're developing a wallet, begin with the Wallet Integration guide.

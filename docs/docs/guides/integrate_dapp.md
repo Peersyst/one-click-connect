@@ -6,7 +6,7 @@ This guide will walk you through the process of integrating the 1ClickConnect DA
 
 To be able to integrate the DApp SDK, you will need to have installed a 1ClickConnect DApp SDK. You can install one of the following SDKs:
 
-- [Javascript]
+- [Javascript](../sdks/dapp/javascript/installation.mdx)
 
 ## Instantiating a client
 
@@ -15,7 +15,7 @@ The current version of the DApp SDK contains two clients:
 - `Client`
 - `RelayerClient`
 
-Both clients contain the same methods. The main difference between the two is that the RelayerClient must be used when a user provides the relayerAPI parameter. You can find more information about both clients in the [SDK] section.
+Both clients contain the same methods. The main difference between the two is that the RelayerClient must be used when a user provides the relayerAPI parameter. You can find more information about both clients in the [SDK](../sdks/dapp/javascript/clients.md) section.
 
 :::info
 All clients must be instantiated via `ClientFactory`.
@@ -40,7 +40,7 @@ RelayerClient
 To create a new RelayerClient instance, you must provide a RelayerClientConfig object the following properties:
 
 - `redirectURL`: The URL of the page that will be redirected to after the user has connected their wallet.
-- `relayerAPI` (optional): The URL of the relayer API.
+- `relayerAPI` (optional): Information of the relayer API.
 
 Your code should look like this:
 

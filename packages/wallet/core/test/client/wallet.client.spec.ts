@@ -1,16 +1,29 @@
 import { WalletClient } from "../../src/client/wallet.client";
 import { ClientErrorCodes } from "../../src/common/errors";
-import { MsgFakSignStaticGlobalMock, TransactionMock, MsgSignInGlobalMock, MsgRelaySignInGlobalMock } from "@one-click-connect/core/mocks";
+import {
+    MsgFakSignStaticGlobalMock,
+    TransactionMock,
+    MsgSignInGlobalMock,
+    MsgRelaySignInGlobalMock,
+    MsgSignInitialTxGlobalMock,
+    MsgSignInitialTxStaticGlobalMock,
+    FunctionCallPermissionMock,
+    PublicKeyMock,
+} from "@one-click-connect/core/mocks";
 
 describe("WalletClient", () => {
     const msgSignInGlobalMock = new MsgSignInGlobalMock();
     const msgFakSignStaticGlobalMock = new MsgFakSignStaticGlobalMock();
     const msgRelaySignInGlobalMock = new MsgRelaySignInGlobalMock();
+    const msgSignInitialTxGlobalMock = new MsgSignInitialTxGlobalMock();
+    const msgSignInitialTxStaticGlobalMock = new MsgSignInitialTxStaticGlobalMock();
 
     beforeEach(() => {
         msgSignInGlobalMock.clearMocks();
         msgFakSignStaticGlobalMock.clearMocks();
         msgRelaySignInGlobalMock.clearMocks();
+        msgSignInitialTxGlobalMock.clearMocks();
+        msgSignInitialTxStaticGlobalMock.clearMocks();
     });
 
     describe("requestSignIn", () => {
@@ -68,6 +81,41 @@ describe("WalletClient", () => {
                 redirectURL: mockedRedirectURL,
             });
             expect(msgFakSignStaticGlobalMock.fromURL).toHaveBeenCalledWith(mockedUrl);
+        });
+    });
+
+    describe("parseSignInitialTxRequest", () => {
+        it("should throw an error if the MsgSignInitialTx fails", () => {
+            const expectedError = new Error("mockError");
+            msgSignInitialTxStaticGlobalMock.fromURL.mockImplementation(() => {
+                throw expectedError;
+            });
+
+            const walletClient = new WalletClient({ signingURL: "url" });
+
+            expect(() => walletClient.parseSignInitialTxRequest("url")).toThrow(expectedError);
+        });
+
+        it("should return the permissions, redirect URL and public key", () => {
+            const mockedPermissions = new FunctionCallPermissionMock();
+            const mockedRedirectURL = "mockedRedirectURL";
+            const mockedPublicKey = new PublicKeyMock();
+            const mockedUrl = "mockedUrl";
+
+            msgSignInitialTxStaticGlobalMock.fromURL.mockReturnValue({
+                permissions: mockedPermissions,
+                redirectURL: mockedRedirectURL,
+                publicKey: mockedPublicKey,
+            });
+
+            const walletClient = new WalletClient({ signingURL: "url" });
+
+            expect(walletClient.parseSignInitialTxRequest(mockedUrl)).toEqual({
+                permissions: mockedPermissions,
+                redirectURL: mockedRedirectURL,
+                publicKey: mockedPublicKey,
+            });
+            expect(msgSignInitialTxStaticGlobalMock.fromURL).toHaveBeenCalledWith(mockedUrl);
         });
     });
 });

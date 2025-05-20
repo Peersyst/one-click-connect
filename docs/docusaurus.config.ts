@@ -72,12 +72,12 @@ const config: Config = {
                 src: "img/logo.svg",
             },
             items: [
-                {
-                    type: "docSidebar",
-                    sidebarId: "docsSidebar",
-                    position: "left",
-                    label: "Docs",
-                },
+                // {
+                //     type: "docSidebar",
+                //     sidebarId: "docsSidebar",
+                //     position: "left",
+                //     label: "Docs",
+                // },
                 {
                     type: "docSidebar",
                     sidebarId: "guidesSidebar",
@@ -121,34 +121,6 @@ const config: Config = {
                     position: "right",
                 },
             ],
-        },
-        footer: {
-            style: "dark",
-            links: [
-                {
-                    title: "Docs",
-                    items: [
-                        {
-                            label: "Docs",
-                            to: "/docs/intro",
-                        },
-                    ],
-                },
-                {
-                    title: "More",
-                    items: [
-                        {
-                            label: "Changelog",
-                            to: "/changelog",
-                        },
-                        {
-                            label: "GitHub",
-                            href: "https://github.com/Peersyst/one-click-connect",
-                        },
-                    ],
-                },
-            ],
-            copyright: `Copyright © ${new Date().getFullYear()} 1ClickConnect.`,
         },
         prism: {
             theme: prismThemes.github,

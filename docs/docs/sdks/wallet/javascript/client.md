@@ -10,16 +10,10 @@ To be able to interact with the 1ClickConnect protocol as a dapp, you need to us
 
 A `WalletClient` requires the following properties in its configuration:
 
-| Property     | Description                                                                   | Required |
-| ------------ | ----------------------------------------------------------------------------- | -------- |
-| `signingURL` | The URL in your wallet to sign transactions and requests.                     | ✅       |
-| `relayerAPI` | The URL of the relayer API. If provided, the wallet will use the relayer API. | ❌       |
-
-:::info
-
-You only need to specify the `relayerAPI` if you want to use a relayer to pay the gas fees of the transactions.
-
-:::
+| Property     | Description                                                                       | Required |
+| ------------ | --------------------------------------------------------------------------------- | -------- |
+| `signingURL` | The URL in your wallet to sign transactions and requests.                         | ✅       |
+| `relayerAPI` | Information of the relayer API. If provided, the wallet will use the relayer API. | ❌       |
 
 In your code, you can initialize the `WalletClient` with the following configuration:
 

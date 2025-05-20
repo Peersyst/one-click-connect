@@ -1,26 +1,23 @@
-import { Transaction } from "near-api-js/lib/transaction";
+import { FunctionCallPermission } from "near-api-js/lib/transaction";
 import { PublicKey } from "near-api-js/lib/utils";
 import { MsgError, MsgErrorCodes } from "../../common/msgs";
-import { PermissionsCodec, PublicKeyCodec, TransactionCodec } from "../../common/codecs";
+import { PermissionsCodec, PublicKeyCodec } from "../../common/codecs";
 
 /**
  * Message for signing an initial transaction.
  */
 export class MsgSignInitialTx {
-    _transaction: Transaction;
     _redirectURL: string;
-    _permissions: object;
+    _permissions: FunctionCallPermission;
     _publicKey: PublicKey;
 
     /**
      * Creates a new MsgSignInitialTx object.
-     * @param transaction The transaction to sign.
      * @param redirectURL The redirect URL.
      * @param permissions The permissions.
      * @param publicKey The public key.
      */
-    constructor(transaction: Transaction, redirectURL: string, permissions: object, publicKey: PublicKey) {
-        this._transaction = transaction;
+    constructor(redirectURL: string, permissions: FunctionCallPermission, publicKey: PublicKey) {
         this._redirectURL = redirectURL;
         this._permissions = permissions;
         this._publicKey = publicKey;
@@ -34,20 +31,18 @@ export class MsgSignInitialTx {
     static fromURL(url: string): MsgSignInitialTx {
         const urlObj = new URL(url);
 
-        const encodedTrasaction = urlObj.searchParams.get("transaction");
         const redirectURL = urlObj.searchParams.get("redirectURL");
         const urlPermissions = urlObj.searchParams.get("permissions");
         const urlPK = urlObj.searchParams.get("publicKey");
 
-        if (!encodedTrasaction || !redirectURL || !urlPermissions || !urlPK) {
+        if (!redirectURL || !urlPermissions || !urlPK) {
             throw new MsgError(MsgErrorCodes.INVALID_URL);
         }
 
-        const transaction = TransactionCodec.fromURLParam(encodedTrasaction);
         const permissions = PermissionsCodec.fromURLParam(urlPermissions);
         const publicKey = PublicKeyCodec.fromURLParam(urlPK);
 
-        return new MsgSignInitialTx(transaction, redirectURL, permissions, publicKey);
+        return new MsgSignInitialTx(redirectURL, permissions, publicKey);
     }
 
     /**
@@ -57,20 +52,11 @@ export class MsgSignInitialTx {
      */
     toURL(url: string): string {
         const urlObj = new URL(url);
-        urlObj.searchParams.set("transaction", TransactionCodec.toURLParam(this._transaction));
         urlObj.searchParams.set("redirectURL", this._redirectURL);
         urlObj.searchParams.set("permissions", PermissionsCodec.toURLParam(this._permissions));
         urlObj.searchParams.set("publicKey", PublicKeyCodec.toURLParam(this._publicKey));
 
         return urlObj.toString();
-    }
-
-    /**
-     * Gets the transaction from the MsgSignInitialTx object.
-     * @returns The transaction.
-     */
-    get transaction(): Transaction {
-        return this._transaction;
     }
 
     /**
@@ -85,7 +71,7 @@ export class MsgSignInitialTx {
      * Gets the permissions from the MsgSignInitialTx object.
      * @returns The permissions.
      */
-    get permissions(): object {
+    get permissions(): FunctionCallPermission {
         return this._permissions;
     }
 

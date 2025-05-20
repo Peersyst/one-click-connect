@@ -1,4 +1,5 @@
 import { Transaction } from "near-api-js/lib/transaction";
+import { PublicKey } from "near-api-js/lib/utils";
 
 /**
  * @description Interface for a wallet.
@@ -11,6 +12,13 @@ export interface INearWalletClient {
      * @returns The sign in URL.
      */
     requestSignIn(accountID: string, url: string): string;
+
+    /**
+     * @description Parses a sign initial tx request.
+     * @param url The URL to parse.
+     * @returns The parsed request.
+     */
+    parseSignInitialTxRequest(url: string): { permissions: string; redirectURL: string; publicKey: PublicKey };
 
     /**
      * @description Signs a transaction with the full access key.

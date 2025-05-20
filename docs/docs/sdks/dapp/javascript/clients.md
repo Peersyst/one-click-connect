@@ -124,7 +124,7 @@ Each `RelayerClient` instance requires to set the following properties in its co
 | Property      | Description                                                                                                                                         | Required |
 | ------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
 | `redirectURL` | The URL to redirect the user to after the wallet has signed a message (this URL can be override on every method that sends a message to the wallet) | ✅       |
-| `relayerAPI`  | The URL of the relayer API that will be used to relay transactions                                                                                  | ❌       |
+| `relayerAPI`  | Information of the relayer API that will be used to relay transactions                                                                              | ❌       |
 
 The `relayerAPI` field is not required when initializing the `RelayerClient`. If not specified, the `RelayerClient` will attempt to obtain the relayer API from the sign-in message. If not found there, it will use the default relayer API. If found in the sign-in message, the `RelayerClient` will add it to its configuration.
 
@@ -132,12 +132,12 @@ The `relayerAPI` field is not required when initializing the `RelayerClient`. If
 
 As previously mentioned in the [Storage](#storage) section of the `Client`, the `RelayerClient` stores user account information in the browser's `localStorage` by default. The following data is stored:
 
-| Property     | Description                                                        | Required |
-| ------------ | ------------------------------------------------------------------ | -------- |
-| `accountID`  | The account ID of the user                                         | ✅       |
-| `keyPair`    | A KeyPair in string format of the user's limited access key        | ✅       |
-| `signingURL` | The URL to redirect the user to sign a payload with their wallet   | ✅       |
-| `relayerAPI` | The URL of the relayer API that will be used to relay transactions | ✅       |
+| Property     | Description                                                            | Required |
+| ------------ | ---------------------------------------------------------------------- | -------- |
+| `accountID`  | The account ID of the user                                             | ✅       |
+| `keyPair`    | A KeyPair in string format of the user's limited access key            | ✅       |
+| `signingURL` | The URL to redirect the user to sign a payload with their wallet       | ✅       |
+| `relayerAPI` | Information of the relayer API that will be used to relay transactions | ✅       |
 
 ### Methods
 

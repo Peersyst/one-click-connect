@@ -20,9 +20,9 @@ jobs:
                   node-version: 18
 
             - name: Install dependencies
-              run: cd docs && pnpm install --frozen-lockfile
+              run: cd docs && yarn install --frozen-lockfile
             - name: Build website
-              run: cd docs && pnpm build
+              run: cd docs && yarn build
 
             - name: Upload Build Artifact
               uses: actions/upload-pages-artifact@v3

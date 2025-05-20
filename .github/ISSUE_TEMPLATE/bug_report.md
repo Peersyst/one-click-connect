@@ -10,6 +10,9 @@ assignees: ''
 **Describe the bug**
 A clear and concise description of what the bug is.
 
+**Tag the issue**
+Mark the issue with the tag of the affected SDK.
+
 **To Reproduce**
 Steps to reproduce the behavior:
 1. Go to '...'

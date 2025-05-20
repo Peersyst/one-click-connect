@@ -1,6 +1,5 @@
 import { INearRelayerDAppClient } from "@one-click-connect/core/relayer";
-import { MsgFakSign } from "@one-click-connect/core/base";
-import { SignInitialTxRequest } from "@one-click-connect/core/common";
+import { SignInitialTxRequest, SignWithFakRequest } from "@one-click-connect/core/common";
 
 export class NearRelayerDAppClient implements INearRelayerDAppClient {
     /**
@@ -13,7 +12,7 @@ export class NearRelayerDAppClient implements INearRelayerDAppClient {
     /**
      * @inheritdoc
      */
-    signWithFak(_msg: MsgFakSign): void {
+    signWithFullAccessKey(_request: SignWithFakRequest): string {
         throw new Error("Method not implemented.");
     }
 

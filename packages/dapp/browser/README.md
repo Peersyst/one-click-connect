@@ -1,28 +1,28 @@
-# 1ClickConnect Wallet SDK for Vanilla Javascript
+# 1ClickConnect DApp SDK for Browser
 
-This SDK is used to integrate 1ClickConnect into your Javascript wallet. It contains the logic to handle messages between your wallet and every dapp that supports 1ClickConnect.
+This SDK is used to integrate 1ClickConnect into your Javascript browser application. It contains the logic to handle messages between your application and every wallet that supports 1ClickConnect.
 
 ## Installation
 
 ```bash
-npm install @one-click-connect/wallet
+npm install @one-click-connect/browser-dapp
 ```
 
 or
 
 ```bash
-yarn add @one-click-connect/wallet
+yarn add @one-click-connect/browser-dapp
 ```
 
 or
 
 ```bash
-pnpm add @one-click-connect/wallet
+pnpm add @one-click-connect/browser-dapp
 ```
 
 ## Usage
 
-Check the documentation [here](https://peersyst.github.io/one-click-connect/docs/sdks/wallet/javascript/intro).
+Check the documentation [here](https://peersyst.github.io/one-click-connect/docs/sdks/dapp/javascript/intro).
 
 ## Report an issue
 

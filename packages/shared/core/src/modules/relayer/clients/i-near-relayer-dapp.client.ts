@@ -1,5 +1,5 @@
 import { INearDAppClient } from "../../base";
-
+import { RelayerAPI } from "../types";
 export interface INearRelayerDAppClient extends Omit<INearDAppClient, "isSignedIn"> {
     /**
      * @description Signs in to the relayer.
@@ -8,5 +8,5 @@ export interface INearRelayerDAppClient extends Omit<INearDAppClient, "isSignedI
      * @param relayerAPI The relayer API to sign in.
      * @returns True if the user is signed in, false otherwise.
      */
-    isSignedIn(accountID: string, signingURL: string, relayerAPI: string): boolean;
+    isSignedIn(accountID: string, signingURL: string, relayerAPI: RelayerAPI): boolean;
 }

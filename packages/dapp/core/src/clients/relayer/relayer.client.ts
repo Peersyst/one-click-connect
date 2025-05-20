@@ -1,4 +1,4 @@
-import { INearRelayerDAppClient } from "@one-click-connect/core/relayer";
+import { INearRelayerDAppClient, RelayerAPI } from "@one-click-connect/core/relayer";
 import { SignInitialTxRequest, SignWithFakRequest } from "@one-click-connect/core/common";
 import { NearRelayerDAppClientConfig } from "./relayer.client.config";
 import { IAccountService } from "../../common/client/interfaces/i-account.service";
@@ -15,7 +15,7 @@ export class NearRelayerDAppClient<C extends NearRelayerDAppClientConfig> extend
     /**
      * @inheritdoc
      */
-    isSignedIn(accountID: string, signingURL: string, relayerAPI: string): boolean {
+    isSignedIn(accountID: string, signingURL: string, relayerAPI: RelayerAPI): boolean {
         if (this.getActiveAccount()?.accountID === accountID) {
             return true;
         }

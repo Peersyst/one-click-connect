@@ -1,9 +1,10 @@
-import { MsgErrorCodes } from "../../../../src/modules";
+import { MsgErrorCodes, RelayerAPICodec } from "../../../../src/modules";
 import { MsgRelaySignIn } from "../../../../src/modules/relayer/msgs";
+import { RelayerAPIMock } from "../../../mocks/core/relayer-api.mock";
 
 describe("RelaySignInMsg", () => {
     const signingURL = "https://signing.com";
-    const relayerAPI = "https://relayer.com";
+    const relayerAPI = new RelayerAPIMock();
     const accountID = "example.com";
 
     describe("fromURL", () => {
@@ -30,7 +31,7 @@ describe("RelaySignInMsg", () => {
 
         describe("should create a new MsgRelaySignIn object", () => {
             it("should create a new MsgRelaySignIn object", () => {
-                const url = `https://example.com?accountID=${accountID}&signingURL=${signingURL}&relayerAPI=${relayerAPI}`;
+                const url = `https://example.com?accountID=${accountID}&signingURL=${signingURL}&relayerAPI=${encodeURIComponent(RelayerAPICodec.toURLParam(relayerAPI))}`;
                 const msg = MsgRelaySignIn.fromURL(url);
 
                 expect(msg).toBeDefined();
@@ -42,11 +43,12 @@ describe("RelaySignInMsg", () => {
     });
 
     describe("toURL", () => {
+        const baseURL = "https://example.com";
         it("should return a URL", () => {
             const msg = new MsgRelaySignIn(accountID, signingURL, relayerAPI);
-            const url = msg.toURL(relayerAPI);
+            const url = msg.toURL(baseURL);
             expect(url).toEqual(
-                `${relayerAPI}/?accountID=${accountID}&signingURL=${encodeURIComponent(signingURL)}&relayerAPI=${encodeURIComponent(relayerAPI)}`,
+                `${baseURL}/?accountID=${accountID}&signingURL=${encodeURIComponent(signingURL)}&relayerAPI=${encodeURIComponent(RelayerAPICodec.toURLParam(relayerAPI))}`,
             );
         });
     });

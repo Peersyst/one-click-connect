@@ -1,6 +1,7 @@
 import { ClientFactory } from "../../src/clients/client.factory";
 import { RelayerClientConfig } from "../../src/clients/near-relayer/relayer.client.config";
 import { ClientConfig } from "../../src/clients/near/client.config";
+import { RelayerAPIMock } from "@one-click-connect/core/mocks";
 
 describe("ClientFactory", () => {
     describe("newClient", () => {
@@ -16,10 +17,11 @@ describe("ClientFactory", () => {
     });
 
     describe("newRelayerClient", () => {
+        const relayerAPI = new RelayerAPIMock();
         it("should create a client from a given config (with relayerAPI)", () => {
             const config: RelayerClientConfig = {
                 redirectURL: "https://example.com",
-                relayerAPI: "https://example.com/relayer",
+                relayerAPI,
             };
 
             const client = ClientFactory.newRelayerClient(config);

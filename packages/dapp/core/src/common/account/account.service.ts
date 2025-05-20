@@ -2,6 +2,7 @@ import { KeyPair } from "near-api-js/lib/utils";
 import { IAccountRepository } from "./interfaces";
 import { IAccountService } from "../client/interfaces/i-account.service";
 import { Account } from "./account.types";
+import { RelayerAPI } from "@one-click-connect/core/relayer";
 
 export class AccountService implements IAccountService {
     constructor(private readonly accountRepository: IAccountRepository) {}
@@ -37,8 +38,8 @@ export class AccountService implements IAccountService {
     /**
      * @inheritdoc
      */
-    createAccount(accountId: string, signingURL: string, curve: string = "ed25519", relayerAPI?: string): Account {
-        const keypair = KeyPair.fromRandom(curve);
+    createAccount(accountId: string, signingURL: string, relayerAPI?: RelayerAPI): Account {
+        const keypair = KeyPair.fromRandom("ed25519");
         const account = this.accountRepository.create(accountId, keypair, signingURL, relayerAPI);
         this.accountRepository.setActive(accountId);
         return account;

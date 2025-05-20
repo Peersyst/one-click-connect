@@ -17,7 +17,7 @@ export class NearDAppClient<C extends NearDAppClientConfig> extends DAppClient<C
     /**
      * @inheritdoc
      */
-    signIn(accountID: string, signingURL: string): boolean {
+    isSignedIn(accountID: string, signingURL: string): boolean {
         if (this.getActiveAccount()?.accountID === accountID) {
             return true;
         }
@@ -45,7 +45,7 @@ export class NearDAppClient<C extends NearDAppClientConfig> extends DAppClient<C
     /**
      * @inheritdoc
      */
-    signInitialTx(request: SignInitialTxRequest): string {
+    requestSignInitialTx(request: SignInitialTxRequest): string {
         if (!this.config.redirectURL) {
             throw new ClientError(ClientErrorCodes.REDIRECT_URL_NOT_SET);
         }
@@ -73,7 +73,7 @@ export class NearDAppClient<C extends NearDAppClientConfig> extends DAppClient<C
     /**
      * @inheritdoc
      */
-    signWithFullAccessKey(request: SignWithFakRequest): string {
+    requestSignWithFullAccessKey(request: SignWithFakRequest): string {
         if (!this.config.redirectURL) {
             throw new ClientError(ClientErrorCodes.REDIRECT_URL_NOT_SET);
         }

@@ -15,7 +15,7 @@ export class NearRelayerDAppClient<C extends NearRelayerDAppClientConfig> extend
     /**
      * @inheritdoc
      */
-    signIn(accountID: string, signingURL: string, relayerAPI: RelayerAPI): boolean {
+    isSignedIn(accountID: string, signingURL: string, relayerAPI: RelayerAPI): boolean {
         if (this.getActiveAccount()?.accountID === accountID) {
             return true;
         }
@@ -50,7 +50,7 @@ export class NearRelayerDAppClient<C extends NearRelayerDAppClientConfig> extend
     /**
      * @inheritdoc
      */
-    signInitialTx(request: SignInitialTxRequest): string {
+    requestSignInitialTx(request: SignInitialTxRequest): string {
         if (!this.config.redirectURL) {
             throw new ClientError(ClientErrorCodes.REDIRECT_URL_NOT_SET);
         }
@@ -75,7 +75,7 @@ export class NearRelayerDAppClient<C extends NearRelayerDAppClientConfig> extend
     /**
      * @inheritdoc
      */
-    signWithFullAccessKey(request: SignWithFakRequest): string {
+    requestSignWithFullAccessKey(request: SignWithFakRequest): string {
         if (!this.config.redirectURL) {
             throw new ClientError(ClientErrorCodes.REDIRECT_URL_NOT_SET);
         }

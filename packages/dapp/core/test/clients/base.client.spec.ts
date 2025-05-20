@@ -16,14 +16,14 @@ describe("NearDAppClient", () => {
         accountService.clearMocks();
     });
 
-    describe("signIn", () => {
+    describe("isSignedIn", () => {
         const mockAccountID = "mockAccountID";
         const mockSigningURL = "https://signing-url.com";
 
         it("should return true if account is already active", () => {
             accountService.getActive.mockReturnValue({ accountID: mockAccountID });
 
-            const result = client.signIn(mockAccountID, mockSigningURL);
+            const result = client.isSignedIn(mockAccountID, mockSigningURL);
 
             expect(result).toBe(true);
             expect(accountService.getAccount).not.toHaveBeenCalled();
@@ -33,7 +33,7 @@ describe("NearDAppClient", () => {
             accountService.getActive.mockReturnValue(undefined);
             accountService.getAccount.mockReturnValue(undefined);
 
-            const result = client.signIn(mockAccountID, mockSigningURL);
+            const result = client.isSignedIn(mockAccountID, mockSigningURL);
 
             expect(result).toBe(false);
             expect(accountService.getAccount).toHaveBeenCalledWith(mockAccountID);
@@ -44,7 +44,7 @@ describe("NearDAppClient", () => {
             accountService.getActive.mockReturnValue(undefined);
             accountService.getAccount.mockReturnValue({ signingURL: storedSigningURL });
 
-            const result = client.signIn(mockAccountID, mockSigningURL);
+            const result = client.isSignedIn(mockAccountID, mockSigningURL);
 
             expect(result).toBe(true);
             expect(accountService.updateAccount).toHaveBeenCalledWith(mockAccountID, mockSigningURL);
@@ -55,7 +55,7 @@ describe("NearDAppClient", () => {
             accountService.getActive.mockReturnValue(undefined);
             accountService.getAccount.mockReturnValue({ signingURL: mockSigningURL });
 
-            const result = client.signIn(mockAccountID, mockSigningURL);
+            const result = client.isSignedIn(mockAccountID, mockSigningURL);
 
             expect(result).toBe(true);
             expect(accountService.updateAccount).not.toHaveBeenCalled();
@@ -63,7 +63,7 @@ describe("NearDAppClient", () => {
         });
     });
 
-    describe("signInitialTx", () => {
+    describe("requestSignInitialTx", () => {
         const mockAccountID = "mockAccountID";
         const mockSigningURL = "https://signing-url.com";
 
@@ -71,7 +71,7 @@ describe("NearDAppClient", () => {
             accountService.getAccount.mockReturnValue({ keypair: new KeyPairMock() });
 
             expect(() =>
-                client.signInitialTx({
+                client.requestSignInitialTx({
                     accountID: mockAccountID,
                     signingURL: mockSigningURL,
                     permissions: [],
@@ -84,7 +84,7 @@ describe("NearDAppClient", () => {
             client = new NearDAppClient({ redirectURL: undefined }, accountService);
 
             expect(() =>
-                client.signInitialTx({
+                client.requestSignInitialTx({
                     accountID: mockAccountID,
                     signingURL: mockSigningURL,
                     permissions: [],
@@ -99,7 +99,7 @@ describe("NearDAppClient", () => {
             accountService.createAccount.mockReturnValue({ keypair: new KeyPairMock() });
             msgSignInitialTxGlobalMock.toURL.mockReturnValue(expectedURL);
 
-            const url = client.signInitialTx({
+            const url = client.requestSignInitialTx({
                 accountID: mockAccountID,
                 signingURL: mockSigningURL,
                 permissions: [],
@@ -118,7 +118,7 @@ describe("NearDAppClient", () => {
             });
 
             expect(() =>
-                client.signInitialTx({
+                client.requestSignInitialTx({
                     accountID: mockAccountID,
                     signingURL: mockSigningURL,
                     permissions: [],
@@ -127,14 +127,14 @@ describe("NearDAppClient", () => {
         });
     });
 
-    describe("signWithFullAccessKey", () => {
+    describe("requestSignWithFullAccessKey", () => {
         const transaction = new TransactionMock();
 
         it("should throw an error if the redirect URL is not set", () => {
             // @ts-ignore
             client = new NearDAppClient({ redirectURL: undefined }, accountService);
 
-            expect(() => client.signWithFullAccessKey({ transaction, signingURL: "https://example.com" })).toThrow(
+            expect(() => client.requestSignWithFullAccessKey({ transaction, signingURL: "https://example.com" })).toThrow(
                 ClientErrorCodes.REDIRECT_URL_NOT_SET,
             );
         });
@@ -145,14 +145,14 @@ describe("NearDAppClient", () => {
                 throw expectedError;
             });
 
-            expect(() => client.signWithFullAccessKey({ transaction, signingURL: "https://example.com" })).toThrow(expectedError);
+            expect(() => client.requestSignWithFullAccessKey({ transaction, signingURL: "https://example.com" })).toThrow(expectedError);
         });
 
         it("should return the url to sign the full access key transaction", () => {
             const expectedURL = "mockURL";
             msgFakSignGlobalMock.toURL.mockReturnValue(expectedURL);
 
-            const url = client.signWithFullAccessKey({ transaction, signingURL: "https://example.com" });
+            const url = client.requestSignWithFullAccessKey({ transaction, signingURL: "https://example.com" });
 
             expect(url).toEqual(expectedURL);
         });

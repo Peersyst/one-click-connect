@@ -10,7 +10,7 @@
         "preview": "vite preview"
     },
     "dependencies": {
-        "@one-click-connect/vanilla-dapp": "workspace:*",
+        "@one-click-connect/browser-dapp": "workspace:*",
         "bignumber.js": "^9.2.1",
         "buffer": "^6.0.3",
         "near-api-js": "^5.1.1",

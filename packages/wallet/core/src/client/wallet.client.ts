@@ -1,7 +1,7 @@
 import { INearWalletClient, MsgFakSign, MsgSignIn, MsgSignInitialTx } from "@one-click-connect/core/base";
 import { WalletClientConfig } from "./wallet.client.config";
 import { ClientError, ClientErrorCodes } from "../common/errors";
-import { Transaction } from "near-api-js/lib/transaction";
+import { FunctionCallPermission, Transaction } from "near-api-js/lib/transaction";
 import { MsgRelaySignIn } from "@one-click-connect/core/relayer";
 import { PublicKey } from "near-api-js/lib/utils";
 
@@ -32,7 +32,7 @@ export class WalletClient<C extends WalletClientConfig> implements INearWalletCl
     /**
      * @inheritdoc
      */
-    parseSignInitialTxRequest(url: string): { permissions: string; redirectURL: string; publicKey: PublicKey } {
+    parseSignInitialTxRequest(url: string): { permissions: FunctionCallPermission; redirectURL: string; publicKey: PublicKey } {
         const msg = MsgSignInitialTx.fromURL(url);
 
         return { permissions: msg.permissions, redirectURL: msg.redirectURL, publicKey: msg.publicKey };

@@ -34,6 +34,16 @@ const config: Config = {
         locales: ["en"],
     },
 
+    plugins: [
+        [
+            "@easyops-cn/docusaurus-search-local",
+            {
+                hashed: true,
+                docsRouteBasePath: "/docs",
+            },
+        ],
+    ],
+
     presets: [
         [
             "classic",
@@ -67,12 +77,11 @@ const config: Config = {
 
     themeConfig: {
         // Replace with your project's social card
-        image: "img/docusaurus-social-card.jpg",
         navbar: {
             title: "1ClickConnect",
             logo: {
                 alt: "1ClickConnect Logo",
-                src: "img/logo.svg",
+                src: "img/near-logo.webp",
             },
             items: [
                 // {

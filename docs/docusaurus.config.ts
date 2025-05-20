@@ -10,10 +10,10 @@ const config: Config = {
     favicon: "img/favicon.ico",
 
     // Set the production url of your site here
-    url: "https://your-docusaurus-site.example.com",
+    url: "https://peersyst.github.io",
     // Set the /<baseUrl>/ pathname under which your site is served
     // For GitHub pages deployment, it is often '/<projectName>/'
-    baseUrl: "/",
+    baseUrl: "/1-click-connect",
 
     // GitHub pages deployment config.
     // If you aren't using GitHub pages, you don't need these.
@@ -22,6 +22,9 @@ const config: Config = {
 
     onBrokenLinks: "throw",
     onBrokenMarkdownLinks: "warn",
+
+    deploymentBranch: "gh-pages",
+    trailingSlash: false,
 
     // Even if you don't use internationalization, you can use this field to set
     // useful metadata like html lang. For example, if your site is Chinese, you
@@ -109,12 +112,12 @@ const config: Config = {
                         },
                     ],
                 },
-                {
-                    type: "docSidebar",
-                    sidebarId: "changeLogSidebar",
-                    position: "left",
-                    label: "Changelog",
-                },
+                // {
+                //     type: "docSidebar",
+                //     sidebarId: "changeLogSidebar",
+                //     position: "left",
+                //     label: "Changelog",
+                // },
                 {
                     href: "https://github.com/Peersyst/one-click-connect",
                     label: "GitHub",

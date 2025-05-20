@@ -1,5 +1,5 @@
 {
-    "name": "@one-click-connect/wallet-vanilla",
+    "name": "@one-click-connect/wallet",
     "version": "0.1.0-alpha.0",
     "scripts": {
         "build": "npx tsc",

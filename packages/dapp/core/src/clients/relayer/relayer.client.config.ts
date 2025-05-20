@@ -1,6 +1,0 @@
-import { NearDAppClientConfig } from "../base";
-import { RelayerAPI } from "@one-click-connect/core/relayer";
-
-export type NearRelayerDAppClientConfig = {
-    relayerAPI?: RelayerAPI;
-} & NearDAppClientConfig;

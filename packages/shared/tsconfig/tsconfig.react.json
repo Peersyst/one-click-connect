@@ -1,8 +1,0 @@
-{
-    "extends": "./tsconfig.browser.json",
-    "compilerOptions": {
-        "noEmit": true,
-        "lib": ["ES2022", "DOM", "DOM.Iterable"],
-        "jsx": "react-jsx"
-    }
-}

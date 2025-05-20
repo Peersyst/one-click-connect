@@ -1,7 +1,5 @@
 import { MsgErrorCodes, MsgSignInitialTx } from "../../../../src/modules";
-import { PermissionsCodecGlobalMock } from "../../../mocks/permissions.codec.global-mock";
-import { PublicKeyCodecGlobalMock } from "../../../mocks/public-key.codec.global-mock";
-import { TransactionCodecGlobalMock } from "../../../mocks/transaction.codec.mock";
+import { TransactionCodecGlobalMock, PermissionsCodecGlobalMock, PublicKeyCodecGlobalMock } from "../../../mocks/core";
 
 describe("MsgSignInitialTx", () => {
     const transactionCodecGlobalMock = new TransactionCodecGlobalMock();

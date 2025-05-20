@@ -1,23 +1,26 @@
 import React, { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import "./Sign.css"; // Import CSS for styling
+import { Transaction } from "near-api-js/lib/transaction";
 
 const Sign: React.FC = () => {
     const [searchParams] = useSearchParams();
     const [permissions, setPermissions] = useState<string | null>(null);
     const [redirectURL, setRedirectURL] = useState<string | null>(null);
     const [publicKey, setPublicKey] = useState<string | null>(null);
+    const [transaction, setTransaction] = useState<string | null>(null);
     const [copyButtonText, setCopyButtonText] = useState("Copy Redirect URL");
 
     useEffect(() => {
         const perms = searchParams.get("permissions");
         const redirUrl = searchParams.get("redirectURL");
         const pubKey = searchParams.get("publicKey");
+        const transaction = searchParams.get("transaction");
 
         setPermissions(perms);
         setRedirectURL(redirUrl);
         setPublicKey(pubKey);
-
+        setTransaction(transaction);
         // Optional: Log the found parameters
         console.log("Sign Page Query Params:", { perms, redirUrl, pubKey });
     }, [searchParams]);
@@ -44,36 +47,44 @@ const Sign: React.FC = () => {
             <h1>Sign Page</h1>
             <p>Checking for required signing information...</p>
 
-            {!permissions && !redirectURL && !publicKey && <p>No signing parameters detected in the URL.</p>}
+            {!permissions && !redirectURL && !publicKey && !transaction && <p>No signing parameters detected in the URL.</p>}
 
-            {(permissions || redirectURL || publicKey) && (
-                <div className="params-container">
-                    <h2>Detected Parameters:</h2>
-                    <ul>
-                        {permissions && (
-                            <li>
-                                Permissions: <span className="param-value">{permissions}</span>
-                            </li>
-                        )}
-                        {redirectURL && (
-                            <li>
-                                Redirect URL: <span className="param-value">{redirectURL}</span>
-                            </li>
-                        )}
-                        {publicKey && (
-                            <li>
-                                Public Key: <span className="param-value">{publicKey}</span>
-                            </li>
-                        )}
-                    </ul>
-
-                    {redirectURL && (
-                        <button onClick={onCopyRedirectUrl} className="copy-button">
-                            {copyButtonText}
-                        </button>
+            <div className="params-container">
+                <h2>Detected Parameters:</h2>
+                <ul>
+                    {permissions && (
+                        <li>
+                            Permissions: <span className="param-value">{permissions}</span>
+                        </li>
                     )}
-                </div>
-            )}
+                    {redirectURL && (
+                        <li>
+                            Redirect URL: <span className="param-value">{redirectURL}</span>
+                        </li>
+                    )}
+                    {publicKey && (
+                        <li>
+                            Public Key: <span className="param-value">{publicKey}</span>
+                        </li>
+                    )}
+                    {transaction && (
+                        <li>
+                            Transaction:{" "}
+                            <span className="param-value">
+                                {JSON.stringify(Transaction.decode(Buffer.from(transaction, "base64")), (_, value) =>
+                                    typeof value === "bigint" ? value.toString() : value,
+                                )}
+                            </span>
+                        </li>
+                    )}
+                </ul>
+
+                {redirectURL && (
+                    <button onClick={onCopyRedirectUrl} className="copy-button">
+                        {copyButtonText}
+                    </button>
+                )}
+            </div>
         </div>
     );
 };

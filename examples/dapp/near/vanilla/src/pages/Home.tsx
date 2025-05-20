@@ -9,6 +9,7 @@ const Home: React.FC = () => {
     const [searchParams] = useSearchParams();
     const [accountId, setAccountId] = useState<string | null>(null);
     const [signingUrl, setSigningUrl] = useState<string | null>(null);
+    const [isSignedIn, setIsSignedIn] = useState(false);
     const [showModal, setShowModal] = useState(false);
     const [copyButtonText, setCopyButtonText] = useState("Copy Sign URL");
 
@@ -24,16 +25,30 @@ const Home: React.FC = () => {
             const account = client.getActiveAccount();
             if (account) {
                 setAccountId(account.accountID);
+                setIsSignedIn(true);
+            } else if (accountID && signingURL) {
+                const isSignedIn = client.isSignedIn(accountID, signingURL);
+                if (isSignedIn) {
+                    setAccountId(accountID);
+                    setIsSignedIn(true);
+                }
             }
         }
     }, [searchParams, client]);
+
+    const handleSignOut = () => {
+        client.signOut();
+        setAccountId(null);
+        setSigningUrl(null);
+        setIsSignedIn(false);
+    };
 
     const onCopySignUrl = async () => {
         if (!accountId || !signingUrl) {
             return;
         }
 
-        const url = client.signInitialTx({
+        const url = client.requestSignInitialTx({
             accountID: accountId,
             signingURL: signingUrl,
             permissions: new FunctionCallPermission({
@@ -63,7 +78,10 @@ const Home: React.FC = () => {
             <h1>{`User ${accountId ? "detected" : "not detected"}`}</h1>
             {accountId && <p>{`Account ID: ${accountId}`}</p>}
             {signingUrl && <p>{`Signing URL: ${signingUrl}`}</p>}
-            {accountId && signingUrl && <button onClick={() => setShowModal(true)}>Prepare Sign URL</button>}
+
+            {!isSignedIn && accountId && signingUrl && <button onClick={() => setShowModal(true)}>Prepare Sign URL</button>}
+            {isSignedIn && <button onClick={handleSignOut}>Sign Out</button>}
+
             {showModal && (
                 <div className="modal-overlay">
                     <div className="modal">

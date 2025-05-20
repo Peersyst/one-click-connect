@@ -2,4 +2,4 @@
 sidebar_position: 2
 ---
 
-# What is OneClickConnect?
+# What is 1ClickConnect?

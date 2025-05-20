@@ -28,10 +28,7 @@ The `redirectUrl` is not set in the client configuration. If this error is throw
 
 #### `RELAYER_API_NOT_SET`
 
-> [!INFO]
-> This error can only be thrown by the `NearDAppRelayerClient`
-
-The `relayerApi` is not set in the client configuration. If this error is thrown, you need to set the `relayerApi` property in the client configuration to call the desired method.
+The `relayerApi` is not set in the client configuration. If this error is thrown, you need to set the `relayerApi` property in the client configuration to call the desired method. (RelayerClient only)
 
 #### `ACCOUNT_ALREADY_EXISTS`
 

@@ -1,8 +1,8 @@
 import React, { createContext, useContext, useMemo } from "react";
-import { NearDAppClientFactory, NearDAppClient } from "@one-click-connect/vanilla-dapp/near";
+import { ClientFactory, Client } from "@one-click-connect/browser-dapp/near";
 
 interface NearDAppContextType {
-    client: NearDAppClient;
+    client: Client;
 }
 
 const NearDAppContext = createContext<NearDAppContextType | null>(null);
@@ -21,7 +21,7 @@ interface NearDAppProviderProps {
 
 export const NearDAppProvider: React.FC<NearDAppProviderProps> = ({ children }) => {
     const client = useMemo(() => {
-        return NearDAppClientFactory.fromConfig({
+        return ClientFactory.newClient({
             redirectURL: window.location.origin + "/main",
         });
     }, []);

@@ -5,8 +5,8 @@ import type * as Preset from "@docusaurus/preset-classic";
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
 
 const config: Config = {
-    title: "OneClickConnect",
-    tagline: "OneClickConnect",
+    title: "1ClickConnect",
+    tagline: "1ClickConnect",
     favicon: "img/favicon.ico",
 
     // Set the production url of your site here
@@ -66,9 +66,9 @@ const config: Config = {
         // Replace with your project's social card
         image: "img/docusaurus-social-card.jpg",
         navbar: {
-            title: "OneClickConnect",
+            title: "1ClickConnect",
             logo: {
-                alt: "My Site Logo",
+                alt: "1ClickConnect Logo",
                 src: "img/logo.svg",
             },
             items: [
@@ -78,12 +78,12 @@ const config: Config = {
                     position: "left",
                     label: "Docs",
                 },
-                {
-                    type: "docSidebar",
-                    sidebarId: "tutorialsSidebar",
-                    position: "left",
-                    label: "Tutorials",
-                },
+                // {
+                //     type: "docSidebar",
+                //     sidebarId: "tutorialsSidebar",
+                //     position: "left",
+                //     label: "Tutorials",
+                // },
                 {
                     type: "dropdown",
                     label: "SDKs",
@@ -105,7 +105,7 @@ const config: Config = {
                         },
                         {
                             label: "JavaScript",
-                            to: "/docs/sdks/wallet/javascript",
+                            to: "/docs/sdks/wallet/javascript/intro",
                         },
                     ],
                 },
@@ -148,7 +148,7 @@ const config: Config = {
                     ],
                 },
             ],
-            copyright: `Copyright © ${new Date().getFullYear()} OneClickConnect.`,
+            copyright: `Copyright © ${new Date().getFullYear()} 1ClickConnect.`,
         },
         prism: {
             theme: prismThemes.github,

@@ -4,7 +4,10 @@ import { AccountMock } from "./account.mock";
 
 export const AccountServiceMock = createMock<IAccountService>({
     getActive: new MethodMock("mockReturnValue"),
-    getAccountKeypair: new MethodMock("mockReturnValue", new AccountMock()),
-    createAccountKeypair: new MethodMock("mockReturnValue", new AccountMock()),
-    deleteAccountKeypair: new MethodMock("mockReturnValue"),
+    getAccount: new MethodMock("mockReturnValue", new AccountMock()),
+    createAccount: new MethodMock("mockReturnValue", new AccountMock()),
+    deleteAccount: new MethodMock("mockReturnValue"),
+    updateAccount: new MethodMock("mockReturnValue"),
+    setActive: new MethodMock("mockReturnValue"),
+    clearActiveAccount: new MethodMock("mockReturnValue"),
 });

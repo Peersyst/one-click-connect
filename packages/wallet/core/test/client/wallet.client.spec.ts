@@ -1,14 +1,22 @@
 import { WalletClient } from "../../src/client/wallet.client";
 import { ClientErrorCodes } from "../../src/common/errors";
-import { MsgFakSignStaticGlobalMock, TransactionMock, MsgSignInGlobalMock } from "@one-click-connect/core/mocks";
+import {
+    MsgFakSignStaticGlobalMock,
+    TransactionMock,
+    MsgSignInGlobalMock,
+    MsgRelaySignInGlobalMock,
+    RelayerAPIMock,
+} from "@one-click-connect/core/mocks";
 
 describe("WalletClient", () => {
     const msgSignInGlobalMock = new MsgSignInGlobalMock();
     const msgFakSignStaticGlobalMock = new MsgFakSignStaticGlobalMock();
+    const msgRelaySignInGlobalMock = new MsgRelaySignInGlobalMock();
 
     beforeEach(() => {
         msgSignInGlobalMock.clearMocks();
         msgFakSignStaticGlobalMock.clearMocks();
+        msgRelaySignInGlobalMock.clearMocks();
     });
 
     describe("signIn", () => {
@@ -17,13 +25,23 @@ describe("WalletClient", () => {
             expect(() => walletClient.signIn("accountID", "url")).toThrow(ClientErrorCodes.SIGNING_URL_NOT_SET);
         });
 
-        it("should return the signed in URL", () => {
+        it("should return the signed in URL (without relayerAPI)", () => {
             const mockedUrl = "mockedUrl";
             msgSignInGlobalMock.toURL.mockReturnValue(mockedUrl);
 
             const walletClient = new WalletClient({ signingURL: "url" });
 
             expect(walletClient.signIn("accountID", "url")).toBe(mockedUrl);
+        });
+
+        it("should return the signed in URL (with relayerAPI)", () => {
+            const mockedUrl = "mockedUrl";
+            msgRelaySignInGlobalMock.toURL.mockReturnValue(mockedUrl);
+
+            const walletClient = new WalletClient({ signingURL: "url", relayerAPI: new RelayerAPIMock() });
+
+            expect(walletClient.signIn("accountID", "url")).toBe(mockedUrl);
+            expect(msgRelaySignInGlobalMock.toURL).toHaveBeenCalledWith("url");
         });
     });
 

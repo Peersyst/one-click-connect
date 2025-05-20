@@ -1,17 +1,26 @@
-import { NearDAppClient, NearDAppClientConfig } from "../../src/clients";
-import { ClientErrorCodes } from "../../src/common/client/errors";
+import { MsgFakSignGlobalMock, RelayerAPIMock } from "@one-click-connect/core/mocks";
+import { MsgSignInitialTxGlobalMock } from "@one-click-connect/core/mocks";
+import { NearRelayerDAppClient } from "../../src";
+import { NearRelayerDAppClientConfig } from "../../src/clients/relayer/relayer.client.config";
 import { AccountServiceMock } from "../mocks/account/account.service.mock";
-import { MsgFakSignGlobalMock, MsgSignInitialTxGlobalMock, KeyPairMock, TransactionMock } from "@one-click-connect/core/mocks";
+import { ClientErrorCodes } from "../../src/common/client/errors";
+import { KeyPairMock, TransactionMock } from "@one-click-connect/core/mocks";
 
-describe("NearDAppClient", () => {
-    let client: NearDAppClient<NearDAppClientConfig>;
+describe("NearRelayerDAppClient", () => {
+    let client: NearRelayerDAppClient<NearRelayerDAppClientConfig>;
 
     const accountService = new AccountServiceMock();
     const msgSignInitialTxGlobalMock = new MsgSignInitialTxGlobalMock();
     const msgFakSignGlobalMock = new MsgFakSignGlobalMock();
 
     beforeEach(() => {
-        client = new NearDAppClient({ redirectURL: "https://example.com" }, accountService);
+        client = new NearRelayerDAppClient(
+            {
+                redirectURL: "https://example.com",
+                relayerAPI: new RelayerAPIMock(),
+            },
+            accountService,
+        );
 
         accountService.clearMocks();
     });
@@ -19,11 +28,12 @@ describe("NearDAppClient", () => {
     describe("signIn", () => {
         const mockAccountID = "mockAccountID";
         const mockSigningURL = "https://signing-url.com";
+        const mockRelayerAPI = new RelayerAPIMock();
 
         it("should return true if account is already active", () => {
             accountService.getActive.mockReturnValue({ accountID: mockAccountID });
 
-            const result = client.signIn(mockAccountID, mockSigningURL);
+            const result = client.signIn(mockAccountID, mockSigningURL, mockRelayerAPI);
 
             expect(result).toBe(true);
             expect(accountService.getAccount).not.toHaveBeenCalled();
@@ -33,29 +43,36 @@ describe("NearDAppClient", () => {
             accountService.getActive.mockReturnValue(undefined);
             accountService.getAccount.mockReturnValue(undefined);
 
-            const result = client.signIn(mockAccountID, mockSigningURL);
+            const result = client.signIn(mockAccountID, mockSigningURL, mockRelayerAPI);
 
             expect(result).toBe(false);
             expect(accountService.getAccount).toHaveBeenCalledWith(mockAccountID);
         });
 
-        it("should update signing URL if different from stored URL", () => {
+        it("should update signing URL and relayer API if different from stored values", () => {
             const storedSigningURL = "https://old-url.com";
+            const storedRelayerAPI = "https://old-relayer-api.com";
             accountService.getActive.mockReturnValue(undefined);
-            accountService.getAccount.mockReturnValue({ signingURL: storedSigningURL });
+            accountService.getAccount.mockReturnValue({
+                signingURL: storedSigningURL,
+                relayerAPI: storedRelayerAPI,
+            });
 
-            const result = client.signIn(mockAccountID, mockSigningURL);
+            const result = client.signIn(mockAccountID, mockSigningURL, mockRelayerAPI);
 
             expect(result).toBe(true);
-            expect(accountService.updateAccount).toHaveBeenCalledWith(mockAccountID, mockSigningURL);
+            expect(accountService.updateAccount).toHaveBeenCalledWith(mockAccountID, mockSigningURL, mockRelayerAPI);
             expect(accountService.setActive).toHaveBeenCalledWith(mockAccountID);
         });
 
-        it("should not update signing URL if same as stored URL", () => {
+        it("should not update account if values are the same", () => {
             accountService.getActive.mockReturnValue(undefined);
-            accountService.getAccount.mockReturnValue({ signingURL: mockSigningURL });
+            accountService.getAccount.mockReturnValue({
+                signingURL: mockSigningURL,
+                relayerAPI: mockRelayerAPI,
+            });
 
-            const result = client.signIn(mockAccountID, mockSigningURL);
+            const result = client.signIn(mockAccountID, mockSigningURL, mockRelayerAPI);
 
             expect(result).toBe(true);
             expect(accountService.updateAccount).not.toHaveBeenCalled();
@@ -63,9 +80,64 @@ describe("NearDAppClient", () => {
         });
     });
 
+    describe("getActiveAccount", () => {
+        it("should return the active account", () => {
+            const mockAccount = { accountID: "mockAccountID" };
+            accountService.getActive.mockReturnValue(mockAccount);
+
+            const result = client.getActiveAccount();
+
+            expect(result).toEqual(mockAccount);
+            expect(accountService.getActive).toHaveBeenCalled();
+        });
+
+        it("should return undefined if no active account", () => {
+            accountService.getActive.mockReturnValue(undefined);
+
+            const result = client.getActiveAccount();
+
+            expect(result).toBeUndefined();
+            expect(accountService.getActive).toHaveBeenCalled();
+        });
+    });
+
+    describe("signOut", () => {
+        it("should clear the active account", () => {
+            client.signOut();
+
+            expect(accountService.clearActiveAccount).toHaveBeenCalled();
+        });
+    });
+
     describe("signInitialTx", () => {
         const mockAccountID = "mockAccountID";
         const mockSigningURL = "https://signing-url.com";
+
+        it("should throw an error if the redirect URL is not set", () => {
+            // @ts-ignore
+            client = new NearRelayerDAppClient({ redirectURL: undefined, relayerAPI: "https://relayer-api.com" }, accountService);
+
+            expect(() =>
+                client.signInitialTx({
+                    accountID: mockAccountID,
+                    signingURL: mockSigningURL,
+                    permissions: [],
+                }),
+            ).toThrow(ClientErrorCodes.REDIRECT_URL_NOT_SET);
+        });
+
+        it("should throw an error if the relayer API is not set", () => {
+            // @ts-ignore
+            client = new NearRelayerDAppClient({ redirectURL: "https://example.com", relayerAPI: undefined }, accountService);
+
+            expect(() =>
+                client.signInitialTx({
+                    accountID: mockAccountID,
+                    signingURL: mockSigningURL,
+                    permissions: [],
+                }),
+            ).toThrow(ClientErrorCodes.RELAYER_API_NOT_SET);
+        });
 
         it("should throw an error if the account already exists", () => {
             accountService.getAccount.mockReturnValue({ keypair: new KeyPairMock() });
@@ -77,19 +149,6 @@ describe("NearDAppClient", () => {
                     permissions: [],
                 }),
             ).toThrow(ClientErrorCodes.ACCOUNT_ALREADY_EXISTS);
-        });
-
-        it("should throw an error if the redirect URL is not set", () => {
-            // @ts-ignore
-            client = new NearDAppClient({ redirectURL: undefined }, accountService);
-
-            expect(() =>
-                client.signInitialTx({
-                    accountID: mockAccountID,
-                    signingURL: mockSigningURL,
-                    permissions: [],
-                }),
-            ).toThrow(ClientErrorCodes.REDIRECT_URL_NOT_SET);
         });
 
         it("should create a new account if the account does not exists", () => {
@@ -106,8 +165,7 @@ describe("NearDAppClient", () => {
             });
 
             expect(accountService.getAccount).toHaveBeenCalledWith(mockAccountID);
-            expect(accountService.createAccount).toHaveBeenCalledWith(mockAccountID, mockSigningURL);
-
+            expect(accountService.createAccount).toHaveBeenCalledWith(mockAccountID, mockSigningURL, client.getConfig().relayerAPI);
             expect(url).toEqual(expectedURL);
         });
 
@@ -132,7 +190,7 @@ describe("NearDAppClient", () => {
 
         it("should throw an error if the redirect URL is not set", () => {
             // @ts-ignore
-            client = new NearDAppClient({ redirectURL: undefined }, accountService);
+            client = new NearRelayerDAppClient({ redirectURL: undefined, relayerAPI: "https://relayer-api.com" }, accountService);
 
             expect(() => client.signWithFullAccessKey({ transaction, signingURL: "https://example.com" })).toThrow(
                 ClientErrorCodes.REDIRECT_URL_NOT_SET,
@@ -158,11 +216,14 @@ describe("NearDAppClient", () => {
         });
     });
 
-    describe("signOut", () => {
-        it("should clear the active account", () => {
-            client.signOut();
+    describe("getConfig", () => {
+        it("should return the client configuration", () => {
+            const config = client.getConfig();
 
-            expect(accountService.clearActiveAccount).toHaveBeenCalled();
+            expect(config).toEqual({
+                redirectURL: "https://example.com",
+                relayerAPI: new RelayerAPIMock(),
+            });
         });
     });
 });

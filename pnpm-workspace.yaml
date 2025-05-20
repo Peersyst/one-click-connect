@@ -5,4 +5,5 @@ packages:
     - "packages/dapp/core"
     - "packages/dapp/vanilla"
     - "packages/wallet/core"
+    - "packages/wallet/vanilla"
     - "packages/shared/*"

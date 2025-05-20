@@ -10,12 +10,12 @@ export interface INearWalletClient {
      * @param url The URL to sign in to.
      * @returns The sign in URL.
      */
-    signIn(accountID: string, url: string): string;
+    requestSignIn(accountID: string, url: string): string;
 
     /**
      * @description Signs a transaction with the full access key.
      * @param url The URL to sign the transaction to.
      * @returns The signed transaction URL.
      */
-    signWithFullAccessKey(url: string): { transaction: Transaction; redirectURL: string };
+    parseFullAccessKeyRequest(url: string): { transaction: Transaction; redirectURL: string };
 }

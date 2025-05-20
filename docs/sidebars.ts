@@ -17,13 +17,21 @@ const sidebars: SidebarsConfig = {
     docsSidebar: ["intro", "what_is_occ"],
     tutorialsSidebar: ["tutorials/intro"],
     changeLogSidebar: ["changelog/v0.1.x"],
-    sdksSidebar: [
+    dappJavascriptSidebar: [
         "sdks/dapp/javascript/intro",
         "sdks/dapp/javascript/installation",
         "sdks/dapp/javascript/clients",
         "sdks/dapp/javascript/errors",
         "sdks/dapp/javascript/testing",
         "sdks/dapp/javascript/report_an_issue",
+    ],
+    walletJavascriptSidebar: [
+        "sdks/wallet/javascript/intro",
+        "sdks/wallet/javascript/installation",
+        "sdks/wallet/javascript/client",
+        "sdks/wallet/javascript/errors",
+        "sdks/wallet/javascript/testing",
+        "sdks/wallet/javascript/report_an_issue",
     ],
 };
 

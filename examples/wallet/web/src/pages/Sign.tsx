@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import "./Sign.css"; // Import CSS for styling
+import { Transaction } from "near-api-js/lib/transaction";
 
 const Sign: React.FC = () => {
     const [searchParams] = useSearchParams();
@@ -68,7 +69,12 @@ const Sign: React.FC = () => {
                     )}
                     {transaction && (
                         <li>
-                            Transaction: <span className="param-value">{transaction}</span>
+                            Transaction:{" "}
+                            <span className="param-value">
+                                {JSON.stringify(Transaction.decode(Buffer.from(transaction, "base64")), (_, value) =>
+                                    typeof value === "bigint" ? value.toString() : value,
+                                )}
+                            </span>
                         </li>
                     )}
                 </ul>

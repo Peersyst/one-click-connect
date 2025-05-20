@@ -14,7 +14,7 @@ export class WalletClient<C extends WalletClientConfig> implements INearWalletCl
     /**
      * @inheritdoc
      */
-    signIn(accountID: string, url: string): string {
+    requestSignIn(accountID: string, url: string): string {
         if (!this.config.signingURL) {
             throw new ClientError(ClientErrorCodes.SIGNING_URL_NOT_SET);
         }
@@ -31,7 +31,7 @@ export class WalletClient<C extends WalletClientConfig> implements INearWalletCl
     /**
      * @inheritdoc
      */
-    signWithFullAccessKey(url: string): { transaction: Transaction; redirectURL: string } {
+    parseFullAccessKeyRequest(url: string): { transaction: Transaction; redirectURL: string } {
         const msg = MsgFakSign.fromURL(url);
 
         return { transaction: msg.transaction, redirectURL: msg.redirectURL };

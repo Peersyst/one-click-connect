@@ -78,12 +78,12 @@ const config: Config = {
                     position: "left",
                     label: "Docs",
                 },
-                {
-                    type: "docSidebar",
-                    sidebarId: "tutorialsSidebar",
-                    position: "left",
-                    label: "Tutorials",
-                },
+                // {
+                //     type: "docSidebar",
+                //     sidebarId: "tutorialsSidebar",
+                //     position: "left",
+                //     label: "Tutorials",
+                // },
                 {
                     type: "dropdown",
                     label: "SDKs",
@@ -105,7 +105,7 @@ const config: Config = {
                         },
                         {
                             label: "JavaScript",
-                            to: "/docs/sdks/wallet/javascript",
+                            to: "/docs/sdks/wallet/javascript/intro",
                         },
                     ],
                 },

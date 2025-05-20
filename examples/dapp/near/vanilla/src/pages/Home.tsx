@@ -27,7 +27,7 @@ const Home: React.FC = () => {
                 setAccountId(account.accountID);
                 setIsSignedIn(true);
             } else if (accountID && signingURL) {
-                const isSignedIn = client.signIn(accountID, signingURL);
+                const isSignedIn = client.isSignedIn(accountID, signingURL);
                 if (isSignedIn) {
                     setAccountId(accountID);
                     setIsSignedIn(true);
@@ -48,7 +48,7 @@ const Home: React.FC = () => {
             return;
         }
 
-        const url = client.signInitialTx({
+        const url = client.requestSignInitialTx({
             accountID: accountId,
             signingURL: signingUrl,
             permissions: new FunctionCallPermission({

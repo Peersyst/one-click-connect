@@ -13,10 +13,10 @@ describe("WalletClient", () => {
         msgRelaySignInGlobalMock.clearMocks();
     });
 
-    describe("signIn", () => {
+    describe("requestSignIn", () => {
         it("should throw an error if the signing URL is not set", () => {
             const walletClient = new WalletClient({ signingURL: "" });
-            expect(() => walletClient.signIn("accountID", "url")).toThrow(ClientErrorCodes.SIGNING_URL_NOT_SET);
+            expect(() => walletClient.requestSignIn("accountID", "url")).toThrow(ClientErrorCodes.SIGNING_URL_NOT_SET);
         });
 
         it("should return the signed in URL (without relayerAPI)", () => {
@@ -25,7 +25,7 @@ describe("WalletClient", () => {
 
             const walletClient = new WalletClient({ signingURL: "url" });
 
-            expect(walletClient.signIn("accountID", "url")).toBe(mockedUrl);
+            expect(walletClient.requestSignIn("accountID", "url")).toBe(mockedUrl);
         });
 
         it("should return the signed in URL (with relayerAPI)", () => {
@@ -34,12 +34,12 @@ describe("WalletClient", () => {
 
             const walletClient = new WalletClient({ signingURL: "url", relayerAPI: "relayerAPI" });
 
-            expect(walletClient.signIn("accountID", "url")).toBe(mockedUrl);
+            expect(walletClient.requestSignIn("accountID", "url")).toBe(mockedUrl);
             expect(msgRelaySignInGlobalMock.toURL).toHaveBeenCalledWith("url");
         });
     });
 
-    describe("signWithFullAccessKey", () => {
+    describe("parseFullAccessKeyRequest", () => {
         it("should throw an error if the MsgFakSign fails", () => {
             const expectedError = new Error("mockError");
             msgFakSignStaticGlobalMock.fromURL.mockImplementation(() => {
@@ -48,7 +48,7 @@ describe("WalletClient", () => {
 
             const walletClient = new WalletClient({ signingURL: "url" });
 
-            expect(() => walletClient.signWithFullAccessKey("url")).toThrow(expectedError);
+            expect(() => walletClient.parseFullAccessKeyRequest("url")).toThrow(expectedError);
         });
 
         it("should return the signed transaction and redirect URL", () => {
@@ -63,7 +63,7 @@ describe("WalletClient", () => {
 
             const walletClient = new WalletClient({ signingURL: "url" });
 
-            expect(walletClient.signWithFullAccessKey(mockedUrl)).toEqual({
+            expect(walletClient.parseFullAccessKeyRequest(mockedUrl)).toEqual({
                 transaction: mockedTransaction,
                 redirectURL: mockedRedirectURL,
             });

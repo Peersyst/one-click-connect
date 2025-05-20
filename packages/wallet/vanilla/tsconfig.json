@@ -3,5 +3,5 @@
     "compilerOptions": {
         "outDir": "./dist"
     },
-    "exclude": ["dist", "test", "jest.config.ts"]
+    "exclude": ["dist", "jest.config.ts"]
 }

@@ -28,6 +28,10 @@
         "bundle": {
             "dependsOn": ["^bundle"],
             "outputs": ["dist/**"]
-        }
+        },
+        "publish": {
+            "dependsOn": ["^publish"],
+            "outputs": []
+      }
     }
 }

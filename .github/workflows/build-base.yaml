@@ -42,6 +42,7 @@ jobs:
               uses: docker/build-push-action@v4
               with:
                   file: docker/base.Dockerfile
+                  target: base
                   push: true
                   tags: ${{ env.DOCKER_IMAGE_NAME }}
                   cache-from: type=local,src=/tmp/.buildx-cache

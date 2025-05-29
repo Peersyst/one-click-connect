@@ -7,7 +7,7 @@
         "check-types": "npx tsc --noEmit",
         "lint": "eslint .",
         "test": "jest --passWithNoTests",
-        "publish": "pnpm publish --access public"
+        "publish": "pnpm build && pnpm publish --access public"
     },
     "author": "Peersyst",
     "dependencies": {

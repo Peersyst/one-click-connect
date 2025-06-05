@@ -6,11 +6,14 @@
     --ifm-color-primary-light: #1ff0a4;
     --ifm-color-primary-lighter: #4cf3b6;
     --ifm-color-primary-lightest: #7af6c8;
+    --bs-link-color: #0d6efd;
+    --bs-body-color: #dee2e6;
+
+    --bs-body-bg: #fff;
 
     --ifm-code-font-size: 95%;
-    --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.05); 
+    --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.05);
 }
-
 
 [data-theme="dark"] {
     --ifm-color-primary: #00ec97;
@@ -20,8 +23,12 @@
     --ifm-color-primary-light: #1ff0a4;
     --ifm-color-primary-lighter: #4cf3b6;
     --ifm-color-primary-lightest: #7af6c8;
+    --bs-link-color: #6ea8fe;
+    --bs-body-color: #212529;
 
-    --docusaurus-highlighted-code-line-bg: rgba(63, 8, 8, 0.05); 
+    --bs-body-bg: #212529;
+
+    --docusaurus-highlighted-code-line-bg: rgba(63, 8, 8, 0.05);
 }
 
 .dropdown-section-header {
@@ -36,54 +43,55 @@
     padding-left: 24px;
 }
 
-html, body {
-  overflow: hidden; 
-  height: 100%; 
-  margin: 0; 
+html,
+body {
+    overflow: hidden;
+    height: 100%;
+    margin: 0;
 }
 
 .heroSection {
-  height: 100vh; 
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 2rem;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
 }
 
 @media screen and (max-width: 768px) {
-  .heroSection {
-    padding: 1rem; 
-  }
+    .heroSection {
+        padding: 1rem;
+    }
 
-  .heroLogo {
-    max-width: 200px; 
-  }
+    .heroLogo {
+        max-width: 200px;
+    }
 
-  .heroTitle {
-    font-size: 2.5rem; 
-  }
+    .heroTitle {
+        font-size: 2.5rem;
+    }
 
-  .heroDescription {
-    font-size: 1.25rem; 
-  }
+    .heroDescription {
+        font-size: 1.25rem;
+    }
 }
-  
-  .hero-logo {
+
+.hero-logo {
     max-width: 300px;
     margin-bottom: 2rem;
-  }
-  
-  .hero-title {
+}
+
+.hero-title {
     font-size: 3rem;
     margin-bottom: 1.5rem;
     text-align: center;
-  }
-  
-  .hero-description {
+}
+
+.hero-description {
     font-size: 1.5rem;
     max-width: 800px;
     text-align: center;
     line-height: 1.6;
     margin-bottom: 2rem;
-  }
+}

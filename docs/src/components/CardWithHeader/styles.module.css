@@ -1,58 +1,67 @@
 .card {
-  background-color: var(--ifm-color-primary-darkest);
-  border-radius: 1rem; /* Slightly more rounded corners */
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-  flex: 0 0 33.33%;
-  max-width: 33.33%;
-  min-height: 340px; /* Increased height */
-  padding-bottom: 1.5rem; /* More space at the bottom */
-  transition: transform 0.2s ease, box-shadow 0.2s ease; /* Smooth hover effect */
+    border-radius: 1rem;
+    background-color: var(--bs-body-bg);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    flex: 0 0 33.33%;
+    max-width: 33.33%;
+    min-height: 340px;
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
 }
 
 .card:hover {
-  transform: translateY(-5px); /* Move up slightly on hover */
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3); /* Enhance shadow on hover */
+    transform: translateY(-0.25rem);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
 }
+
 .cardHeaderImage {
-  width: 100%;
-  height: 150px;
-  object-fit: cover;
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    margin: 0;
+    border-radius: 0;
 }
 
 .cardTitle {
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: var(--ifm-color-primary-lightest);
-  margin: 1rem 1rem 0.5rem 1rem; /* Less bottom margin */
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 1rem 0 0.5rem 1rem;
+    padding-right: 1rem;
 }
 
 .cardDescription {
-  color: var(--ifm-color-primary-light);
-  font-size: 1rem;
-  margin: 0 1rem 1rem 1rem;
-  text-align: left;
+    font-size: 1rem;
+    margin: 0 1rem 1rem 1rem;
+    text-align: left;
+    padding-right: 1rem;
 }
 
 .linkList {
-  list-style: none;
-  padding: 0 1rem 1rem;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
+    list-style: none;
+    padding: 0 1rem 1rem 1rem;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+.linkList li {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 }
 
 .cardLink {
-  color: var(--ifm-font-color-base); /* Default text color */
-  text-decoration: none;
-  font-size: 1.2rem;
-  transition: color 0.2s;
+    color: var(--bs-link-color);
+
+    text-decoration: none;
+    font-size: 1.2rem;
+    transition: color 0.2s ease;
 }
 
-.cardLink:hover {
-  color: var(--ifm-color-primary-light); /* Change color on hover */
-  text-decoration: none;
+.cardLink:hover,
+.cardLink:focus {
+    color: var(--bs-link-color);
+    text-decoration: underline;
 }

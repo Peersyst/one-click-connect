@@ -101,12 +101,8 @@ html[data-theme="dark"] :global(.card).customCard {
     text-align: left;
 }
 
-.linkList li {
-    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-}
-
 .cardLink {
-    color: var(--card-link-color);
+    color: var(--ifm-color-primary);
     text-decoration: none;
     font-size: 1.2rem;
     transition: color 0.2s ease;
@@ -114,6 +110,6 @@ html[data-theme="dark"] :global(.card).customCard {
 
 .cardLink:hover,
 .cardLink:focus {
-    color: var(--card-link-hover-color);
-    text-decoration: underline;
+    color: var(--ifm-color-primary-dark);
+    text-decoration: none;
 }

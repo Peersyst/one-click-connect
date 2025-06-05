@@ -17,8 +17,10 @@ export function HeroSection({ title, description, imageSrc, imageAlt, className,
             <div className="container">
                 <div className="row">
                     <div className="col col--12 text--center">
-                        <img src={imageSrc} alt={imageAlt} className={styles.heroLogo} />
-                        <h1 className={clsx("hero__title", styles.heroTitle)}>{title}</h1>
+                        <div className={styles.heroHeaderRow}>
+                            <img src={imageSrc} alt={imageAlt} className={styles.heroLogo} />
+                            <h1 className={clsx("hero__title", styles.heroTitle)}>{title}</h1>
+                        </div>
                         <p className={clsx("hero__subtitle", styles.heroDescription)}>{description}</p>
                         {children && <div className={styles.heroActions}>{children}</div>}
                     </div>

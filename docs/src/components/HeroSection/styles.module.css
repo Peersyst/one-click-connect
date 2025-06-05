@@ -1,33 +1,77 @@
+:root {
+    --hero-logo-size: 300px;
+    --hero-title-size: 3rem;
+    --hero-description-size: 1.5rem;
+    --hero-padding-top: 0rem;
+    --hero-padding-sides: 2rem;
+}
+
+/* Override Docusaurus hero defaults while keeping our look */
 .heroSection {
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    padding-top: 8rem;
-    padding-left: 2rem;
-    padding-right: 2rem;
-    overflow: hidden;
+    --ifm-hero-background-color: var(--ifm-background-color);
+    --ifm-hero-text-color: var(--ifm-font-color-base);
+    min-height: 100vh;
+    padding-top: var(--hero-padding-top);
+    padding-bottom: 2rem;
 }
 
 .heroLogo {
-    max-width: 300px;
+    max-width: var(--hero-logo-size);
+    width: 100%;
     margin-bottom: 1rem;
-    margin-top: 0;
     border-radius: 50%;
 }
 
 .heroTitle {
-    font-size: 3rem;
+    font-size: var(--hero-title-size);
     font-weight: 800;
     margin-bottom: 1.5rem;
-    text-align: center;
 }
 
 .heroDescription {
-    font-size: 1.5rem;
+    font-size: var(--hero-description-size);
     max-width: 800px;
-    text-align: center;
+    margin: 0 auto 2rem;
     line-height: 1.6;
-    margin-bottom: 2rem;
+}
+
+.heroActions {
+    margin-top: 1.5rem;
+}
+
+@media screen and (max-width: 992px) {
+    :root {
+        --hero-logo-size: 240px;
+        --hero-title-size: 2.5rem;
+        --hero-description-size: 1.3rem;
+        --hero-padding-top: 4rem;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    :root {
+        --hero-logo-size: 200px;
+        --hero-title-size: 2rem;
+        --hero-description-size: 1.2rem;
+        --hero-padding-top: 3rem;
+        --hero-padding-sides: 1.5rem;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    :root {
+        --hero-logo-size: 160px;
+        --hero-title-size: 1.75rem;
+        --hero-description-size: 1.1rem;
+        --hero-padding-top: 2rem;
+        --hero-padding-sides: 1rem;
+    }
+
+    .heroSection {
+        min-height: calc(100vh - 60px);
+    }
+
+    .heroDescription {
+        margin-bottom: 1.5rem;
+    }
 }

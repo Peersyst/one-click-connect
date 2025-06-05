@@ -6,7 +6,6 @@
     --hero-padding-sides: 2rem;
 }
 
-/* Override Docusaurus hero defaults while keeping our look */
 .heroSection {
     --ifm-hero-background-color: var(--ifm-background-color);
     --ifm-hero-text-color: var(--ifm-font-color-base);

@@ -12,7 +12,7 @@ export default function Home(): ReactNode {
         <Layout
             title={`Welcome to ${siteConfig.title}`}
             description="1ClickConnect: Fast, simple, and secure dApp and wallet integration for NEAR."
-            wrapperClassName={styles.noScroll} // Use CSS module class instead
+            wrapperClassName={styles.noScroll}
         >
             <main>
                 <HeroSection

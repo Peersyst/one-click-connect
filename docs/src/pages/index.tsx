@@ -9,22 +9,21 @@ export default function Home(): ReactNode {
     const { siteConfig } = useDocusaurusContext();
 
     return (
-        <div className={styles.layout}>
-            <Layout
-                title={`Welcome to ${siteConfig.title}`}
-                description="1ClickConnect: Fast, simple, and secure dApp and wallet integration for NEAR."
-            >
-                <main>
-                    <HeroSection
-                        title="1ClickConnect"
-                        description="Fast, simple, and secure dApp and wallet integration for NEAR."
-                        imageSrc="img/near-logo.webp"
-                        imageAlt="1ClickConnect Logo"
-                    >
-                        <HomepageFeatures />
-                    </HeroSection>
-                </main>
-            </Layout>
-        </div>
+        <Layout
+            title={`Welcome to ${siteConfig.title}`}
+            description="1ClickConnect: Fast, simple, and secure dApp and wallet integration for NEAR."
+            wrapperClassName={styles.noScroll} // Use CSS module class instead
+        >
+            <main>
+                <HeroSection
+                    title="1ClickConnect"
+                    description="Fast, simple, and secure dApp and wallet integration for NEAR."
+                    imageSrc="img/near-logo.webp"
+                    imageAlt="1ClickConnect Logo"
+                >
+                    <HomepageFeatures />
+                </HeroSection>
+            </main>
+        </Layout>
     );
 }

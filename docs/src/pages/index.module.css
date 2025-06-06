@@ -2,19 +2,22 @@
  * CSS files with the .module.css suffix will be treated as CSS modules
  * and scoped locally.
  */
-
-.layout {
-    height: 100vh;
-    overflow: hidden;
+.noScroll {
+    height: 100vh !important;
+    overflow: hidden !important;
+    max-height: 100vh !important;
+    position: fixed !important;
+    width: 100% !important;
 }
 
 @media (max-width: 996px) {
-    .layout {
-        height: auto;
-        overflow: auto;
+    .noScroll {
+        height: 100% !important;
+        overflow: auto !important;
+        position: relative !important;
+        max-height: none !important;
     }
 }
-
 .buttons {
     display: flex;
     align-items: center;

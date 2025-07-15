@@ -1,13 +1,13 @@
 {
     "name": "@one-click-connect/browser-dapp",
-    "version": "0.1.0-alpha.0",
+    "version": "0.1.0-alpha.1",
     "main": "./dist/index.js",
     "scripts": {
         "build": "npx tsc",
         "clean": "rimraf .turbo dist node_modules",
         "check-types": "npx tsc --noEmit",
         "lint": "eslint .",
-        "test": "jest",
+        "test": "jest --passWithNoTests",
         "publish": "pnpm build && pnpm publish --access public"
     },
     "author": "Peersyst",

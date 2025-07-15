@@ -2,9 +2,10 @@
     "name": "@one-click-connect/dapp-core",
     "version": "1.0.0",
     "description": "",
-    "main": "index.js",
+    "main": "./dist/index.js",
+    "types": "./dist/index.d.ts",
     "scripts": {
-        "build": "npx tsc",
+        "build": "npx tsc -p tsconfig.build.json",
         "clean": "rimraf .turbo dist node_modules",
         "check-types": "npx tsc --noEmit",
         "lint": "eslint .",
@@ -22,13 +23,26 @@
         "@types/node": "^22.13.13",
         "jest": "^29.7.0",
         "ts-jest": "^29.1.4",
-        "near-api-js": "^5.1.1"
+        "typescript": "^5.7.3"
     },
     "peerDependencies": {
         "near-api-js": "^5.1.1"
     },
     "exports": {
-        "./clients": "./src/clients/index.ts",
-        "./account": "./src/common/account/index.ts"
+        ".": {
+            "types": "./dist/index.d.ts",
+            "require": "./dist/index.js",
+            "import": "./dist/index.js"
+        },
+        "./clients": {
+            "types": "./dist/src/clients/index.d.ts",
+            "require": "./dist/src/clients/index.js",
+            "import": "./dist/src/clients/index.js"
+        },
+        "./account": {
+            "types": "./dist/src/common/account/index.d.ts",
+            "require": "./dist/src/common/account/index.js",
+            "import": "./dist/src/common/account/index.js"
+        }
     }
 }

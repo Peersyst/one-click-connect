@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useMemo } from "react";
-import { ClientFactory, Client } from "@one-click-connect/browser-dapp/near";
+import { ClientFactory, Client } from "@one-click-connect/browser-dapp";
 
 interface NearDAppContextType {
     client: Client;

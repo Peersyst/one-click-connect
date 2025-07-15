@@ -1,6 +1,6 @@
 import { createMock, MethodMock } from "@shared/test";
 import { WalletClient } from "../../src/client";
-import { FunctionCallPermissionMock, PublicKeyMock, RelayerAPIMock, TransactionMock } from "@one-click-connect/core/mocks";
+import { FunctionCallPermissionMock, PublicKeyMock, RelayerAPIMock, TransactionMock } from "@one-click-connect/core";
 
 export const WalletClientMock = createMock<WalletClient>({
     requestSignIn: new MethodMock("mockReturnValue", "signInUrl"),

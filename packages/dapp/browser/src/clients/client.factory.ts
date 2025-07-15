@@ -1,8 +1,5 @@
-import {
-    NearDAppClient as CoreNearDAppClient,
-    NearRelayerDAppClient as CoreNearRelayerDAppClient,
-} from "@one-click-connect/dapp-core/clients";
-import { AccountService, AccountLocalStorageRepository } from "@one-click-connect/dapp-core/account";
+import { NearDAppClient as CoreNearDAppClient, NearRelayerDAppClient as CoreNearRelayerDAppClient } from "@one-click-connect/dapp-core";
+import { AccountService, AccountLocalStorageRepository } from "@one-click-connect/dapp-core";
 import { ClientConfig } from "./near/client.config";
 import { Client } from "./near/client";
 import { RelayerClient, RelayerClientConfig } from "./near-relayer";

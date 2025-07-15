@@ -1,1 +1,1 @@
-export { TransactionMock } from "@one-click-connect/core/mocks";
+export { TransactionMock } from "@one-click-connect/core";

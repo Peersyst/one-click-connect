@@ -1,2 +1,3 @@
 export * from "./client";
-export * from "../account/interfaces";
+export * from "./interfaces";
+export * from "./errors";

@@ -1,4 +1,4 @@
-import { NearDAppClientConfig as CoreNearDAppClientConfig } from "@one-click-connect/dapp-core/clients";
+import { NearDAppClientConfig as CoreNearDAppClientConfig } from "@one-click-connect/dapp-core";
 
 /**
  * The config for the Near DApp client.

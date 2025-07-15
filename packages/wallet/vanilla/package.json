@@ -23,9 +23,5 @@
         "@types/node": "^22.13.13",
         "ts-jest": "^29.2.5",
         "jest": "^29.7.0"
-    },
-    "exports": {
-        "./client": "./src/client/index.ts",
-        "./mocks": "./test/mocks/index.ts"
     }
 }

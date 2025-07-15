@@ -13,12 +13,13 @@
     },
     "scripts": {
         "build": "npx tsc -p tsconfig.build.json",
-        "build:bundle": "pnpm clean && tsup",
+        "prebundle": "rimraf .turbo dist",
+        "bundle": "tsup",
         "clean": "rimraf .turbo dist node_modules",
         "check-types": "npx tsc --noEmit",
         "lint": "eslint .",
         "test": "jest --passWithNoTests",
-        "publish": "pnpm build:bundle && pnpm publish --access public"
+        "publish": "pnpm bundle && pnpm publish --access public"
     },
     "author": "Peersyst",
     "dependencies": {

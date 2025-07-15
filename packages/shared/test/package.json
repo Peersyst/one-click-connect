@@ -8,8 +8,7 @@
         "build": "tsup",
         "clean": "rimraf .turbo dist node_modules",
         "lint": "eslint .",
-        "check-types": "npx tsc --noEmit",
-        "bundle": "genesys bundle"
+        "check-types": "npx tsc --noEmit"
     },
     "exports": {
         ".": "./src/index.ts"

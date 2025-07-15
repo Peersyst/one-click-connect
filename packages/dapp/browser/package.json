@@ -1,6 +1,7 @@
 {
     "name": "@one-click-connect/browser-dapp",
     "version": "0.1.0-alpha.0",
+    "main": "./dist/index.js",
     "scripts": {
         "build": "npx tsc",
         "clean": "rimraf .turbo dist node_modules",
@@ -26,10 +27,5 @@
     },
     "peerDependencies": {
         "near-api-js": "^5.1.1"
-    },
-    "exports": {
-        "./near": "./src/clients/near/index.ts",
-        "./near-relayer": "./src/clients/near-relayer/index.ts",
-        "./ena": "./src/clients/ena/index.ts"
     }
 }

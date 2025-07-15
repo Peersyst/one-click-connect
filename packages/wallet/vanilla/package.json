@@ -1,6 +1,7 @@
 {
     "name": "@one-click-connect/wallet",
     "version": "0.1.0-alpha.0",
+    "main": "./dist/index.js",
     "scripts": {
         "build": "npx tsc",
         "clean": "rimraf .turbo dist node_modules",

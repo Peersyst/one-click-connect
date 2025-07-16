@@ -12,13 +12,14 @@
         "clean": "rimraf .turbo dist node_modules",
         "check-types": "npx tsc --noEmit",
         "lint": "eslint .",
-        "test": "jest"
+        "test": "jest",
+        "publish": "pnpm bundle && pnpm publish --access public"
     },
     "keywords": [],
     "author": "",
     "license": "ISC",
     "dependencies": {
-        "@one-click-connect/core": "workspace:*"
+        "@one-click-connect/core": "0.0.1-alpha.0"
     },
     "devDependencies": {
         "@shared/eslint": "workspace:*",

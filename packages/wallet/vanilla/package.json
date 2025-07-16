@@ -4,13 +4,6 @@
     "main": "./dist/index.js",
     "module": "./dist/index.mjs",
     "types": "./dist/index.d.ts",
-    "exports": {
-        ".": {
-            "types": "./dist/index.d.ts",
-            "import": "./dist/index.mjs",
-            "require": "./dist/index.js"
-        }
-    },
     "scripts": {
         "build": "npx tsc -p tsconfig.build.json",
         "prebundle": "rimraf .turbo dist",
@@ -26,6 +19,8 @@
         "near-api-js": "^4.0.4"
     },
     "dependencies": {
+        "@one-click-connect/core": "workspace:*",
+        "@one-click-connect/wallet-core": "workspace:*",
         "assert": "^2.1.0",
         "buffer": "^6.0.3",
         "crypto-browserify": "^3.12.1",
@@ -39,8 +34,6 @@
         "util": "^0.12.5"
     },
     "devDependencies": {
-        "@one-click-connect/core": "workspace:*",
-        "@one-click-connect/wallet-core": "workspace:*",
         "@shared/test": "workspace:*",
         "@shared/tsconfig": "workspace:*",
         "@types/jest": "^29.5.12",

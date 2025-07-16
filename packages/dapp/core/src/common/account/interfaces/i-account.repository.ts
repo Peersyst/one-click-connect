@@ -1,6 +1,6 @@
 import { KeyPair } from "near-api-js/lib/utils";
 import { Account } from "../account.types";
-import { RelayerAPI } from "@one-click-connect/core/relayer";
+import { RelayerAPI } from "@one-click-connect/core";
 
 export interface IAccountRepository {
     /**

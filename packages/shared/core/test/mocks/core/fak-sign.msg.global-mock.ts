@@ -1,4 +1,4 @@
-import { MsgFakSign } from "@one-click-connect/core/base";
+import { MsgFakSign } from "@one-click-connect/core";
 import { createGlobalMock, MethodMock } from "@shared/test";
 import { TransactionMock } from "../near";
 

@@ -1,8 +1,7 @@
 {
     "extends": "@shared/tsconfig/browser-package",
     "compilerOptions": {
-        "outDir": "./dist",
-        "rootDir": "src"
+        "outDir": "./dist"
     },
     "include": ["src"],
     "exclude": ["dist", "jest.config.ts", "test"]

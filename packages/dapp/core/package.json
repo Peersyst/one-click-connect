@@ -1,11 +1,14 @@
 {
     "name": "@one-click-connect/dapp-core",
-    "version": "1.0.0",
+    "version": "0.0.1-alpha.0",
     "description": "",
     "main": "./dist/index.js",
     "types": "./dist/index.d.ts",
+    "module": "./dist/index.mjs",
     "scripts": {
         "build": "npx tsc -p tsconfig.build.json",
+        "prebundle": "rimraf .turbo dist",
+        "bundle": "tsup",
         "clean": "rimraf .turbo dist node_modules",
         "check-types": "npx tsc --noEmit",
         "lint": "eslint .",
@@ -14,8 +17,10 @@
     "keywords": [],
     "author": "",
     "license": "ISC",
+    "dependencies": {
+        "@one-click-connect/core": "workspace:*"
+    },
     "devDependencies": {
-        "@one-click-connect/core": "workspace:*",
         "@shared/eslint": "workspace:*",
         "@shared/tsconfig": "workspace:*",
         "@shared/test": "workspace:*",
@@ -23,26 +28,10 @@
         "@types/node": "^22.13.13",
         "jest": "^29.7.0",
         "ts-jest": "^29.1.4",
+        "tsup": "^8.0.0",
         "typescript": "^5.7.3"
     },
     "peerDependencies": {
         "near-api-js": "^4.0.4"
-    },
-    "exports": {
-        ".": {
-            "types": "./dist/index.d.ts",
-            "require": "./dist/index.js",
-            "import": "./dist/index.js"
-        },
-        "./clients": {
-            "types": "./dist/src/clients/index.d.ts",
-            "require": "./dist/src/clients/index.js",
-            "import": "./dist/src/clients/index.js"
-        },
-        "./account": {
-            "types": "./dist/src/common/account/index.d.ts",
-            "require": "./dist/src/common/account/index.js",
-            "import": "./dist/src/common/account/index.js"
-        }
     }
 }

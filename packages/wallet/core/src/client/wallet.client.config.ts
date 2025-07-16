@@ -1,4 +1,4 @@
-import { RelayerAPI } from "@one-click-connect/core/relayer";
+import { RelayerAPI } from "@one-click-connect/core";
 
 export type WalletClientConfig = {
     signingURL: string;

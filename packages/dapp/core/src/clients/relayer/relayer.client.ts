@@ -1,11 +1,11 @@
-import { INearRelayerDAppClient, RelayerAPI } from "@one-click-connect/core/relayer";
-import { SignInitialTxRequest, SignWithFakRequest } from "@one-click-connect/core/common";
+import { INearRelayerDAppClient, RelayerAPI } from "@one-click-connect/core";
+import { SignInitialTxRequest, SignWithFakRequest } from "@one-click-connect/core";
 import { NearRelayerDAppClientConfig } from "./relayer.client.config";
 import { IAccountService } from "../../common/client/interfaces/i-account.service";
 import { DAppClient } from "../../common/client";
 import { Account } from "../../common/account";
 import { ClientError, ClientErrorCodes } from "../../common/client/errors";
-import { MsgFakSign, MsgSignInitialTx } from "@one-click-connect/core/base";
+import { MsgFakSign, MsgSignInitialTx } from "@one-click-connect/core";
 
 export class NearRelayerDAppClient<C extends NearRelayerDAppClientConfig> extends DAppClient<C> implements INearRelayerDAppClient {
     constructor(config: C, accountService: IAccountService) {

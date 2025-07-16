@@ -1,5 +1,5 @@
 import { Account } from "../../account/account.types";
-import { RelayerAPI } from "@one-click-connect/core/relayer";
+import { RelayerAPI } from "@one-click-connect/core";
 
 export interface IAccountService {
     /**

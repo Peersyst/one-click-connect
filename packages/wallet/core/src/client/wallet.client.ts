@@ -1,8 +1,8 @@
-import { INearWalletClient, MsgFakSign, MsgSignIn, MsgSignInitialTx } from "@one-click-connect/core/base";
+import { INearWalletClient, MsgFakSign, MsgSignIn, MsgSignInitialTx } from "@one-click-connect/core";
 import { WalletClientConfig } from "./wallet.client.config";
 import { ClientError, ClientErrorCodes } from "../common/errors";
 import { FunctionCallPermission, Transaction } from "near-api-js/lib/transaction";
-import { MsgRelaySignIn } from "@one-click-connect/core/relayer";
+import { MsgRelaySignIn } from "@one-click-connect/core";
 import { PublicKey } from "near-api-js/lib/utils";
 
 export class WalletClient<C extends WalletClientConfig> implements INearWalletClient {

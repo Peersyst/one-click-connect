@@ -1,8 +1,8 @@
-import { INearDAppClient, MsgFakSign, MsgSignInitialTx } from "@one-click-connect/core/base";
+import { INearDAppClient, MsgFakSign, MsgSignInitialTx } from "@one-click-connect/core";
 import { DAppClient } from "../../common/client/client";
 import { NearDAppClientConfig } from "./base.client.config";
 import { IAccountService } from "../../common/client/interfaces/i-account.service";
-import { SignInitialTxRequest, SignWithFakRequest } from "@one-click-connect/core/common";
+import { SignInitialTxRequest, SignWithFakRequest } from "@one-click-connect/core";
 import { ClientError, ClientErrorCodes } from "../../common/client/errors";
 import { Account } from "../../common/account";
 

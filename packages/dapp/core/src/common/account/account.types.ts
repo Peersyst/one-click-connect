@@ -1,4 +1,4 @@
-import { RelayerAPI } from "@one-click-connect/core/relayer";
+import { RelayerAPI } from "@one-click-connect/core";
 import { KeyPair } from "near-api-js/lib/utils";
 
 export type Account = {

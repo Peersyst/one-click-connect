@@ -234,6 +234,12 @@ importers:
 
   packages/dapp/browser:
     dependencies:
+      '@one-click-connect/core':
+        specifier: workspace:*
+        version: link:../../shared/core
+      '@one-click-connect/dapp-core':
+        specifier: workspace:*
+        version: link:../core
       assert:
         specifier: ^2.1.0
         version: 2.1.0
@@ -268,12 +274,6 @@ importers:
         specifier: ^0.12.5
         version: 0.12.5
     devDependencies:
-      '@one-click-connect/core':
-        specifier: workspace:*
-        version: link:../../shared/core
-      '@one-click-connect/dapp-core':
-        specifier: workspace:*
-        version: link:../core
       '@shared/eslint':
         specifier: workspace:*
         version: link:../../shared/eslint
@@ -304,13 +304,13 @@ importers:
 
   packages/dapp/core:
     dependencies:
+      '@one-click-connect/core':
+        specifier: workspace:*
+        version: link:../../shared/core
       near-api-js:
         specifier: ^4.0.4
         version: 4.0.4
     devDependencies:
-      '@one-click-connect/core':
-        specifier: workspace:*
-        version: link:../../shared/core
       '@shared/eslint':
         specifier: workspace:*
         version: link:../../shared/eslint
@@ -332,6 +332,9 @@ importers:
       ts-jest:
         specifier: ^29.1.4
         version: 29.2.5(@babel/core@7.26.10)(@jest/transform@29.7.0)(@jest/types@29.6.3)(babel-jest@29.7.0(@babel/core@7.26.10))(esbuild@0.24.2)(jest@29.7.0(@types/node@22.14.1)(babel-plugin-macros@3.1.0)(ts-node@10.9.2(@types/node@22.14.1)(typescript@5.8.3)))(typescript@5.8.3)
+      tsup:
+        specifier: ^8.0.0
+        version: 8.3.5(jiti@2.4.2)(postcss@8.5.6)(typescript@5.8.3)(yaml@2.7.0)
       typescript:
         specifier: ^5.7.3
         version: 5.8.3
@@ -362,6 +365,9 @@ importers:
       ts-jest:
         specifier: ^29.2.5
         version: 29.2.5(@babel/core@7.26.10)(@jest/transform@29.7.0)(@jest/types@29.6.3)(babel-jest@29.7.0(@babel/core@7.26.10))(esbuild@0.24.2)(jest@29.7.0(@types/node@22.14.0)(babel-plugin-macros@3.1.0)(ts-node@10.9.2(@types/node@22.14.0)(typescript@5.8.3)))(typescript@5.8.3)
+      tsup:
+        specifier: ^8.0.0
+        version: 8.3.5(jiti@2.4.2)(postcss@8.5.6)(typescript@5.8.3)(yaml@2.7.0)
       typescript:
         specifier: ^5.8.2
         version: 5.8.3
@@ -450,10 +456,11 @@ importers:
         version: 5.8.3
 
   packages/wallet/core:
-    devDependencies:
+    dependencies:
       '@one-click-connect/core':
         specifier: workspace:*
         version: link:../../shared/core
+    devDependencies:
       '@shared/eslint':
         specifier: workspace:*
         version: link:../../shared/eslint
@@ -478,12 +485,21 @@ importers:
       ts-jest:
         specifier: ^29.2.5
         version: 29.2.5(@babel/core@7.26.10)(@jest/transform@29.7.0)(@jest/types@29.6.3)(babel-jest@29.7.0(@babel/core@7.26.10))(esbuild@0.24.2)(jest@29.7.0(@types/node@22.14.1)(babel-plugin-macros@3.1.0)(ts-node@10.9.2(@types/node@22.14.1)(typescript@5.8.3)))(typescript@5.8.3)
+      tsup:
+        specifier: ^8.0.0
+        version: 8.3.5(jiti@2.4.2)(postcss@8.5.6)(typescript@5.8.3)(yaml@2.7.0)
       typescript:
         specifier: ^5.8.2
         version: 5.8.3
 
   packages/wallet/vanilla:
     dependencies:
+      '@one-click-connect/core':
+        specifier: workspace:*
+        version: link:../../shared/core
+      '@one-click-connect/wallet-core':
+        specifier: workspace:*
+        version: link:../core
       assert:
         specifier: ^2.1.0
         version: 2.1.0
@@ -518,12 +534,6 @@ importers:
         specifier: ^0.12.5
         version: 0.12.5
     devDependencies:
-      '@one-click-connect/core':
-        specifier: workspace:*
-        version: link:../../shared/core
-      '@one-click-connect/wallet-core':
-        specifier: workspace:*
-        version: link:../core
       '@shared/test':
         specifier: workspace:*
         version: link:../../shared/test

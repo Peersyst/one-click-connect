@@ -2,7 +2,7 @@ import { KeyPair } from "near-api-js/lib/utils";
 import { IAccountRepository } from "./interfaces";
 import { IAccountService } from "../client/interfaces/i-account.service";
 import { Account } from "./account.types";
-import { RelayerAPI } from "@one-click-connect/core/relayer";
+import { RelayerAPI } from "@one-click-connect/core";
 
 export class AccountService implements IAccountService {
     constructor(private readonly accountRepository: IAccountRepository) {}

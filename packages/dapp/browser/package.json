@@ -23,6 +23,8 @@
     },
     "author": "Peersyst",
     "dependencies": {
+        "@one-click-connect/core": "workspace:*",
+        "@one-click-connect/dapp-core": "workspace:*",
         "assert": "^2.1.0",
         "buffer": "^6.0.3",
         "crypto-browserify": "^3.12.1",
@@ -36,8 +38,6 @@
         "util": "^0.12.5"
     },
     "devDependencies": {
-        "@one-click-connect/core": "workspace:*",
-        "@one-click-connect/dapp-core": "workspace:*",
         "@shared/eslint": "workspace:*",
         "@shared/test": "workspace:*",
         "@shared/tsconfig": "workspace:*",

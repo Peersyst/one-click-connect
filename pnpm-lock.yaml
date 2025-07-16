@@ -305,8 +305,8 @@ importers:
   packages/dapp/core:
     dependencies:
       '@one-click-connect/core':
-        specifier: workspace:*
-        version: link:../../shared/core
+        specifier: 0.0.1-alpha.0
+        version: 0.0.1-alpha.0(near-api-js@4.0.4)
       near-api-js:
         specifier: ^4.0.4
         version: 4.0.4
@@ -458,8 +458,8 @@ importers:
   packages/wallet/core:
     dependencies:
       '@one-click-connect/core':
-        specifier: workspace:*
-        version: link:../../shared/core
+        specifier: 0.0.1-alpha.0
+        version: 0.0.1-alpha.0(near-api-js@4.0.4)
     devDependencies:
       '@shared/eslint':
         specifier: workspace:*
@@ -2911,6 +2911,11 @@ packages:
     resolution: {integrity: sha512-JL08uH6Oz1HEEkJimHYpQn2zNNEkZZs4yGVw5Muhw0oSEzCyGCxfa7qpn3nNB/mefvvYh+eXE+tvf+RmmAywEQ==}
     peerDependencies:
       near-api-js: ^5.1.1
+
+  '@one-click-connect/core@0.0.1-alpha.0':
+    resolution: {integrity: sha512-QKQtuNumIyrJS37CuMpudMfaQ77ls2lwIPpITpuWEAsRI9jJ/Z0MuocvjYYvW8SlRJ11Yk1oYhCY9qC3ErjzWQ==}
+    peerDependencies:
+      near-api-js: ^4.0.4
 
   '@originjs/vite-plugin-commonjs@1.0.3':
     resolution: {integrity: sha512-KuEXeGPptM2lyxdIEJ4R11+5ztipHoE7hy8ClZt3PYaOVQ/pyngd2alaSrPnwyFeOW1UagRBaQ752aA1dTMdOQ==}
@@ -13293,6 +13298,10 @@ snapshots:
   '@one-click-connect/browser-dapp@0.1.0-alpha.1(near-api-js@5.1.1)':
     dependencies:
       near-api-js: 5.1.1
+
+  '@one-click-connect/core@0.0.1-alpha.0(near-api-js@4.0.4)':
+    dependencies:
+      near-api-js: 4.0.4
 
   '@originjs/vite-plugin-commonjs@1.0.3':
     dependencies:

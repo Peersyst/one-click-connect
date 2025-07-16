@@ -1,6 +1,6 @@
 {
     "name": "@one-click-connect/wallet",
-    "version": "0.1.0-alpha.4",
+    "version": "0.1.0-alpha.5",
     "main": "./dist/index.js",
     "module": "./dist/index.mjs",
     "types": "./dist/index.d.ts",
@@ -11,15 +11,16 @@
         "clean": "rimraf .turbo dist node_modules",
         "check-types": "npx tsc --noEmit",
         "lint": "eslint .",
-        "test": "jest --passWithNoTests"
+        "test": "jest --passWithNoTests",
+        "publish": "pnpm bundle && pnpm publish --access public"
     },
     "author": "Peersyst",
     "peerDependencies": {
         "near-api-js": "^4.0.4"
     },
     "dependencies": {
-        "@one-click-connect/core": "workspace:*",
-        "@one-click-connect/wallet-core": "workspace:*",
+        "@one-click-connect/core": "0.0.1-alpha.0",
+        "@one-click-connect/wallet-core": "0.0.1-alpha.0",
         "assert": "^2.1.0",
         "buffer": "^6.0.3",
         "crypto-browserify": "^3.12.1",

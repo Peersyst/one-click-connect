@@ -6,7 +6,7 @@
     "module": "./dist/index.mjs",
     "description": "",
     "scripts": {
-        "build": "npx tsc -p tsconfig.build.json",
+        "build": "tsup",
         "prebundle": "rimraf .turbo dist",
         "bundle": "tsup",
         "clean": "rimraf .turbo dist node_modules",

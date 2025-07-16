@@ -13,7 +13,8 @@
         "check-types": "npx turbo run check-types && echo '🔎 Check types completed'",
         "check-types:packages": "npx turbo run check-types --filter=\"./packages/**/*\" && echo '🔎 Check types packages completed'",
         "bundle": "npx turbo run bundle && echo '📦 Bundle completed'",
-        "publish:packages": "turbo run publish"
+        "prepublish": "pnpm run build:packages",
+        "publish": "turbo run publish"
     },
     "devDependencies": {
         "@antfu/ni": "^0.23.0",

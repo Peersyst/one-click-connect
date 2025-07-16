@@ -38,7 +38,7 @@ jobs:
               id: changesets
               uses: changesets/action@v1
               with:
-                  publish: pnpm run publish:packages
+                  publish: pnpm run publish
                   commit: "Changesets: versioning packages [skip ci]"
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -234,9 +234,39 @@ importers:
 
   packages/dapp/browser:
     dependencies:
+      assert:
+        specifier: ^2.1.0
+        version: 2.1.0
+      buffer:
+        specifier: ^6.0.3
+        version: 6.0.3
+      crypto-browserify:
+        specifier: ^3.12.1
+        version: 3.12.1
+      events:
+        specifier: ^3.3.0
+        version: 3.3.0
       near-api-js:
         specifier: ^4.0.4
         version: 4.0.4
+      os-browserify:
+        specifier: ^0.3.0
+        version: 0.3.0
+      path-browserify:
+        specifier: ^1.0.1
+        version: 1.0.1
+      process:
+        specifier: ^0.11.10
+        version: 0.11.10
+      stream-browserify:
+        specifier: ^3.0.0
+        version: 3.0.0
+      url:
+        specifier: ^0.11.4
+        version: 0.11.4
+      util:
+        specifier: ^0.12.5
+        version: 0.12.5
     devDependencies:
       '@one-click-connect/core':
         specifier: workspace:*
@@ -454,9 +484,39 @@ importers:
 
   packages/wallet/vanilla:
     dependencies:
+      assert:
+        specifier: ^2.1.0
+        version: 2.1.0
+      buffer:
+        specifier: ^6.0.3
+        version: 6.0.3
+      crypto-browserify:
+        specifier: ^3.12.1
+        version: 3.12.1
+      events:
+        specifier: ^3.3.0
+        version: 3.3.0
       near-api-js:
         specifier: ^4.0.4
         version: 4.0.4
+      os-browserify:
+        specifier: ^0.3.0
+        version: 0.3.0
+      path-browserify:
+        specifier: ^1.0.1
+        version: 1.0.1
+      process:
+        specifier: ^0.11.10
+        version: 0.11.10
+      stream-browserify:
+        specifier: ^3.0.0
+        version: 3.0.0
+      url:
+        specifier: ^0.11.4
+        version: 0.11.4
+      util:
+        specifier: ^0.12.5
+        version: 0.12.5
     devDependencies:
       '@one-click-connect/core':
         specifier: workspace:*

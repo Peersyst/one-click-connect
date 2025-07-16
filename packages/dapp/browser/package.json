@@ -18,8 +18,7 @@
         "clean": "rimraf .turbo dist node_modules",
         "check-types": "npx tsc --noEmit",
         "lint": "eslint .",
-        "test": "jest --passWithNoTests",
-        "publish": "pnpm bundle && pnpm publish --access public"
+        "test": "jest --passWithNoTests"
     },
     "author": "Peersyst",
     "dependencies": {

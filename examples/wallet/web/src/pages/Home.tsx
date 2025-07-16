@@ -42,20 +42,22 @@ const Home: React.FC = () => {
 
             <section className="dapps-section">
                 <h2>DApps</h2>
-                <ul className="dapps-list">
-                    {DAPP_DATA.map((dapp, index) => {
-                        const dappUrl = client.requestSignIn(accountId!, dapp.url);
+                {accountId && (
+                    <ul className="dapps-list">
+                        {DAPP_DATA.map((dapp, index) => {
+                            const dappUrl = client.requestSignIn(accountId, dapp.url);
 
-                        return (
-                            <li key={index} className="dapp-item">
-                                <a href={dappUrl} target="_blank" rel="noopener noreferrer" className="dapp-link">
-                                    <img src={dapp.imageUrl} alt={`${dapp.name} logo`} className="dapp-logo" />
-                                    <span className="dapp-name">{dapp.name}</span>
-                                </a>
-                            </li>
-                        );
-                    })}
-                </ul>
+                            return (
+                                <li key={index} className="dapp-item">
+                                    <a href={dappUrl} target="_blank" rel="noopener noreferrer" className="dapp-link">
+                                        <img src={dapp.imageUrl} alt={`${dapp.name} logo`} className="dapp-logo" />
+                                        <span className="dapp-name">{dapp.name}</span>
+                                    </a>
+                                </li>
+                            );
+                        })}
+                    </ul>
+                )}
             </section>
         </div>
     );

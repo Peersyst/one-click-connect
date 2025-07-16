@@ -1,6 +1,6 @@
 {
     "name": "@one-click-connect/browser-dapp",
-    "version": "0.1.0-alpha.3",
+    "version": "0.1.0-alpha.4",
     "main": "./dist/index.js",
     "module": "./dist/index.mjs",
     "types": "./dist/index.d.ts",
@@ -23,7 +23,17 @@
     },
     "author": "Peersyst",
     "dependencies": {
-        "near-api-js": "^4.0.4"
+        "assert": "^2.1.0",
+        "buffer": "^6.0.3",
+        "crypto-browserify": "^3.12.1",
+        "events": "^3.3.0",
+        "near-api-js": "^4.0.4",
+        "os-browserify": "^0.3.0",
+        "path-browserify": "^1.0.1",
+        "process": "^0.11.10",
+        "stream-browserify": "^3.0.0",
+        "url": "^0.11.4",
+        "util": "^0.12.5"
     },
     "devDependencies": {
         "@one-click-connect/core": "workspace:*",

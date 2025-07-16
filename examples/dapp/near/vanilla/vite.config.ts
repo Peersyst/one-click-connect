@@ -9,11 +9,11 @@ export default defineConfig({
         react(),
         viteCommonjs(),
         nodePolyfills({
-            include: ["buffer", "events"],
+            include: ["buffer", "events", "process"],
             globals: {
                 global: true,
-                Buffer: false,
-                process: false,
+                Buffer: true,
+                process: true,
             },
         }),
     ],

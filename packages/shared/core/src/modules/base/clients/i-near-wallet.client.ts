@@ -1,4 +1,4 @@
-import { Transaction } from "near-api-js/lib/transaction";
+import { FunctionCallPermission, Transaction } from "near-api-js/lib/transaction";
 import { PublicKey } from "near-api-js/lib/utils";
 
 /**
@@ -18,7 +18,7 @@ export interface INearWalletClient {
      * @param url The URL to parse.
      * @returns The parsed request.
      */
-    parseSignInitialTxRequest(url: string): { permissions: string; redirectURL: string; publicKey: PublicKey };
+    parseSignInitialTxRequest(url: string): { permissions: FunctionCallPermission; redirectURL: string; publicKey: PublicKey };
 
     /**
      * @description Signs a transaction with the full access key.

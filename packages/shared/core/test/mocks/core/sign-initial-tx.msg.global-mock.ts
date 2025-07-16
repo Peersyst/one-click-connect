@@ -5,10 +5,6 @@ import { FunctionCallPermissionMock } from "../near/function-call-permission.moc
 
 export const MsgSignInitialTxGlobalMock = createGlobalMock(MsgSignInitialTx.prototype, {
     toURL: new MethodMock("mockReturnValue", "mockURL"),
-    _publicKey: new PublicKeyMock(),
-    publicKey: new PublicKeyMock(),
-    _permissions: new FunctionCallPermissionMock(),
-    permissions: new FunctionCallPermissionMock(),
 });
 
 export const MsgSignInitialTxStaticGlobalMock = createGlobalMock(MsgSignInitialTx, {

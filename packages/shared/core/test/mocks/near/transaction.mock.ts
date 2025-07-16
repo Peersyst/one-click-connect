@@ -4,9 +4,9 @@ import { PublicKeyMock } from "./public-key.mock";
 
 export const TransactionMock = mockify<Transaction>({
     signerId: "mockSignerId",
-    nonce: 1,
+    nonce: BigInt(1),
     actions: [],
-    blockHash: "mockBlockHash",
+    blockHash: new Uint8Array([1, 2, 3]),
     publicKey: new PublicKeyMock(),
     receiverId: "mockReceiverId",
 });

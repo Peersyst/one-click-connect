@@ -9,7 +9,7 @@
         "preview": "vite preview"
     },
     "dependencies": {
-        "@one-click-connect/wallet": "workspace:*",
+        "@one-click-connect/wallet": "0.1.0-alpha.5",
         "bignumber.js": "^9.2.1",
         "buffer": "^6.0.3",
         "near-api-js": "^4.0.4",

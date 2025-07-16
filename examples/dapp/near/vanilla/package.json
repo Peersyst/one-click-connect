@@ -9,7 +9,7 @@
         "preview": "vite preview"
     },
     "dependencies": {
-        "@one-click-connect/browser-dapp": "workspace:*",
+        "@one-click-connect/browser-dapp": "0.1.0-alpha.5",
         "bignumber.js": "^9.2.1",
         "buffer": "^6.0.3",
         "near-api-js": "^4.0.4",
@@ -21,7 +21,6 @@
     "devDependencies": {
         "@eslint/js": "^8.57.0",
         "@originjs/vite-plugin-commonjs": "^1.0.3",
-        "@shared/tsconfig": "workspace:*",
         "@types/react": "^19.0.10",
         "@types/react-dom": "^19.0.4",
         "@vitejs/plugin-react": "^4.3.4",

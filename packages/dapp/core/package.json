@@ -12,8 +12,7 @@
         "clean": "rimraf .turbo dist node_modules",
         "check-types": "npx tsc --noEmit",
         "lint": "eslint .",
-        "test": "jest",
-        "publish": "pnpm bundle && pnpm publish --access public"
+        "test": "jest"
     },
     "keywords": [],
     "author": "",

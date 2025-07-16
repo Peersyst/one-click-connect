@@ -235,11 +235,11 @@ importers:
   packages/dapp/browser:
     dependencies:
       '@one-click-connect/core':
-        specifier: workspace:*
-        version: link:../../shared/core
+        specifier: 0.0.1-alpha.0
+        version: 0.0.1-alpha.0(near-api-js@4.0.4)
       '@one-click-connect/dapp-core':
-        specifier: workspace:*
-        version: link:../core
+        specifier: 0.0.1-alpha.0
+        version: 0.0.1-alpha.0(near-api-js@4.0.4)
       assert:
         specifier: ^2.1.0
         version: 2.1.0
@@ -495,11 +495,11 @@ importers:
   packages/wallet/vanilla:
     dependencies:
       '@one-click-connect/core':
-        specifier: workspace:*
-        version: link:../../shared/core
+        specifier: 0.0.1-alpha.0
+        version: 0.0.1-alpha.0(near-api-js@4.0.4)
       '@one-click-connect/wallet-core':
-        specifier: workspace:*
-        version: link:../core
+        specifier: 0.1.0-alpha.0
+        version: 0.1.0-alpha.0(near-api-js@4.0.4)
       assert:
         specifier: ^2.1.0
         version: 2.1.0
@@ -2916,6 +2916,14 @@ packages:
     resolution: {integrity: sha512-QKQtuNumIyrJS37CuMpudMfaQ77ls2lwIPpITpuWEAsRI9jJ/Z0MuocvjYYvW8SlRJ11Yk1oYhCY9qC3ErjzWQ==}
     peerDependencies:
       near-api-js: ^4.0.4
+
+  '@one-click-connect/dapp-core@0.0.1-alpha.0':
+    resolution: {integrity: sha512-+IxYeDpBbgo07Bu4B7YeU2RyrPi6RkNGwz0uXlIQYvLEyvKgil7H6Q7dMvfmHA2QBaG3ZAFHbiDAnm4T2foMzQ==}
+    peerDependencies:
+      near-api-js: ^4.0.4
+
+  '@one-click-connect/wallet-core@0.1.0-alpha.0':
+    resolution: {integrity: sha512-xASYu83hhJfTvJFdDME6V7KjcC5RSOx/1kwdUF0ZU3yC4eJ7NPAAxBusFgw/49rb0/GO5GVTLrGgl2M8tVmQiQ==}
 
   '@originjs/vite-plugin-commonjs@1.0.3':
     resolution: {integrity: sha512-KuEXeGPptM2lyxdIEJ4R11+5ztipHoE7hy8ClZt3PYaOVQ/pyngd2alaSrPnwyFeOW1UagRBaQ752aA1dTMdOQ==}
@@ -13302,6 +13310,17 @@ snapshots:
   '@one-click-connect/core@0.0.1-alpha.0(near-api-js@4.0.4)':
     dependencies:
       near-api-js: 4.0.4
+
+  '@one-click-connect/dapp-core@0.0.1-alpha.0(near-api-js@4.0.4)':
+    dependencies:
+      '@one-click-connect/core': 0.0.1-alpha.0(near-api-js@4.0.4)
+      near-api-js: 4.0.4
+
+  '@one-click-connect/wallet-core@0.1.0-alpha.0(near-api-js@4.0.4)':
+    dependencies:
+      '@one-click-connect/core': 0.0.1-alpha.0(near-api-js@4.0.4)
+    transitivePeerDependencies:
+      - near-api-js
 
   '@originjs/vite-plugin-commonjs@1.0.3':
     dependencies:

@@ -20,7 +20,7 @@
     },
     "dependencies": {
         "@one-click-connect/core": "0.0.1-alpha.0",
-        "@one-click-connect/wallet-core": "0.0.1-alpha.0",
+        "@one-click-connect/wallet-core": "0.1.0-alpha.0",
         "assert": "^2.1.0",
         "buffer": "^6.0.3",
         "crypto-browserify": "^3.12.1",

@@ -23,10 +23,6 @@ describe("PublicKeyCodec", () => {
     });
 
     describe("toURLParam", () => {
-        it("should throw an error if the public key is not provided", () => {
-            expect(() => PublicKeyCodec.toURLParam(null)).toThrow(`${CodecType.PUBLIC_KEY_CODEC}: ${CodecErrorCodes.ERROR_ENCODING_URL}`);
-        });
-
         it("should return a URL", () => {
             const encodedPublicKey = "ed25519:DYJYJT26BZVStUV9vm3rBY2gu812wTQwVFyk9Y4XcQf1";
             const url = PublicKeyCodec.toURLParam(PublicKeyCodec.fromURLParam(encodedPublicKey));

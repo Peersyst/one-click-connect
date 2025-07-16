@@ -22,8 +22,11 @@
         "publish": "pnpm bundle && pnpm publish --access public"
     },
     "author": "Peersyst",
+    "peerDependencies": {
+        "near-api-js": "^4.0.4"
+    },
     "dependencies": {
-        "near-api-js": "^5.1.1"
+        "near-api-js": "^4.0.4"
     },
     "devDependencies": {
         "@one-click-connect/core": "workspace:*",

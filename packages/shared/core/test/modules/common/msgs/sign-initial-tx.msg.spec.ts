@@ -1,5 +1,6 @@
 import { MsgErrorCodes, MsgSignInitialTx } from "../../../../src/modules";
 import { TransactionCodecGlobalMock, PermissionsCodecGlobalMock, PublicKeyCodecGlobalMock } from "../../../mocks/core";
+import { FunctionCallPermissionMock, PublicKeyMock } from "../../../mocks";
 
 describe("MsgSignInitialTx", () => {
     const transactionCodecGlobalMock = new TransactionCodecGlobalMock();
@@ -7,8 +8,8 @@ describe("MsgSignInitialTx", () => {
     const publicKeyCodecGlobalMock = new PublicKeyCodecGlobalMock();
 
     const mockRedirectURL = "mockEncodedRedirectURL";
-    const mockPermissions = {};
-    const mockPublicKey = "mockEncodedPublicKey";
+    const mockPermissions = new FunctionCallPermissionMock();
+    const mockPublicKey = new PublicKeyMock();
 
     beforeEach(() => {
         transactionCodecGlobalMock.clearMocks();

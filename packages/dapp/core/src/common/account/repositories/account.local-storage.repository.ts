@@ -30,7 +30,7 @@ export class AccountLocalStorageRepository implements IAccountRepository {
         const state = this.getState();
         const accountID = state.active;
         const keypair = state.accounts[accountID];
-        return keypair ? { accountID, keypair: KeyPair.fromString(keypair.keypair), signingURL: keypair.signingURL } : undefined;
+        return keypair ? { accountID, keypair: keypair.keypair, signingURL: keypair.signingURL } : undefined;
     }
 
     /**
@@ -39,9 +39,7 @@ export class AccountLocalStorageRepository implements IAccountRepository {
     get(accountId: string): Account | undefined {
         const state = this.getState();
         const accountState = state.accounts[accountId];
-        return accountState
-            ? { accountID: accountId, keypair: KeyPair.fromString(accountState.keypair), signingURL: accountState.signingURL }
-            : undefined;
+        return accountState ? { accountID: accountId, keypair: accountState.keypair, signingURL: accountState.signingURL } : undefined;
     }
 
     /**
@@ -49,7 +47,7 @@ export class AccountLocalStorageRepository implements IAccountRepository {
      */
     create(accountId: string, keypair: KeyPair, signingURL: string): Account {
         const state = this.getState();
-        state.accounts[accountId] = { keypair: keypair.toString(), signingURL };
+        state.accounts[accountId] = { keypair, signingURL };
         this.setState(state);
         return { accountID: accountId, keypair, signingURL };
     }
@@ -57,11 +55,11 @@ export class AccountLocalStorageRepository implements IAccountRepository {
     /**
      * @inheritdoc
      */
-    update(accountId: string, keypair?: KeyPair, signingURL?: string): void {
+    update(accountId: string, signingURL?: string): void {
         const state = this.getState();
         if (state.accounts[accountId]) {
             state.accounts[accountId] = {
-                keypair: keypair ?? state.accounts[accountId].keypair,
+                keypair: state.accounts[accountId].keypair,
                 signingURL: signingURL ?? state.accounts[accountId].signingURL,
             };
             this.setState(state);

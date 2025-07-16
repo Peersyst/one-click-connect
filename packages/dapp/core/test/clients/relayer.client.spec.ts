@@ -1,4 +1,4 @@
-import { MsgFakSignGlobalMock, RelayerAPIMock } from "@one-click-connect/core/mocks";
+import { FunctionCallPermissionMock, MsgFakSignGlobalMock, RelayerAPIMock } from "@one-click-connect/core/mocks";
 import { MsgSignInitialTxGlobalMock } from "@one-click-connect/core/mocks";
 import { NearRelayerDAppClient } from "../../src";
 import { NearRelayerDAppClientConfig } from "../../src/clients/relayer/relayer.client.config";
@@ -12,6 +12,8 @@ describe("NearRelayerDAppClient", () => {
     const accountService = new AccountServiceMock();
     const msgSignInitialTxGlobalMock = new MsgSignInitialTxGlobalMock();
     const msgFakSignGlobalMock = new MsgFakSignGlobalMock();
+
+    const mockPermissions = new FunctionCallPermissionMock();
 
     beforeEach(() => {
         client = new NearRelayerDAppClient(
@@ -121,7 +123,7 @@ describe("NearRelayerDAppClient", () => {
                 client.requestSignInitialTx({
                     accountID: mockAccountID,
                     signingURL: mockSigningURL,
-                    permissions: [],
+                    permissions: mockPermissions,
                 }),
             ).toThrow(ClientErrorCodes.REDIRECT_URL_NOT_SET);
         });
@@ -134,7 +136,7 @@ describe("NearRelayerDAppClient", () => {
                 client.requestSignInitialTx({
                     accountID: mockAccountID,
                     signingURL: mockSigningURL,
-                    permissions: [],
+                    permissions: mockPermissions,
                 }),
             ).toThrow(ClientErrorCodes.RELAYER_API_NOT_SET);
         });
@@ -146,7 +148,7 @@ describe("NearRelayerDAppClient", () => {
                 client.requestSignInitialTx({
                     accountID: mockAccountID,
                     signingURL: mockSigningURL,
-                    permissions: [],
+                    permissions: mockPermissions,
                 }),
             ).toThrow(ClientErrorCodes.ACCOUNT_ALREADY_EXISTS);
         });
@@ -161,7 +163,7 @@ describe("NearRelayerDAppClient", () => {
             const url = client.requestSignInitialTx({
                 accountID: mockAccountID,
                 signingURL: mockSigningURL,
-                permissions: [],
+                permissions: mockPermissions,
             });
 
             expect(accountService.getAccount).toHaveBeenCalledWith(mockAccountID);
@@ -179,7 +181,7 @@ describe("NearRelayerDAppClient", () => {
                 client.requestSignInitialTx({
                     accountID: mockAccountID,
                     signingURL: mockSigningURL,
-                    permissions: [],
+                    permissions: mockPermissions,
                 }),
             ).toThrow(expectedError);
         });

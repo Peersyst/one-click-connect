@@ -6,8 +6,8 @@ import { TransactionCodec } from "../../common/codecs";
  * Message for signing a transaction.
  */
 export class MsgFakSign {
-    _transaction: Transaction;
-    _redirectURL: string;
+    transaction: Transaction;
+    redirectURL: string;
 
     /**
      * Creates a new MsgFakSign object.
@@ -15,8 +15,8 @@ export class MsgFakSign {
      * @param redirectURL The redirect URL.
      */
     constructor(transaction: Transaction, redirectURL: string) {
-        this._transaction = transaction;
-        this._redirectURL = redirectURL;
+        this.transaction = transaction;
+        this.redirectURL = redirectURL;
     }
 
     /**
@@ -44,25 +44,9 @@ export class MsgFakSign {
      */
     toURL(url: string): string {
         const urlObj = new URL(url);
-        urlObj.searchParams.set("transaction", TransactionCodec.toURLParam(this._transaction));
-        urlObj.searchParams.set("redirectURL", this._redirectURL);
+        urlObj.searchParams.set("transaction", TransactionCodec.toURLParam(this.transaction));
+        urlObj.searchParams.set("redirectURL", this.redirectURL);
 
         return urlObj.toString();
-    }
-
-    /**
-     * Gets the transaction from the MsgFakSign object.
-     * @returns The transaction.
-     */
-    get transaction(): Transaction {
-        return this._transaction;
-    }
-
-    /**
-     * Gets the redirect URL from the MsgFakSign object.
-     * @returns The redirect URL.
-     */
-    get redirectURL(): string {
-        return this._redirectURL;
     }
 }

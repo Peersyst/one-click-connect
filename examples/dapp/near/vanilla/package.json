@@ -12,7 +12,7 @@
         "@one-click-connect/browser-dapp": "workspace:*",
         "bignumber.js": "^9.2.1",
         "buffer": "^6.0.3",
-        "near-api-js": "^5.1.1",
+        "near-api-js": "^4.0.4",
         "react": "^19.0.0",
         "react-dom": "^19.0.0",
         "react-router-dom": "^7.5.0",

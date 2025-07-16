@@ -1,4 +1,5 @@
 packages:
+    - "docs"
     - "examples/dapp/near/vanilla"
     - "examples/wallet/web"
     - "packages/dapp/core"

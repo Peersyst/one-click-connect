@@ -1,4 +1,4 @@
-import { NearRelayerDAppClient } from "@one-click-connect/dapp-core/clients";
+import { NearRelayerDAppClient } from "@one-click-connect/dapp-core";
 import { createGlobalMock, MethodMock } from "@shared/test";
 
 export const RelayerClientGlobalMock = createGlobalMock(NearRelayerDAppClient, {

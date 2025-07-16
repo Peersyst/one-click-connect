@@ -1,6 +1,6 @@
 import { createMock, MethodMock } from "@shared/test";
 import { AccountMock } from "./account.mock";
-import { IAccountRepository } from "../../../src/common/client";
+import { IAccountRepository } from "../../../src";
 
 export const AccountRepositoryMock = createMock<IAccountRepository>({
     getActive: new MethodMock("mockReturnValue", new AccountMock()),

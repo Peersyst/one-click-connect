@@ -1,29 +1,26 @@
 import React, { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
 import "./Sign.css"; // Import CSS for styling
 import { Transaction } from "near-api-js/lib/transaction";
+import { useNearOCCRequest } from "../hooks/useNearOCCRequest";
 
 const Sign: React.FC = () => {
-    const [searchParams] = useSearchParams();
     const [permissions, setPermissions] = useState<string | null>(null);
     const [redirectURL, setRedirectURL] = useState<string | null>(null);
     const [publicKey, setPublicKey] = useState<string | null>(null);
-    const [transaction, setTransaction] = useState<string | null>(null);
+    const [transaction, setTransaction] = useState<Transaction | null>(null);
     const [copyButtonText, setCopyButtonText] = useState("Copy Redirect URL");
+    const { isInitialTxRequest, isFullAccessKeyRequest, data } = useNearOCCRequest();
 
     useEffect(() => {
-        const perms = searchParams.get("permissions");
-        const redirUrl = searchParams.get("redirectURL");
-        const pubKey = searchParams.get("publicKey");
-        const transaction = searchParams.get("transaction");
-
-        setPermissions(perms);
-        setRedirectURL(redirUrl);
-        setPublicKey(pubKey);
-        setTransaction(transaction);
-        // Optional: Log the found parameters
-        console.log("Sign Page Query Params:", { perms, redirUrl, pubKey });
-    }, [searchParams]);
+        if (isInitialTxRequest) {
+            setPermissions(JSON.stringify(data?.permissions, (_, val) => (typeof val === "bigint" ? val.toString() : val), 2));
+            setRedirectURL(data?.redirectURL);
+            setPublicKey(data?.publicKey.toString());
+        } else if (isFullAccessKeyRequest) {
+            setTransaction(data?.transaction);
+            setRedirectURL(data?.redirectURL);
+        }
+    }, [isInitialTxRequest, isFullAccessKeyRequest, data]);
 
     const onCopyRedirectUrl = async () => {
         if (!redirectURL) {
@@ -47,7 +44,7 @@ const Sign: React.FC = () => {
             <h1>Sign Page</h1>
             <p>Checking for required signing information...</p>
 
-            {!permissions && !redirectURL && !publicKey && !transaction && <p>No signing parameters detected in the URL.</p>}
+            {!isInitialTxRequest && !isFullAccessKeyRequest && <p>No signing parameters detected in the URL.</p>}
 
             <div className="params-container">
                 <h2>Detected Parameters:</h2>
@@ -71,9 +68,7 @@ const Sign: React.FC = () => {
                         <li>
                             Transaction:{" "}
                             <span className="param-value">
-                                {JSON.stringify(Transaction.decode(Buffer.from(transaction, "base64")), (_, value) =>
-                                    typeof value === "bigint" ? value.toString() : value,
-                                )}
+                                {JSON.stringify(transaction, (_, value) => (typeof value === "bigint" ? value.toString() : value))}
                             </span>
                         </li>
                     )}

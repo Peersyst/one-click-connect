@@ -1,2 +1,2 @@
-export * from "../client.factory";
 export * from "./client";
+export * from "./client.config";

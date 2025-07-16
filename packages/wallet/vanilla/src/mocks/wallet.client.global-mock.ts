@@ -1,6 +1,6 @@
 import { createGlobalMock, MethodMock } from "@shared/test";
 import { WalletClient } from "../../src/client/wallet.client";
-import { TransactionMock } from "@one-click-connect/core/mocks";
+import { TransactionMock } from "./transaction.mock";
 
 export const WalletClientGlobalMock = createGlobalMock(WalletClient, {
     requestSignIn: new MethodMock("mockReturnValue", "signInUrl"),

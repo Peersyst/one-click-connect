@@ -12,6 +12,9 @@ COPY packages /project/packages
 RUN pnpm install --frozen-lockfile
 COPY ["turbo.json", ".prettierrc", "./"]
 
+# Run build
+RUN pnpm run build:packages
+
 # Run linting
 RUN pnpm run lint:packages
 

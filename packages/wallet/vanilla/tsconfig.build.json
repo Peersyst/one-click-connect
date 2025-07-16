@@ -1,0 +1,9 @@
+{
+    "extends": "@shared/tsconfig/package",
+    "compilerOptions": {
+        "outDir": "./dist",
+        "rootDir": "src"
+    },
+    "include": ["src"],
+    "exclude": ["dist", "jest.config.ts", "test"]
+}

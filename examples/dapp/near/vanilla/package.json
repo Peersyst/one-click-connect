@@ -20,6 +20,8 @@
     },
     "devDependencies": {
         "@eslint/js": "^8.57.0",
+        "@originjs/vite-plugin-commonjs": "^1.0.3",
+        "@shared/tsconfig": "workspace:*",
         "@types/react": "^19.0.10",
         "@types/react-dom": "^19.0.4",
         "@vitejs/plugin-react": "^4.3.4",

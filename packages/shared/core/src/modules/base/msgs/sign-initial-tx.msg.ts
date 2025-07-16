@@ -7,9 +7,9 @@ import { PermissionsCodec, PublicKeyCodec } from "../../common/codecs";
  * Message for signing an initial transaction.
  */
 export class MsgSignInitialTx {
-    _redirectURL: string;
-    _permissions: FunctionCallPermission;
-    _publicKey: PublicKey;
+    redirectURL: string;
+    permissions: FunctionCallPermission;
+    publicKey: PublicKey;
 
     /**
      * Creates a new MsgSignInitialTx object.
@@ -18,9 +18,9 @@ export class MsgSignInitialTx {
      * @param publicKey The public key.
      */
     constructor(redirectURL: string, permissions: FunctionCallPermission, publicKey: PublicKey) {
-        this._redirectURL = redirectURL;
-        this._permissions = permissions;
-        this._publicKey = publicKey;
+        this.redirectURL = redirectURL;
+        this.permissions = permissions;
+        this.publicKey = publicKey;
     }
 
     /**
@@ -52,34 +52,10 @@ export class MsgSignInitialTx {
      */
     toURL(url: string): string {
         const urlObj = new URL(url);
-        urlObj.searchParams.set("redirectURL", this._redirectURL);
-        urlObj.searchParams.set("permissions", PermissionsCodec.toURLParam(this._permissions));
-        urlObj.searchParams.set("publicKey", PublicKeyCodec.toURLParam(this._publicKey));
+        urlObj.searchParams.set("redirectURL", this.redirectURL);
+        urlObj.searchParams.set("permissions", PermissionsCodec.toURLParam(this.permissions));
+        urlObj.searchParams.set("publicKey", PublicKeyCodec.toURLParam(this.publicKey));
 
         return urlObj.toString();
-    }
-
-    /**
-     * Gets the redirect URL from the MsgSignInitialTx object.
-     * @returns The redirect URL.
-     */
-    get redirectURL(): string {
-        return this._redirectURL;
-    }
-
-    /**
-     * Gets the permissions from the MsgSignInitialTx object.
-     * @returns The permissions.
-     */
-    get permissions(): FunctionCallPermission {
-        return this._permissions;
-    }
-
-    /**
-     * Gets the public key from the MsgSignInitialTx object.
-     * @returns The public key.
-     */
-    get publicKey(): PublicKey {
-        return this._publicKey;
     }
 }

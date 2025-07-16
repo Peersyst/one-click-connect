@@ -1,8 +1,10 @@
 import { TransactionCodec } from "../../../../src/modules/common/codecs";
 import { CodecErrorCodes } from "../../../../src/modules/common/codecs/errors";
 import { CodecType } from "../../../../src/modules/common/codecs/types";
+import { TransactionMock } from "../../../mocks";
 
 describe("TransactionCodec", () => {
+    const mockTransaction = new TransactionMock();
     describe("fromURLParam", () => {
         it("should throw an error if the transaction is not provided", () => {
             expect(() => TransactionCodec.fromURLParam("")).toThrow(
@@ -26,13 +28,13 @@ describe("TransactionCodec", () => {
 
     describe("toURLParam", () => {
         it("should throw an error if the transaction is not provided", () => {
-            expect(() => TransactionCodec.toURLParam(null)).toThrow(
+            expect(() => TransactionCodec.toURLParam(mockTransaction)).toThrow(
                 `${CodecType.TRANSACTION_CODEC}: ${CodecErrorCodes.ERROR_ENCODING_URL}`,
             );
         });
 
         it("should throw an error if the transaction is not valid", () => {
-            expect(() => TransactionCodec.toURLParam("invalid")).toThrow(
+            expect(() => TransactionCodec.toURLParam("invalid" as any)).toThrow(
                 `${CodecType.TRANSACTION_CODEC}: ${CodecErrorCodes.ERROR_ENCODING_URL}`,
             );
         });

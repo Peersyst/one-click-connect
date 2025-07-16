@@ -4,8 +4,6 @@ import { TransactionMock } from "../near";
 
 export const MsgFakSignGlobalMock = createGlobalMock(MsgFakSign.prototype, {
     toURL: new MethodMock("mockReturnValue", "mockURL"),
-    _transaction: new TransactionMock(),
-    transaction: new TransactionMock(),
 });
 
 export const MsgFakSignStaticGlobalMock = createGlobalMock(MsgFakSign, {

@@ -1,5 +1,5 @@
-import { Transaction } from "near-api-js/lib/transaction";
 import { SignInitialTxRequest } from "../../common/requests/sign-initial-tx.request";
+import { SignWithFakRequest } from "../../common";
 
 /**
  * @description Interface for a client.
@@ -20,10 +20,10 @@ export interface INearDAppClient {
 
     /**
      * @description Signs a transaction with the full access key.
-     * @param transaction The transaction to sign.
+     * @param request The request to sign the transaction for.
      * @returns The signed transaction.
      */
-    requestSignWithFullAccessKey(transaction: Transaction): string;
+    requestSignWithFullAccessKey(request: SignWithFakRequest): string;
 
     /**
      * @description Signs out the user.

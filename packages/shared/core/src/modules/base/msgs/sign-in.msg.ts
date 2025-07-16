@@ -9,8 +9,8 @@ import { MsgError, MsgErrorCodes } from "../../common/msgs";
  * ```
  */
 export class MsgSignIn {
-    _accountID: string;
-    _signingURL: string;
+    accountID: string;
+    signingURL: string;
 
     /**
      * Creates a new MsgSignIn object.
@@ -18,8 +18,8 @@ export class MsgSignIn {
      * @param signingURL The signing URL to use.
      */
     constructor(accountID: string, signingURL: string) {
-        this._accountID = accountID;
-        this._signingURL = signingURL;
+        this.accountID = accountID;
+        this.signingURL = signingURL;
     }
 
     /**
@@ -46,24 +46,8 @@ export class MsgSignIn {
      */
     toURL(url: string): string {
         const urlObj = new URL(url);
-        urlObj.searchParams.set("accountID", this._accountID);
-        urlObj.searchParams.set("signingURL", this._signingURL);
+        urlObj.searchParams.set("accountID", this.accountID);
+        urlObj.searchParams.set("signingURL", this.signingURL);
         return urlObj.toString();
-    }
-
-    /**
-     * Gets the signing URL from the MsgSignIn object.
-     * @returns The signing URL.
-     */
-    get signingURL(): string {
-        return this._signingURL;
-    }
-
-    /**
-     * Gets the account ID from the MsgSignIn object.
-     * @returns The account ID.
-     */
-    get accountID(): string {
-        return this._accountID;
     }
 }

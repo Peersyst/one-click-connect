@@ -1,18 +1,17 @@
 import { PermissionsCodec } from "../../../../src/modules/common/codecs";
+import { FunctionCallPermissionMock } from "../../../mocks";
 
 describe("PermissionsCodec", () => {
-    const mockPermissions = {
-        functionCall: {
-            receiverId: "mockReceiverId",
-            methodName: "mockMethodName",
-            args: "mockArgs",
-        },
-    };
+    const mockPermissions = new FunctionCallPermissionMock({
+        receiverId: "mockReceiverId",
+        methodNames: ["mockMethodName"],
+        allowance: BigInt(0),
+    });
 
     describe("fromURLParam", () => {
         it("should return a permissions object", () => {
             const permissions = PermissionsCodec.fromURLParam(
-                "eyJmdW5jdGlvbkNhbGwiOnsicmVjZWl2ZXJJZCI6Im1vY2tSZWNlaXZlcklkIiwibWV0aG9kTmFtZSI6Im1vY2tNZXRob2ROYW1lIiwiYXJncyI6Im1vY2tBcmdzIn19",
+                "eyJhbGxvd2FuY2UiOiIwIiwibWV0aG9kTmFtZXMiOlsibW9ja01ldGhvZE5hbWUiXSwicmVjZWl2ZXJJZCI6Im1vY2tSZWNlaXZlcklkIn0=",
             );
             expect(permissions).toEqual(mockPermissions);
         });
@@ -22,7 +21,7 @@ describe("PermissionsCodec", () => {
         it("should return a URL", () => {
             const url = PermissionsCodec.toURLParam(mockPermissions);
             expect(url).toEqual(
-                "eyJmdW5jdGlvbkNhbGwiOnsicmVjZWl2ZXJJZCI6Im1vY2tSZWNlaXZlcklkIiwibWV0aG9kTmFtZSI6Im1vY2tNZXRob2ROYW1lIiwiYXJncyI6Im1vY2tBcmdzIn19",
+                "eyJhbGxvd2FuY2UiOiIwIiwibWV0aG9kTmFtZXMiOlsibW9ja01ldGhvZE5hbWUiXSwicmVjZWl2ZXJJZCI6Im1vY2tSZWNlaXZlcklkIn0=",
             );
         });
     });

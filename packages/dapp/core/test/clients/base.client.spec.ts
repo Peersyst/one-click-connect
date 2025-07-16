@@ -1,7 +1,13 @@
 import { NearDAppClient, NearDAppClientConfig } from "../../src/clients";
 import { ClientErrorCodes } from "../../src/common/client/errors";
 import { AccountServiceMock } from "../mocks/account/account.service.mock";
-import { MsgFakSignGlobalMock, MsgSignInitialTxGlobalMock, KeyPairMock, TransactionMock } from "@one-click-connect/core/mocks";
+import {
+    MsgFakSignGlobalMock,
+    MsgSignInitialTxGlobalMock,
+    KeyPairMock,
+    TransactionMock,
+    FunctionCallPermissionMock,
+} from "@one-click-connect/core/mocks";
 
 describe("NearDAppClient", () => {
     let client: NearDAppClient<NearDAppClientConfig>;
@@ -9,6 +15,8 @@ describe("NearDAppClient", () => {
     const accountService = new AccountServiceMock();
     const msgSignInitialTxGlobalMock = new MsgSignInitialTxGlobalMock();
     const msgFakSignGlobalMock = new MsgFakSignGlobalMock();
+
+    const mockPermissions = new FunctionCallPermissionMock();
 
     beforeEach(() => {
         client = new NearDAppClient({ redirectURL: "https://example.com" }, accountService);
@@ -74,7 +82,7 @@ describe("NearDAppClient", () => {
                 client.requestSignInitialTx({
                     accountID: mockAccountID,
                     signingURL: mockSigningURL,
-                    permissions: [],
+                    permissions: mockPermissions,
                 }),
             ).toThrow(ClientErrorCodes.ACCOUNT_ALREADY_EXISTS);
         });
@@ -87,7 +95,7 @@ describe("NearDAppClient", () => {
                 client.requestSignInitialTx({
                     accountID: mockAccountID,
                     signingURL: mockSigningURL,
-                    permissions: [],
+                    permissions: mockPermissions,
                 }),
             ).toThrow(ClientErrorCodes.REDIRECT_URL_NOT_SET);
         });
@@ -102,7 +110,7 @@ describe("NearDAppClient", () => {
             const url = client.requestSignInitialTx({
                 accountID: mockAccountID,
                 signingURL: mockSigningURL,
-                permissions: [],
+                permissions: mockPermissions,
             });
 
             expect(accountService.getAccount).toHaveBeenCalledWith(mockAccountID);
@@ -121,7 +129,7 @@ describe("NearDAppClient", () => {
                 client.requestSignInitialTx({
                     accountID: mockAccountID,
                     signingURL: mockSigningURL,
-                    permissions: [],
+                    permissions: mockPermissions,
                 }),
             ).toThrow(expectedError);
         });

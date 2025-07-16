@@ -1,6 +1,7 @@
 import { PublicKey } from "near-api-js/lib/utils";
 import { useNearWallet } from "../providers/NearWalletProvider";
 import { FunctionCallPermission, Transaction } from "near-api-js/lib/transaction";
+import { useMemo } from "react";
 
 export type UseNearOCCRequestResult =
     | {
@@ -29,27 +30,29 @@ export type UseNearOCCRequestResult =
 export function useNearOCCRequest(): UseNearOCCRequestResult {
     const { client } = useNearWallet();
 
-    try {
-        const { permissions, redirectURL, publicKey } = client.parseSignInitialTxRequest(window.location.href);
-        return {
-            isInitialTxRequest: true,
-            isFullAccessKeyRequest: false,
-            data: { permissions, redirectURL, publicKey },
-        };
-    } catch (error: unknown) {
-        if (error instanceof Error && error.message === "INVALID_URL") {
-            const { transaction, redirectURL } = client.parseFullAccessKeyRequest(window.location.href);
+    return useMemo(() => {
+        try {
+            const { permissions, redirectURL, publicKey } = client.parseSignInitialTxRequest(window.location.href);
+            return {
+                isInitialTxRequest: true,
+                isFullAccessKeyRequest: false,
+                data: { permissions, redirectURL, publicKey },
+            };
+        } catch (error: unknown) {
+            if (error instanceof Error && error.message === "INVALID_URL") {
+                const { transaction, redirectURL } = client.parseFullAccessKeyRequest(window.location.href);
+                return {
+                    isInitialTxRequest: false,
+                    isFullAccessKeyRequest: true,
+                    data: { transaction, redirectURL },
+                };
+            }
+
             return {
                 isInitialTxRequest: false,
-                isFullAccessKeyRequest: true,
-                data: { transaction, redirectURL },
+                isFullAccessKeyRequest: false,
+                data: undefined,
             };
         }
-
-        return {
-            isInitialTxRequest: false,
-            isFullAccessKeyRequest: false,
-            data: undefined,
-        };
-    }
+    }, [client]);
 }

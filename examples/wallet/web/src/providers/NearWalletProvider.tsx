@@ -10,7 +10,7 @@ const NearDAppContext = createContext<NearDAppContextType | null>(null);
 export const useNearWallet = () => {
     const context = useContext(NearDAppContext);
     if (!context) {
-        throw new Error("useNearDApp must be used within a NearDAppProvider");
+        throw new Error("useNearWallet must be used within a NearWalletProvider");
     }
     return context;
 };

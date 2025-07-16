@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./Home.css";
+import { useNearWallet } from "../providers/NearWalletProvider";
 
 // Placeholder data - replace with actual data fetching
 const DAPP_DATA = [
@@ -13,14 +14,13 @@ const DAPP_DATA = [
 const Home: React.FC = () => {
     const [accountId, setAccountId] = useState<string | null>(null);
     const [balance, setBalance] = useState<string | null>(null);
+    const { client } = useNearWallet();
 
     useEffect(() => {
         // Placeholder data initialization - replace with actual logic
         setAccountId("mywallet.near");
         setBalance("100.50 NEAR");
     }, []);
-
-    const signingURL = `${window.location.origin}/sign`;
 
     return (
         <div className="page-container home-page">
@@ -42,24 +42,22 @@ const Home: React.FC = () => {
 
             <section className="dapps-section">
                 <h2>DApps</h2>
-                <ul className="dapps-list">
-                    {DAPP_DATA.map((dapp, index) => {
-                        const dappUrlWithParams = new URL(dapp.url);
-                        if (accountId) {
-                            dappUrlWithParams.searchParams.set("accountID", accountId);
-                        }
-                        dappUrlWithParams.searchParams.set("signingURL", signingURL);
+                {accountId && (
+                    <ul className="dapps-list">
+                        {DAPP_DATA.map((dapp, index) => {
+                            const dappUrl = client.requestSignIn(accountId, dapp.url);
 
-                        return (
-                            <li key={index} className="dapp-item">
-                                <a href={dappUrlWithParams.toString()} target="_blank" rel="noopener noreferrer" className="dapp-link">
-                                    <img src={dapp.imageUrl} alt={`${dapp.name} logo`} className="dapp-logo" />
-                                    <span className="dapp-name">{dapp.name}</span>
-                                </a>
-                            </li>
-                        );
-                    })}
-                </ul>
+                            return (
+                                <li key={index} className="dapp-item">
+                                    <a href={dappUrl} target="_blank" rel="noopener noreferrer" className="dapp-link">
+                                        <img src={dapp.imageUrl} alt={`${dapp.name} logo`} className="dapp-logo" />
+                                        <span className="dapp-name">{dapp.name}</span>
+                                    </a>
+                                </li>
+                            );
+                        })}
+                    </ul>
+                )}
             </section>
         </div>
     );

@@ -1,28 +1,28 @@
 import React, { createContext, useContext, useMemo } from "react";
-import { ClientFactory, Client } from "@one-click-connect/browser-dapp";
+import { WalletClient } from "@one-click-connect/wallet";
 
 interface NearDAppContextType {
-    client: Client;
+    client: WalletClient;
 }
 
 const NearDAppContext = createContext<NearDAppContextType | null>(null);
 
-export const useNearDApp = () => {
+export const useNearWallet = () => {
     const context = useContext(NearDAppContext);
     if (!context) {
-        throw new Error("useNearDApp must be used within a NearDAppProvider");
+        throw new Error("useNearWallet must be used within a NearWalletProvider");
     }
     return context;
 };
 
-interface NearDAppProviderProps {
+interface NearWalletProviderProps {
     children: React.ReactNode;
 }
 
-export const NearDAppProvider: React.FC<NearDAppProviderProps> = ({ children }) => {
+export const NearWalletProvider: React.FC<NearWalletProviderProps> = ({ children }) => {
     const client = useMemo(() => {
-        return ClientFactory.newClient({
-            redirectURL: window.location.origin + "/main",
+        return new WalletClient({
+            signingURL: window.location.origin + "/sign",
         });
     }, []);
 

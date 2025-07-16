@@ -1,5 +1,5 @@
 import { createGlobalMock, MethodMock } from "@shared/test";
-import { NearDAppClient } from "@one-click-connect/dapp-core/clients";
+import { NearDAppClient } from "@one-click-connect/dapp-core";
 
 export const ClientGlobalMock = createGlobalMock(NearDAppClient, {
     requestSignInitialTx: new MethodMock("mockReturnValue", "requestSignInitialTxUrl"),

@@ -52,11 +52,17 @@ importers:
         version: 7.5.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       vite-plugin-node-polyfills:
         specifier: ^0.23.0
-        version: 0.23.0(rollup@4.40.0)(vite@6.3.0(@types/node@24.0.3)(jiti@1.21.7)(terser@5.39.0)(yaml@2.7.0))
+        version: 0.23.0(rollup@4.40.0)(vite@6.3.0(@types/node@24.0.14)(jiti@1.21.7)(terser@5.39.0)(yaml@2.7.0))
     devDependencies:
       '@eslint/js':
         specifier: ^8.57.0
         version: 8.57.1
+      '@originjs/vite-plugin-commonjs':
+        specifier: ^1.0.3
+        version: 1.0.3
+      '@shared/tsconfig':
+        specifier: workspace:*
+        version: link:../../../../packages/shared/tsconfig
       '@types/react':
         specifier: ^19.0.10
         version: 19.1.0
@@ -65,7 +71,7 @@ importers:
         version: 19.1.2(@types/react@19.1.0)
       '@vitejs/plugin-react':
         specifier: ^4.3.4
-        version: 4.4.0(vite@6.3.0(@types/node@24.0.3)(jiti@1.21.7)(terser@5.39.0)(yaml@2.7.0))
+        version: 4.4.0(vite@6.3.0(@types/node@24.0.14)(jiti@1.21.7)(terser@5.39.0)(yaml@2.7.0))
       eslint:
         specifier: ^8.57.0
         version: 8.57.1
@@ -86,10 +92,13 @@ importers:
         version: 8.30.1(eslint@8.57.1)(typescript@5.7.3)
       vite:
         specifier: ^6.3.0
-        version: 6.3.0(@types/node@24.0.3)(jiti@1.21.7)(terser@5.39.0)(yaml@2.7.0)
+        version: 6.3.0(@types/node@24.0.14)(jiti@1.21.7)(terser@5.39.0)(yaml@2.7.0)
 
   examples/wallet/web:
     dependencies:
+      '@one-click-connect/wallet':
+        specifier: workspace:*
+        version: link:../../../packages/wallet/vanilla
       bignumber.js:
         specifier: ^9.2.1
         version: 9.2.1
@@ -110,11 +119,14 @@ importers:
         version: 7.5.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       vite-plugin-node-polyfills:
         specifier: ^0.23.0
-        version: 0.23.0(rollup@4.40.0)(vite@6.3.0(@types/node@24.0.3)(jiti@1.21.7)(terser@5.39.0)(yaml@2.7.0))
+        version: 0.23.0(rollup@4.40.0)(vite@6.3.0(@types/node@24.0.14)(jiti@1.21.7)(terser@5.39.0)(yaml@2.7.0))
     devDependencies:
       '@eslint/js':
         specifier: ^9.22.0
         version: 9.24.0
+      '@originjs/vite-plugin-commonjs':
+        specifier: ^1.0.3
+        version: 1.0.3
       '@types/react':
         specifier: ^19.0.10
         version: 19.1.0
@@ -123,7 +135,7 @@ importers:
         version: 19.1.2(@types/react@19.1.0)
       '@vitejs/plugin-react':
         specifier: ^4.3.4
-        version: 4.4.0(vite@6.3.0(@types/node@24.0.3)(jiti@1.21.7)(terser@5.39.0)(yaml@2.7.0))
+        version: 4.4.0(vite@6.3.0(@types/node@24.0.14)(jiti@1.21.7)(terser@5.39.0)(yaml@2.7.0))
       eslint:
         specifier: ^9.22.0
         version: 9.24.0(jiti@1.21.7)
@@ -144,7 +156,7 @@ importers:
         version: 8.30.1(eslint@9.24.0(jiti@1.21.7))(typescript@5.7.3)
       vite:
         specifier: ^6.3.0
-        version: 6.3.0(@types/node@24.0.3)(jiti@1.21.7)(terser@5.39.0)(yaml@2.7.0)
+        version: 6.3.0(@types/node@24.0.14)(jiti@1.21.7)(terser@5.39.0)(yaml@2.7.0)
 
   packages/dapp/browser:
     dependencies:
@@ -168,19 +180,29 @@ importers:
         specifier: workspace:*
         version: link:../../shared/tsconfig
       '@types/jest':
-        specifier: ^29.5.12
+        specifier: ^29.5.14
         version: 29.5.14
       '@types/node':
-        specifier: ^22.13.13
+        specifier: ^22.15.19
         version: 22.15.19
       jest:
         specifier: ^29.7.0
         version: 29.7.0(@types/node@22.15.19)(babel-plugin-macros@3.1.0)(ts-node@10.9.2(@types/node@22.15.19)(typescript@5.8.3))
       ts-jest:
         specifier: ^29.1.4
-        version: 29.2.5(@babel/core@7.26.10)(@jest/transform@29.7.0)(@jest/types@29.6.3)(babel-jest@29.7.0(@babel/core@7.26.10))(esbuild@0.24.2)(jest@29.7.0(@types/node@22.15.19)(babel-plugin-macros@3.1.0)(ts-node@10.9.2(@types/node@22.15.19)(typescript@5.8.3)))(typescript@5.8.3)
+        version: 29.2.5(@babel/core@7.26.0)(@jest/transform@29.7.0)(@jest/types@29.6.3)(babel-jest@29.7.0(@babel/core@7.26.0))(esbuild@0.24.2)(jest@29.7.0(@types/node@22.15.19)(babel-plugin-macros@3.1.0)(ts-node@10.9.2(@types/node@22.15.19)(typescript@5.8.3)))(typescript@5.8.3)
+      tsup:
+        specifier: ^8.0.0
+        version: 8.3.5(jiti@1.21.7)(postcss@8.5.3)(typescript@5.8.3)(yaml@2.7.0)
+      typescript:
+        specifier: ^5.7.3
+        version: 5.8.3
 
   packages/dapp/core:
+    dependencies:
+      near-api-js:
+        specifier: ^5.1.1
+        version: 5.1.1
     devDependencies:
       '@one-click-connect/core':
         specifier: workspace:*
@@ -203,12 +225,12 @@ importers:
       jest:
         specifier: ^29.7.0
         version: 29.7.0(@types/node@22.14.1)(babel-plugin-macros@3.1.0)(ts-node@10.9.2(@types/node@22.14.1)(typescript@5.8.3))
-      near-api-js:
-        specifier: ^5.1.1
-        version: 5.1.1
       ts-jest:
         specifier: ^29.1.4
         version: 29.2.5(@babel/core@7.26.10)(@jest/transform@29.7.0)(@jest/types@29.6.3)(babel-jest@29.7.0(@babel/core@7.26.10))(esbuild@0.24.2)(jest@29.7.0(@types/node@22.14.1)(babel-plugin-macros@3.1.0)(ts-node@10.9.2(@types/node@22.14.1)(typescript@5.8.3)))(typescript@5.8.3)
+      typescript:
+        specifier: ^5.7.3
+        version: 5.8.3
 
   packages/shared/core:
     devDependencies:
@@ -236,6 +258,9 @@ importers:
       ts-jest:
         specifier: ^29.2.5
         version: 29.2.5(@babel/core@7.26.10)(@jest/transform@29.7.0)(@jest/types@29.6.3)(babel-jest@29.7.0(@babel/core@7.26.10))(esbuild@0.24.2)(jest@29.7.0(@types/node@22.14.0)(babel-plugin-macros@3.1.0)(ts-node@10.9.2(@types/node@22.14.0)(typescript@5.8.3)))(typescript@5.8.3)
+      typescript:
+        specifier: ^5.8.2
+        version: 5.8.3
 
   packages/shared/eslint:
     devDependencies:
@@ -289,10 +314,10 @@ importers:
         version: 29.5.14
       jest:
         specifier: ^29.7.0
-        version: 29.7.0(@types/node@22.15.19)(babel-plugin-macros@3.1.0)(ts-node@10.9.2(@types/node@22.15.19)(typescript@5.8.3))
+        version: 29.7.0(@types/node@24.0.14)(babel-plugin-macros@3.1.0)(ts-node@10.9.2(@types/node@24.0.14)(typescript@5.8.3))
       ts-jest:
         specifier: ^29.2.5
-        version: 29.2.5(@babel/core@7.26.0)(@jest/transform@29.7.0)(@jest/types@29.6.3)(babel-jest@29.7.0(@babel/core@7.26.0))(esbuild@0.24.2)(jest@29.7.0(@types/node@22.15.19)(babel-plugin-macros@3.1.0)(ts-node@10.9.2(@types/node@22.15.19)(typescript@5.8.3)))(typescript@5.8.3)
+        version: 29.2.5(@babel/core@7.26.10)(@jest/transform@29.7.0)(@jest/types@29.6.3)(babel-jest@29.7.0(@babel/core@7.26.10))(esbuild@0.24.2)(jest@29.7.0(@types/node@24.0.14)(babel-plugin-macros@3.1.0)(ts-node@10.9.2(@types/node@24.0.14)(typescript@5.8.3)))(typescript@5.8.3)
       typescript:
         specifier: latest
         version: 5.8.3
@@ -309,7 +334,7 @@ importers:
         version: link:../tsconfig
       '@types/node':
         specifier: latest
-        version: 24.0.3
+        version: 24.0.14
       rimraf:
         specifier: ^5.0.0
         version: 5.0.10
@@ -349,6 +374,9 @@ importers:
       ts-jest:
         specifier: ^29.2.5
         version: 29.2.5(@babel/core@7.26.10)(@jest/transform@29.7.0)(@jest/types@29.6.3)(babel-jest@29.7.0(@babel/core@7.26.10))(esbuild@0.24.2)(jest@29.7.0(@types/node@22.14.1)(babel-plugin-macros@3.1.0)(ts-node@10.9.2(@types/node@22.14.1)(typescript@5.8.3)))(typescript@5.8.3)
+      typescript:
+        specifier: ^5.8.2
+        version: 5.8.3
 
   packages/wallet/vanilla:
     dependencies:
@@ -380,6 +408,12 @@ importers:
       ts-jest:
         specifier: ^29.2.5
         version: 29.2.5(@babel/core@7.26.10)(@jest/transform@29.7.0)(@jest/types@29.6.3)(babel-jest@29.7.0(@babel/core@7.26.10))(esbuild@0.24.2)(jest@29.7.0(@types/node@22.15.17)(babel-plugin-macros@3.1.0)(ts-node@10.9.2(@types/node@22.15.17)(typescript@5.8.3)))(typescript@5.8.3)
+      tsup:
+        specifier: ^8.0.0
+        version: 8.3.5(jiti@1.21.7)(postcss@8.5.3)(typescript@5.8.3)(yaml@2.7.0)
+      typescript:
+        specifier: ^5.7.3
+        version: 5.8.3
 
 packages:
 
@@ -785,6 +819,12 @@ packages:
     resolution: {integrity: sha512-bBYCv9obgW2cBP+2ZWfjYTU+f5cxRoGGQ5SeDbYdFCAZpYWrfjjfYwvUpP8MlKbP0nwZ5gyOU/0aUzZ5HWPuvQ==}
     engines: {node: '>=18'}
     cpu: [ia32]
+    os: [linux]
+
+  '@esbuild/linux-loong64@0.14.54':
+    resolution: {integrity: sha512-bZBrLAIX1kpWelV0XemxBZllyRmM6vgFQQG2GdNb+r3Fkp0FOh1NJSvekXDs7jq70k4euu1cryLMfU+mTXlEpw==}
+    engines: {node: '>=12'}
+    cpu: [loong64]
     os: [linux]
 
   '@esbuild/linux-loong64@0.24.2':
@@ -1203,6 +1243,9 @@ packages:
     resolution: {integrity: sha512-nn5ozdjYQpUCZlWGuxcJY/KpxkWQs4DcbMCmKojjyrYDEAGy4Ce19NN4v5MduafTwJlbKc99UA8YhSVqq9yPZA==}
     engines: {node: '>=12.4.0'}
 
+  '@originjs/vite-plugin-commonjs@1.0.3':
+    resolution: {integrity: sha512-KuEXeGPptM2lyxdIEJ4R11+5ztipHoE7hy8ClZt3PYaOVQ/pyngd2alaSrPnwyFeOW1UagRBaQ752aA1dTMdOQ==}
+
   '@pkgjs/parseargs@0.11.0':
     resolution: {integrity: sha512-+1VkjdD0QBLPodGrJUeqarH8VAIvQODIbwh9XpP5Syisf7YoQgsJKPNFoqqLQlu+VQ/tVSshMR6loPMn8U+dPg==}
     engines: {node: '>=14'}
@@ -1513,8 +1556,8 @@ packages:
   '@types/node@22.15.19':
     resolution: {integrity: sha512-3vMNr4TzNQyjHcRZadojpRaD9Ofr6LsonZAoQ+HMUa/9ORTPoxVIw0e0mpqWpdjj8xybyCM+oKOUH2vwFu/oEw==}
 
-  '@types/node@24.0.3':
-    resolution: {integrity: sha512-R4I/kzCYAdRLzfiCabn9hxWfbuHS573x+r0dJMkkzThEa7pbrcDWK+9zu3e7aBOouf+rQAciqPFMnxwr0aWgKg==}
+  '@types/node@24.0.14':
+    resolution: {integrity: sha512-4zXMWD91vBLGRtHK3YbIoFMia+1nqEz72coM42C5ETjnNCa/heoj7NT1G67iAfOqMmcfhuCZ4uNpyz8EjlAejw==}
 
   '@types/parse-json@4.0.2':
     resolution: {integrity: sha512-dISoDXWWQwUquiKsyZ4Ng+HX2KsPL7LyHKHQwgGFEA3IaKac4Obd+h2a/a6waisAoepJlBcx9paWqjA8/HVjCw==}
@@ -2184,6 +2227,131 @@ packages:
   es-to-primitive@1.3.0:
     resolution: {integrity: sha512-w+5mJ3GuFL+NjVtJlvydShqE1eN3h3PbI7/5LAsYJP/2qtuMXjfL2LpHSRqo4b4eSF5K/DH1JXKUAHSB2UW50g==}
     engines: {node: '>= 0.4'}
+
+  esbuild-android-64@0.14.54:
+    resolution: {integrity: sha512-Tz2++Aqqz0rJ7kYBfz+iqyE3QMycD4vk7LBRyWaAVFgFtQ/O8EJOnVmTOiDWYZ/uYzB4kvP+bqejYdVKzE5lAQ==}
+    engines: {node: '>=12'}
+    cpu: [x64]
+    os: [android]
+
+  esbuild-android-arm64@0.14.54:
+    resolution: {integrity: sha512-F9E+/QDi9sSkLaClO8SOV6etqPd+5DgJje1F9lOWoNncDdOBL2YF59IhsWATSt0TLZbYCf3pNlTHvVV5VfHdvg==}
+    engines: {node: '>=12'}
+    cpu: [arm64]
+    os: [android]
+
+  esbuild-darwin-64@0.14.54:
+    resolution: {integrity: sha512-jtdKWV3nBviOd5v4hOpkVmpxsBy90CGzebpbO9beiqUYVMBtSc0AL9zGftFuBon7PNDcdvNCEuQqw2x0wP9yug==}
+    engines: {node: '>=12'}
+    cpu: [x64]
+    os: [darwin]
+
+  esbuild-darwin-arm64@0.14.54:
+    resolution: {integrity: sha512-OPafJHD2oUPyvJMrsCvDGkRrVCar5aVyHfWGQzY1dWnzErjrDuSETxwA2HSsyg2jORLY8yBfzc1MIpUkXlctmw==}
+    engines: {node: '>=12'}
+    cpu: [arm64]
+    os: [darwin]
+
+  esbuild-freebsd-64@0.14.54:
+    resolution: {integrity: sha512-OKwd4gmwHqOTp4mOGZKe/XUlbDJ4Q9TjX0hMPIDBUWWu/kwhBAudJdBoxnjNf9ocIB6GN6CPowYpR/hRCbSYAg==}
+    engines: {node: '>=12'}
+    cpu: [x64]
+    os: [freebsd]
+
+  esbuild-freebsd-arm64@0.14.54:
+    resolution: {integrity: sha512-sFwueGr7OvIFiQT6WeG0jRLjkjdqWWSrfbVwZp8iMP+8UHEHRBvlaxL6IuKNDwAozNUmbb8nIMXa7oAOARGs1Q==}
+    engines: {node: '>=12'}
+    cpu: [arm64]
+    os: [freebsd]
+
+  esbuild-linux-32@0.14.54:
+    resolution: {integrity: sha512-1ZuY+JDI//WmklKlBgJnglpUL1owm2OX+8E1syCD6UAxcMM/XoWd76OHSjl/0MR0LisSAXDqgjT3uJqT67O3qw==}
+    engines: {node: '>=12'}
+    cpu: [ia32]
+    os: [linux]
+
+  esbuild-linux-64@0.14.54:
+    resolution: {integrity: sha512-EgjAgH5HwTbtNsTqQOXWApBaPVdDn7XcK+/PtJwZLT1UmpLoznPd8c5CxqsH2dQK3j05YsB3L17T8vE7cp4cCg==}
+    engines: {node: '>=12'}
+    cpu: [x64]
+    os: [linux]
+
+  esbuild-linux-arm64@0.14.54:
+    resolution: {integrity: sha512-WL71L+0Rwv+Gv/HTmxTEmpv0UgmxYa5ftZILVi2QmZBgX3q7+tDeOQNqGtdXSdsL8TQi1vIaVFHUPDe0O0kdig==}
+    engines: {node: '>=12'}
+    cpu: [arm64]
+    os: [linux]
+
+  esbuild-linux-arm@0.14.54:
+    resolution: {integrity: sha512-qqz/SjemQhVMTnvcLGoLOdFpCYbz4v4fUo+TfsWG+1aOu70/80RV6bgNpR2JCrppV2moUQkww+6bWxXRL9YMGw==}
+    engines: {node: '>=12'}
+    cpu: [arm]
+    os: [linux]
+
+  esbuild-linux-mips64le@0.14.54:
+    resolution: {integrity: sha512-qTHGQB8D1etd0u1+sB6p0ikLKRVuCWhYQhAHRPkO+OF3I/iSlTKNNS0Lh2Oc0g0UFGguaFZZiPJdJey3AGpAlw==}
+    engines: {node: '>=12'}
+    cpu: [mips64el]
+    os: [linux]
+
+  esbuild-linux-ppc64le@0.14.54:
+    resolution: {integrity: sha512-j3OMlzHiqwZBDPRCDFKcx595XVfOfOnv68Ax3U4UKZ3MTYQB5Yz3X1mn5GnodEVYzhtZgxEBidLWeIs8FDSfrQ==}
+    engines: {node: '>=12'}
+    cpu: [ppc64]
+    os: [linux]
+
+  esbuild-linux-riscv64@0.14.54:
+    resolution: {integrity: sha512-y7Vt7Wl9dkOGZjxQZnDAqqn+XOqFD7IMWiewY5SPlNlzMX39ocPQlOaoxvT4FllA5viyV26/QzHtvTjVNOxHZg==}
+    engines: {node: '>=12'}
+    cpu: [riscv64]
+    os: [linux]
+
+  esbuild-linux-s390x@0.14.54:
+    resolution: {integrity: sha512-zaHpW9dziAsi7lRcyV4r8dhfG1qBidQWUXweUjnw+lliChJqQr+6XD71K41oEIC3Mx1KStovEmlzm+MkGZHnHA==}
+    engines: {node: '>=12'}
+    cpu: [s390x]
+    os: [linux]
+
+  esbuild-netbsd-64@0.14.54:
+    resolution: {integrity: sha512-PR01lmIMnfJTgeU9VJTDY9ZerDWVFIUzAtJuDHwwceppW7cQWjBBqP48NdeRtoP04/AtO9a7w3viI+PIDr6d+w==}
+    engines: {node: '>=12'}
+    cpu: [x64]
+    os: [netbsd]
+
+  esbuild-openbsd-64@0.14.54:
+    resolution: {integrity: sha512-Qyk7ikT2o7Wu76UsvvDS5q0amJvmRzDyVlL0qf5VLsLchjCa1+IAvd8kTBgUxD7VBUUVgItLkk609ZHUc1oCaw==}
+    engines: {node: '>=12'}
+    cpu: [x64]
+    os: [openbsd]
+
+  esbuild-sunos-64@0.14.54:
+    resolution: {integrity: sha512-28GZ24KmMSeKi5ueWzMcco6EBHStL3B6ubM7M51RmPwXQGLe0teBGJocmWhgwccA1GeFXqxzILIxXpHbl9Q/Kw==}
+    engines: {node: '>=12'}
+    cpu: [x64]
+    os: [sunos]
+
+  esbuild-windows-32@0.14.54:
+    resolution: {integrity: sha512-T+rdZW19ql9MjS7pixmZYVObd9G7kcaZo+sETqNH4RCkuuYSuv9AGHUVnPoP9hhuE1WM1ZimHz1CIBHBboLU7w==}
+    engines: {node: '>=12'}
+    cpu: [ia32]
+    os: [win32]
+
+  esbuild-windows-64@0.14.54:
+    resolution: {integrity: sha512-AoHTRBUuYwXtZhjXZbA1pGfTo8cJo3vZIcWGLiUcTNgHpJJMC1rVA44ZereBHMJtotyN71S8Qw0npiCIkW96cQ==}
+    engines: {node: '>=12'}
+    cpu: [x64]
+    os: [win32]
+
+  esbuild-windows-arm64@0.14.54:
+    resolution: {integrity: sha512-M0kuUvXhot1zOISQGXwWn6YtS+Y/1RT9WrVIOywZnJHo3jCDyewAc79aKNQWFCQm+xNHVTq9h8dZKvygoXQQRg==}
+    engines: {node: '>=12'}
+    cpu: [arm64]
+    os: [win32]
+
+  esbuild@0.14.54:
+    resolution: {integrity: sha512-Cy9llcy8DvET5uznocPyqL3BFRrFXSVqbgpMJ9Wz8oVjZlh/zUSNbPRbov0VX7VxN2JH1Oa0uNxZ7eLRb62pJA==}
+    engines: {node: '>=12'}
+    hasBin: true
 
   esbuild@0.24.2:
     resolution: {integrity: sha512-+9egpBW8I3CD5XPe0n6BfT5fxLzxrlDzqydF3aviG+9ni1lDC/OvMHcxqEFV0+LANZG5R1bFMWfUrjVsdwxJvA==}
@@ -4894,6 +5062,9 @@ snapshots:
   '@esbuild/linux-ia32@0.25.2':
     optional: true
 
+  '@esbuild/linux-loong64@0.14.54':
+    optional: true
+
   '@esbuild/linux-loong64@0.24.2':
     optional: true
 
@@ -5238,6 +5409,41 @@ snapshots:
       - supports-color
       - ts-node
 
+  '@jest/core@29.7.0(babel-plugin-macros@3.1.0)(ts-node@10.9.2(@types/node@24.0.14)(typescript@5.8.3))':
+    dependencies:
+      '@jest/console': 29.7.0
+      '@jest/reporters': 29.7.0
+      '@jest/test-result': 29.7.0
+      '@jest/transform': 29.7.0
+      '@jest/types': 29.6.3
+      '@types/node': 22.15.19
+      ansi-escapes: 4.3.2
+      chalk: 4.1.2
+      ci-info: 3.9.0
+      exit: 0.1.2
+      graceful-fs: 4.2.11
+      jest-changed-files: 29.7.0
+      jest-config: 29.7.0(@types/node@22.15.19)(babel-plugin-macros@3.1.0)(ts-node@10.9.2(@types/node@24.0.14)(typescript@5.8.3))
+      jest-haste-map: 29.7.0
+      jest-message-util: 29.7.0
+      jest-regex-util: 29.6.3
+      jest-resolve: 29.7.0
+      jest-resolve-dependencies: 29.7.0
+      jest-runner: 29.7.0
+      jest-runtime: 29.7.0
+      jest-snapshot: 29.7.0
+      jest-util: 29.7.0
+      jest-validate: 29.7.0
+      jest-watcher: 29.7.0
+      micromatch: 4.0.8
+      pretty-format: 29.7.0
+      slash: 3.0.0
+      strip-ansi: 6.0.1
+    transitivePeerDependencies:
+      - babel-plugin-macros
+      - supports-color
+      - ts-node
+
   '@jest/environment@29.7.0':
     dependencies:
       '@jest/fake-timers': 29.7.0
@@ -5514,6 +5720,10 @@ snapshots:
 
   '@nolyfill/is-core-module@1.0.39': {}
 
+  '@originjs/vite-plugin-commonjs@1.0.3':
+    dependencies:
+      esbuild: 0.14.54
+
   '@pkgjs/parseargs@0.11.0':
     optional: true
 
@@ -5754,7 +5964,7 @@ snapshots:
     dependencies:
       undici-types: 6.21.0
 
-  '@types/node@24.0.3':
+  '@types/node@24.0.14':
     dependencies:
       undici-types: 7.8.0
 
@@ -5984,14 +6194,14 @@ snapshots:
 
   '@ungap/structured-clone@1.2.1': {}
 
-  '@vitejs/plugin-react@4.4.0(vite@6.3.0(@types/node@24.0.3)(jiti@1.21.7)(terser@5.39.0)(yaml@2.7.0))':
+  '@vitejs/plugin-react@4.4.0(vite@6.3.0(@types/node@24.0.14)(jiti@1.21.7)(terser@5.39.0)(yaml@2.7.0))':
     dependencies:
       '@babel/core': 7.26.10
       '@babel/plugin-transform-react-jsx-self': 7.25.9(@babel/core@7.26.10)
       '@babel/plugin-transform-react-jsx-source': 7.25.9(@babel/core@7.26.10)
       '@types/babel__core': 7.20.5
       react-refresh: 0.17.0
-      vite: 6.3.0(@types/node@24.0.3)(jiti@1.21.7)(terser@5.39.0)(yaml@2.7.0)
+      vite: 6.3.0(@types/node@24.0.14)(jiti@1.21.7)(terser@5.39.0)(yaml@2.7.0)
     transitivePeerDependencies:
       - supports-color
 
@@ -6531,6 +6741,21 @@ snapshots:
       - supports-color
       - ts-node
 
+  create-jest@29.7.0(@types/node@24.0.14)(babel-plugin-macros@3.1.0)(ts-node@10.9.2(@types/node@24.0.14)(typescript@5.8.3)):
+    dependencies:
+      '@jest/types': 29.6.3
+      chalk: 4.1.2
+      exit: 0.1.2
+      graceful-fs: 4.2.11
+      jest-config: 29.7.0(@types/node@24.0.14)(babel-plugin-macros@3.1.0)(ts-node@10.9.2(@types/node@24.0.14)(typescript@5.8.3))
+      jest-util: 29.7.0
+      prompts: 2.4.2
+    transitivePeerDependencies:
+      - '@types/node'
+      - babel-plugin-macros
+      - supports-color
+      - ts-node
+
   create-require@1.1.1: {}
 
   cross-spawn@7.0.6:
@@ -6783,6 +7008,90 @@ snapshots:
       is-callable: 1.2.7
       is-date-object: 1.1.0
       is-symbol: 1.1.1
+
+  esbuild-android-64@0.14.54:
+    optional: true
+
+  esbuild-android-arm64@0.14.54:
+    optional: true
+
+  esbuild-darwin-64@0.14.54:
+    optional: true
+
+  esbuild-darwin-arm64@0.14.54:
+    optional: true
+
+  esbuild-freebsd-64@0.14.54:
+    optional: true
+
+  esbuild-freebsd-arm64@0.14.54:
+    optional: true
+
+  esbuild-linux-32@0.14.54:
+    optional: true
+
+  esbuild-linux-64@0.14.54:
+    optional: true
+
+  esbuild-linux-arm64@0.14.54:
+    optional: true
+
+  esbuild-linux-arm@0.14.54:
+    optional: true
+
+  esbuild-linux-mips64le@0.14.54:
+    optional: true
+
+  esbuild-linux-ppc64le@0.14.54:
+    optional: true
+
+  esbuild-linux-riscv64@0.14.54:
+    optional: true
+
+  esbuild-linux-s390x@0.14.54:
+    optional: true
+
+  esbuild-netbsd-64@0.14.54:
+    optional: true
+
+  esbuild-openbsd-64@0.14.54:
+    optional: true
+
+  esbuild-sunos-64@0.14.54:
+    optional: true
+
+  esbuild-windows-32@0.14.54:
+    optional: true
+
+  esbuild-windows-64@0.14.54:
+    optional: true
+
+  esbuild-windows-arm64@0.14.54:
+    optional: true
+
+  esbuild@0.14.54:
+    optionalDependencies:
+      '@esbuild/linux-loong64': 0.14.54
+      esbuild-android-64: 0.14.54
+      esbuild-android-arm64: 0.14.54
+      esbuild-darwin-64: 0.14.54
+      esbuild-darwin-arm64: 0.14.54
+      esbuild-freebsd-64: 0.14.54
+      esbuild-freebsd-arm64: 0.14.54
+      esbuild-linux-32: 0.14.54
+      esbuild-linux-64: 0.14.54
+      esbuild-linux-arm: 0.14.54
+      esbuild-linux-arm64: 0.14.54
+      esbuild-linux-mips64le: 0.14.54
+      esbuild-linux-ppc64le: 0.14.54
+      esbuild-linux-riscv64: 0.14.54
+      esbuild-linux-s390x: 0.14.54
+      esbuild-netbsd-64: 0.14.54
+      esbuild-openbsd-64: 0.14.54
+      esbuild-sunos-64: 0.14.54
+      esbuild-windows-32: 0.14.54
+      esbuild-windows-64: 0.14.54
+      esbuild-windows-arm64: 0.14.54
 
   esbuild@0.24.2:
     optionalDependencies:
@@ -7784,6 +8093,25 @@ snapshots:
       - supports-color
       - ts-node
 
+  jest-cli@29.7.0(@types/node@24.0.14)(babel-plugin-macros@3.1.0)(ts-node@10.9.2(@types/node@24.0.14)(typescript@5.8.3)):
+    dependencies:
+      '@jest/core': 29.7.0(babel-plugin-macros@3.1.0)(ts-node@10.9.2(@types/node@24.0.14)(typescript@5.8.3))
+      '@jest/test-result': 29.7.0
+      '@jest/types': 29.6.3
+      chalk: 4.1.2
+      create-jest: 29.7.0(@types/node@24.0.14)(babel-plugin-macros@3.1.0)(ts-node@10.9.2(@types/node@24.0.14)(typescript@5.8.3))
+      exit: 0.1.2
+      import-local: 3.2.0
+      jest-config: 29.7.0(@types/node@24.0.14)(babel-plugin-macros@3.1.0)(ts-node@10.9.2(@types/node@24.0.14)(typescript@5.8.3))
+      jest-util: 29.7.0
+      jest-validate: 29.7.0
+      yargs: 17.7.2
+    transitivePeerDependencies:
+      - '@types/node'
+      - babel-plugin-macros
+      - supports-color
+      - ts-node
+
   jest-config@29.7.0(@types/node@22.14.0)(babel-plugin-macros@3.1.0)(ts-node@10.9.2(@types/node@22.14.0)(typescript@5.8.3)):
     dependencies:
       '@babel/core': 7.26.0
@@ -7997,6 +8325,68 @@ snapshots:
     optionalDependencies:
       '@types/node': 22.15.19
       ts-node: 10.9.2(@types/node@22.15.19)(typescript@5.8.3)
+    transitivePeerDependencies:
+      - babel-plugin-macros
+      - supports-color
+
+  jest-config@29.7.0(@types/node@22.15.19)(babel-plugin-macros@3.1.0)(ts-node@10.9.2(@types/node@24.0.14)(typescript@5.8.3)):
+    dependencies:
+      '@babel/core': 7.26.0
+      '@jest/test-sequencer': 29.7.0
+      '@jest/types': 29.6.3
+      babel-jest: 29.7.0(@babel/core@7.26.0)
+      chalk: 4.1.2
+      ci-info: 3.9.0
+      deepmerge: 4.3.1
+      glob: 7.2.3
+      graceful-fs: 4.2.11
+      jest-circus: 29.7.0(babel-plugin-macros@3.1.0)
+      jest-environment-node: 29.7.0
+      jest-get-type: 29.6.3
+      jest-regex-util: 29.6.3
+      jest-resolve: 29.7.0
+      jest-runner: 29.7.0
+      jest-util: 29.7.0
+      jest-validate: 29.7.0
+      micromatch: 4.0.8
+      parse-json: 5.2.0
+      pretty-format: 29.7.0
+      slash: 3.0.0
+      strip-json-comments: 3.1.1
+    optionalDependencies:
+      '@types/node': 22.15.19
+      ts-node: 10.9.2(@types/node@24.0.14)(typescript@5.8.3)
+    transitivePeerDependencies:
+      - babel-plugin-macros
+      - supports-color
+
+  jest-config@29.7.0(@types/node@24.0.14)(babel-plugin-macros@3.1.0)(ts-node@10.9.2(@types/node@24.0.14)(typescript@5.8.3)):
+    dependencies:
+      '@babel/core': 7.26.0
+      '@jest/test-sequencer': 29.7.0
+      '@jest/types': 29.6.3
+      babel-jest: 29.7.0(@babel/core@7.26.0)
+      chalk: 4.1.2
+      ci-info: 3.9.0
+      deepmerge: 4.3.1
+      glob: 7.2.3
+      graceful-fs: 4.2.11
+      jest-circus: 29.7.0(babel-plugin-macros@3.1.0)
+      jest-environment-node: 29.7.0
+      jest-get-type: 29.6.3
+      jest-regex-util: 29.6.3
+      jest-resolve: 29.7.0
+      jest-runner: 29.7.0
+      jest-util: 29.7.0
+      jest-validate: 29.7.0
+      micromatch: 4.0.8
+      parse-json: 5.2.0
+      pretty-format: 29.7.0
+      slash: 3.0.0
+      strip-json-comments: 3.1.1
+    optionalDependencies:
+      '@types/node': 24.0.14
+      ts-node: 10.9.2(@types/node@24.0.14)(typescript@5.8.3)
     transitivePeerDependencies:
       - babel-plugin-macros
       - supports-color
@@ -8258,6 +8648,18 @@ snapshots:
       '@jest/types': 29.6.3
       import-local: 3.2.0
       jest-cli: 29.7.0(@types/node@22.15.19)(babel-plugin-macros@3.1.0)(ts-node@10.9.2(@types/node@22.15.19)(typescript@5.8.3))
+    transitivePeerDependencies:
+      - '@types/node'
+      - babel-plugin-macros
+      - supports-color
+      - ts-node
+
+  jest@29.7.0(@types/node@24.0.14)(babel-plugin-macros@3.1.0)(ts-node@10.9.2(@types/node@24.0.14)(typescript@5.8.3)):
+    dependencies:
+      '@jest/core': 29.7.0(babel-plugin-macros@3.1.0)(ts-node@10.9.2(@types/node@24.0.14)(typescript@5.8.3))
+      '@jest/types': 29.6.3
+      import-local: 3.2.0
+      jest-cli: 29.7.0(@types/node@24.0.14)(babel-plugin-macros@3.1.0)(ts-node@10.9.2(@types/node@24.0.14)(typescript@5.8.3))
     transitivePeerDependencies:
       - '@types/node'
       - babel-plugin-macros
@@ -9383,12 +9785,12 @@ snapshots:
       babel-jest: 29.7.0(@babel/core@7.26.10)
       esbuild: 0.24.2
 
-  ts-jest@29.2.5(@babel/core@7.26.10)(@jest/transform@29.7.0)(@jest/types@29.6.3)(babel-jest@29.7.0(@babel/core@7.26.10))(esbuild@0.24.2)(jest@29.7.0(@types/node@22.15.19)(babel-plugin-macros@3.1.0)(ts-node@10.9.2(@types/node@22.15.19)(typescript@5.8.3)))(typescript@5.8.3):
+  ts-jest@29.2.5(@babel/core@7.26.10)(@jest/transform@29.7.0)(@jest/types@29.6.3)(babel-jest@29.7.0(@babel/core@7.26.10))(esbuild@0.24.2)(jest@29.7.0(@types/node@24.0.14)(babel-plugin-macros@3.1.0)(ts-node@10.9.2(@types/node@24.0.14)(typescript@5.8.3)))(typescript@5.8.3):
     dependencies:
       bs-logger: 0.2.6
       ejs: 3.1.10
       fast-json-stable-stringify: 2.1.0
-      jest: 29.7.0(@types/node@22.15.19)(babel-plugin-macros@3.1.0)(ts-node@10.9.2(@types/node@22.15.19)(typescript@5.8.3))
+      jest: 29.7.0(@types/node@24.0.14)(babel-plugin-macros@3.1.0)(ts-node@10.9.2(@types/node@24.0.14)(typescript@5.8.3))
       jest-util: 29.7.0
       json5: 2.2.3
       lodash.memoize: 4.1.2
@@ -9468,6 +9870,25 @@ snapshots:
       '@tsconfig/node14': 1.0.3
       '@tsconfig/node16': 1.0.4
       '@types/node': 22.15.19
+      acorn: 8.14.0
+      acorn-walk: 8.3.4
+      arg: 4.1.3
+      create-require: 1.1.1
+      diff: 4.0.2
+      make-error: 1.3.6
+      typescript: 5.8.3
+      v8-compile-cache-lib: 3.0.1
+      yn: 3.1.1
+    optional: true
+
+  ts-node@10.9.2(@types/node@24.0.14)(typescript@5.8.3):
+    dependencies:
+      '@cspotcode/source-map-support': 0.8.1
+      '@tsconfig/node10': 1.0.11
+      '@tsconfig/node12': 1.0.11
+      '@tsconfig/node14': 1.0.3
+      '@tsconfig/node16': 1.0.4
+      '@types/node': 24.0.14
       acorn: 8.14.0
       acorn-walk: 8.3.4
       arg: 4.1.3
@@ -9660,15 +10081,15 @@ snapshots:
       '@types/istanbul-lib-coverage': 2.0.6
       convert-source-map: 2.0.0
 
-  vite-plugin-node-polyfills@0.23.0(rollup@4.40.0)(vite@6.3.0(@types/node@24.0.3)(jiti@1.21.7)(terser@5.39.0)(yaml@2.7.0)):
+  vite-plugin-node-polyfills@0.23.0(rollup@4.40.0)(vite@6.3.0(@types/node@24.0.14)(jiti@1.21.7)(terser@5.39.0)(yaml@2.7.0)):
     dependencies:
       '@rollup/plugin-inject': 5.0.5(rollup@4.40.0)
       node-stdlib-browser: 1.3.1
-      vite: 6.3.0(@types/node@24.0.3)(jiti@1.21.7)(terser@5.39.0)(yaml@2.7.0)
+      vite: 6.3.0(@types/node@24.0.14)(jiti@1.21.7)(terser@5.39.0)(yaml@2.7.0)
     transitivePeerDependencies:
       - rollup
 
-  vite@6.3.0(@types/node@24.0.3)(jiti@1.21.7)(terser@5.39.0)(yaml@2.7.0):
+  vite@6.3.0(@types/node@24.0.14)(jiti@1.21.7)(terser@5.39.0)(yaml@2.7.0):
     dependencies:
       esbuild: 0.25.2
       fdir: 6.4.3(picomatch@4.0.2)
@@ -9677,7 +10098,7 @@ snapshots:
       rollup: 4.40.0
       tinyglobby: 0.2.12
     optionalDependencies:
-      '@types/node': 24.0.3
+      '@types/node': 24.0.14
       fsevents: 2.3.3
       jiti: 1.21.7
       terser: 5.39.0

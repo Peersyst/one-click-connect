@@ -8,10 +8,6 @@ export default defineConfig({
     clean: true,
     splitting: false,
     outDir: "./dist",
-    external: [
-        // Exclude peer dependencies from bundling
-        "near-api-js",
-    ],
     noExternal: [
         // Include all workspace dependencies in the bundle
         "@one-click-connect/dapp-core",
@@ -19,6 +15,8 @@ export default defineConfig({
         "@shared/eslint",
         "@shared/tsconfig",
         "@shared/test",
+        "near-api-js",
+        /^near-api-js\//,
     ],
     treeshake: true,
     minify: false, // Set to true for production builds

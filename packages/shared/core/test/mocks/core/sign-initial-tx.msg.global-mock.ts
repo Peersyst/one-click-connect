@@ -1,7 +1,7 @@
 import { createGlobalMock, MethodMock } from "@shared/test";
-import { MsgSignInitialTx } from "@one-click-connect/core/base";
 import { PublicKeyMock } from "../near/public-key.mock";
 import { FunctionCallPermissionMock } from "../near/function-call-permission.mock";
+import { MsgSignInitialTx } from "../../../src";
 
 export const MsgSignInitialTxGlobalMock = createGlobalMock(MsgSignInitialTx.prototype, {
     toURL: new MethodMock("mockReturnValue", "mockURL"),

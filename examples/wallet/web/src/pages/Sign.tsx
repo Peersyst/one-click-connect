@@ -2,6 +2,10 @@ import React, { useEffect, useState } from "react";
 import "./Sign.css"; // Import CSS for styling
 import { Transaction } from "near-api-js/lib/transaction";
 import { useNearOCCRequest } from "../hooks/useNearOCCRequest";
+import * as near from "near-api-js";
+import { useWallet } from "../hooks/useWallet.ts";
+import { PublicKey } from "near-api-js/lib/utils";
+import { Account } from "near-api-js";
 
 const Sign: React.FC = () => {
     const [permissions, setPermissions] = useState<string | null>(null);
@@ -10,6 +14,7 @@ const Sign: React.FC = () => {
     const [transaction, setTransaction] = useState<Transaction | null>(null);
     const [copyButtonText, setCopyButtonText] = useState("Copy Redirect URL");
     const { isInitialTxRequest, isFullAccessKeyRequest, data } = useNearOCCRequest();
+    const { wallet, loading } = useWallet();
 
     useEffect(() => {
         if (isInitialTxRequest) {
@@ -38,6 +43,20 @@ const Sign: React.FC = () => {
             setTimeout(() => setCopyButtonText("Copy Redirect URL"), 1500);
         }
     };
+
+    const onSign = async () => {
+        if (isInitialTxRequest) {
+            // Permissions { "receiverId": "guest-book.testnet", "methodNames": [ "addMessage" ] }
+            const keyStore = new near.keyStores.InMemoryKeyStore();
+            await keyStore.setKey("testnet", wallet.accountId, wallet.keyPair!);
+            const connection = await near.connect({ networkId: "testnet", nodeUrl: "https://rpc.testnet.near.org", keyStore });
+            const account = new Account(connection.connection, wallet.accountId);
+
+            const res = await account.addKey(PublicKey.fromString(publicKey!), (permissions as any).receiverId, (permissions as any).methodNames);
+            console.log(res);
+            window.close();
+        }
+    }
 
     return (
         <div className="page-container sign-page">
@@ -74,6 +93,10 @@ const Sign: React.FC = () => {
                     )}
                 </ul>
 
+                {!loading && (
+                    <button onClick={onSign} className="copy-button">Sign</button>
+                )}
+
                 {redirectURL && (
                     <button onClick={onCopyRedirectUrl} className="copy-button">
                         {copyButtonText}
@@ -83,5 +106,4 @@ const Sign: React.FC = () => {
         </div>
     );
 };
-
 export default Sign;

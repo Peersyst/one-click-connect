@@ -1,13 +1,19 @@
 import React, { useState, useEffect } from "react";
 import "./Home.css";
 import { useNearWallet } from "../providers/NearWalletProvider";
+import { useWallet } from "../hooks/useWallet.ts";
 
 // Placeholder data - replace with actual data fetching
 const DAPP_DATA = [
     {
         name: "Cool DApp 1",
         url: "http://localhost:3000", // Example URL for the vanilla dapp
-        imageUrl: "https://via.placeholder.com/40?text=D1",
+        imageUrl: "https://pages.near.org/wp-content/uploads/2023/11/NEAR_token.png",
+    },
+    {
+        name: "GuestBook",
+        url: "http://localhost:4200", // Example URL for the vanilla dapp
+        imageUrl: "https://pages.near.org/wp-content/uploads/2023/11/NEAR_token.png",
     },
 ];
 
@@ -15,12 +21,13 @@ const Home: React.FC = () => {
     const [accountId, setAccountId] = useState<string | null>(null);
     const [balance, setBalance] = useState<string | null>(null);
     const { client } = useNearWallet();
+    const { loading, wallet } = useWallet();
 
     useEffect(() => {
         // Placeholder data initialization - replace with actual logic
-        setAccountId("mywallet.near");
+        setAccountId(wallet.accountId);
         setBalance("100.50 NEAR");
-    }, []);
+    }, [loading, wallet]);
 
     return (
         <div className="page-container home-page">

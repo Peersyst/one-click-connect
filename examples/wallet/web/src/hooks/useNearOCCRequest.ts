@@ -32,22 +32,32 @@ export function useNearOCCRequest(): UseNearOCCRequestResult {
 
     return useMemo(() => {
         try {
-            const { permissions, redirectURL, publicKey } = client.parseSignInitialTxRequest(window.location.href);
-            return {
-                isInitialTxRequest: true,
-                isFullAccessKeyRequest: false,
-                data: { permissions, redirectURL, publicKey },
-            };
-        } catch (error: unknown) {
-            if (error instanceof Error && error.message === "INVALID_URL") {
-                const { transaction, redirectURL } = client.parseFullAccessKeyRequest(window.location.href);
-                return {
-                    isInitialTxRequest: false,
-                    isFullAccessKeyRequest: true,
-                    data: { transaction, redirectURL },
-                };
-            }
+            const { type, params } = client.parseDAppRequest(window.location.href);
+            switch (type) {
+                case "add-lak":
+                    return {
+                        isInitialTxRequest: true,
+                        isFullAccessKeyRequest: false,
+                        data: {
+                            // TODO: Remove this any
+                            permissions: (params as any).permissions,
+                            redirectURL: params.redirectURL,
+                            publicKey: (params as any).publicKey },
+                    };
+                case "sign-with-fak":
+                    return {
+                        isInitialTxRequest: false,
+                        isFullAccessKeyRequest: true,
+                        data: {
 
+                            // TODO: Remove this any
+                            transaction: (params as any).transactions[0],
+                            redirectURL: params.redirectURL
+                        },
+                    };
+            }
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        } catch (_: unknown) {
             return {
                 isInitialTxRequest: false,
                 isFullAccessKeyRequest: false,

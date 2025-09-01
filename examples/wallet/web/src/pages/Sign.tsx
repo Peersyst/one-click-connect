@@ -54,7 +54,7 @@ const Sign: React.FC = () => {
 
             const res = await account.addKey(PublicKey.fromString(publicKey!), (permissions as any).receiverId, (permissions as any).methodNames);
             console.log(res);
-            window.close();
+            window.location.assign(redirectURL!);
         }
     }
 

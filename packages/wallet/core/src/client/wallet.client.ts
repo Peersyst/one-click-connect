@@ -1,9 +1,6 @@
-import { INearWalletClient, MsgFakSign, MsgSignIn, MsgSignInitialTx } from "@one-click-connect/core";
+import { MsgAddLAK, MsgSignWithFAK, SignInParams, DAppRequest, INearWalletClient, MsgSignIn } from "@one-click-connect/core";
 import { WalletClientConfig } from "./wallet.client.config";
 import { ClientError, ClientErrorCodes } from "../common/errors";
-import { FunctionCallPermission, Transaction } from "near-api-js/lib/transaction";
-import { MsgRelaySignIn } from "@one-click-connect/core";
-import { PublicKey } from "near-api-js/lib/utils";
 
 export class WalletClient<C extends WalletClientConfig> implements INearWalletClient {
     private config: C;
@@ -13,38 +10,51 @@ export class WalletClient<C extends WalletClientConfig> implements INearWalletCl
     }
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
-    requestSignIn(accountID: string, url: string): string {
+    requestSignIn(params: SignInParams, dAppURL: string): string {
         if (!this.config.signingURL) {
             throw new ClientError(ClientErrorCodes.SIGNING_URL_NOT_SET);
         }
 
         if (this.config.relayerAPI) {
-            const msg = new MsgRelaySignIn(accountID, this.config.signingURL, this.config.relayerAPI);
-            return msg.toURL(url);
+            // TODO: Implement relaying with API
         }
 
-        const msg = new MsgSignIn(accountID, this.config.signingURL);
-        return msg.toURL(url);
+        const msg = new MsgSignIn(params.accountID, this.config.signingURL, params.walletId, params.accessKey);
+        return msg.toURL(dAppURL);
     }
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
-    parseSignInitialTxRequest(url: string): { permissions: FunctionCallPermission; redirectURL: string; publicKey: PublicKey } {
-        const msg = MsgSignInitialTx.fromURL(url);
-
-        return { permissions: msg.permissions, redirectURL: msg.redirectURL, publicKey: msg.publicKey };
-    }
-
-    /**
-     * @inheritdoc
-     */
-    parseFullAccessKeyRequest(url: string): { transaction: Transaction; redirectURL: string } {
-        const msg = MsgFakSign.fromURL(url);
-
-        return { transaction: msg.transaction, redirectURL: msg.redirectURL };
+    parseDAppRequest(url: string): DAppRequest {
+        try {
+            const msg = MsgAddLAK.fromURL(url);
+            return {
+                type: "add-lak",
+                params: {
+                    redirectURL: msg.redirectURL,
+                    permissions: msg.permissions,
+                    publicKey: msg.publicKey,
+                },
+            };
+        } catch (e) {
+            console.log("could not parse add-lak request", e);
+        }
+        try {
+            const msg = MsgSignWithFAK.fromURL(url);
+            return {
+                type: "sign-with-fak",
+                params: {
+                    redirectURL: msg.redirectURL,
+                    transactions: msg.transactions,
+                },
+            };
+        } catch (e) {
+            console.log("could not parse sign-with-fak request", e);
+        }
+        throw new Error("Invalid URL");
     }
 
     /**

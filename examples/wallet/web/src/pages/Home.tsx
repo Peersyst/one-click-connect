@@ -12,7 +12,7 @@ const DAPP_DATA = [
     },
     {
         name: "GuestBook",
-        url: "http://localhost:4200", // Example URL for the vanilla dapp
+        url: "http://localhost:3000", // Example URL for the vanilla dapp
         imageUrl: "https://pages.near.org/wp-content/uploads/2023/11/NEAR_token.png",
     },
 ];
@@ -52,7 +52,9 @@ const Home: React.FC = () => {
                 {accountId && (
                     <ul className="dapps-list">
                         {DAPP_DATA.map((dapp, index) => {
-                            const dappUrl = client.requestSignIn(accountId, dapp.url);
+                            const dappUrl = client.requestSignIn({
+                                accountID: accountId!,
+                            }, dapp.url);
 
                             return (
                                 <li key={index} className="dapp-item">

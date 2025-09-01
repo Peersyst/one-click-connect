@@ -4,6 +4,7 @@ packages:
     - "examples/wallet/web"
     - "packages/dapp/core"
     - "packages/dapp/browser"
+    - "packages/dapp/wallet-selector"
     - "packages/wallet/core"
     - "packages/wallet/vanilla"
     - "packages/shared/*"

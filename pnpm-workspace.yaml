@@ -7,4 +7,3 @@ packages:
     - "packages/wallet/core"
     - "packages/wallet/vanilla"
     - "packages/shared/*"
-    - "packages/legacy"

@@ -47,13 +47,13 @@ export class Wallet {
     this.selector = setupWalletSelector({
       network: {
         networkId: this.networkId,
-        nodeUrl: "https://wandering-neat-river.near-testnet.quiknode.pro/9a4d991c1c4a5f8833de83243c2dd38a2b3e16c7/",
+        nodeUrl: "https://rpc.testnet.near.org/",
       },
       modules: [
         setupNearMobileWallet(),
         setupOneClickConnect({
           networkId: this.networkId,
-          nodeUrl: "https://wandering-neat-river.near-testnet.quiknode.pro/9a4d991c1c4a5f8833de83243c2dd38a2b3e16c7/",
+          nodeUrl: "https://rpc.testnet.near.org",
           contractId: "guest-book.testnet",
           methodNames: ["*"], // Optional, defaults to any methods ["*"]
           allowance: "250000000000000000000000", // Optional, access key allowance in Yocto, defaults to 1 NEAR
@@ -99,7 +99,7 @@ export class Wallet {
  * @returns {Promise<JSON.value>} - the result of the method call
  */
   viewMethod = async ({ contractId, method, args = {} }) => {
-    const url = `https://wandering-neat-river.near-testnet.quiknode.pro/9a4d991c1c4a5f8833de83243c2dd38a2b3e16c7/`;
+    const url = `https://rpc.testnet.near.org/`;
     const provider = new providers.JsonRpcProvider({ url });
 
     const res = await provider.query({

@@ -8,7 +8,7 @@ const DAPP_DATA = [
     {
         name: "Example DApp",
         url: "http://localhost:3002", // Example URL for the vanilla dapp
-        imageUrl: "https://pages.near.org/wp-content/uploads/2023/11/NEAR_token.png",
+        imageUrl: "https://static.thenounproject.com/png/1760714-200.png",
     },
     {
         name: "GuestBook",
@@ -19,7 +19,7 @@ const DAPP_DATA = [
         name: "GuestBook (with LAK)",
         url: "http://localhost:3000", // Example URL for the vanilla dapp
         imageUrl: "https://pages.near.org/wp-content/uploads/2023/11/NEAR_token.png",
-        accessKey: "ed25519:5gozkMww8G8izWk8RhCu8TJsqn3KRMU6dfJuwvBmoHkyY5yx51T6ubE9WY4nvjCmZrbnKsSFUqPqUwcfZDdAXfV7",
+        accessKey: import.meta.env.VITE_GUEST_BOOK_ACCESS_KEY,
     },
     {
         name: "Meta Pool",
@@ -30,7 +30,7 @@ const DAPP_DATA = [
         name: "Meta Pool (with LAK)",
         url: "https://www.metapool.app/", // Example URL for the vanilla dapp
         imageUrl: "https://avatars.githubusercontent.com/u/112860635?s=200&v=4",
-        accessKey: "ed25519:Pyfpjs1sSVJRzPHBdySayt7uCzv6KsSdLADhdnPT7mkMMrCzDJtLHte5qnodDUdowWEEicfxtggKJTEu9gDuudb",
+        accessKey: import.meta.env.VITE_META_POOL_ACCESS_KEY,
     },
 ];
 

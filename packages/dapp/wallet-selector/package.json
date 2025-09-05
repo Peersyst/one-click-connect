@@ -13,7 +13,7 @@
         "clean": "rimraf .turbo dist node_modules",
         "check-types": "npx tsc --noEmit",
         "lint": "eslint .",
-        "test": "echo 'no test'"
+        "test": "jest"
     },
     "keywords": [],
     "author": "",

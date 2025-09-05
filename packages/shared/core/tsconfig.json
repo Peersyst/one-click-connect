@@ -1,8 +1,7 @@
 {
     "extends": "@shared/tsconfig/browser-package",
     "compilerOptions": {
-        "outDir": "./dist",
-        "rootDir": "."
+        "outDir": "./dist"
     },
     "exclude": ["dist"]
 }

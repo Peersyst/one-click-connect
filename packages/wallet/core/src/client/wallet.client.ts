@@ -35,9 +35,7 @@ export class WalletClient<C extends WalletClientConfig = WalletClientConfig> imp
                     publicKey: msg.publicKey,
                 },
             };
-        } catch (e) {
-            console.log("could not parse add-lak request", e);
-        }
+        } catch (_) {}
         try {
             const msg = MsgSignWithFAK.fromURL(url);
             return {
@@ -47,9 +45,7 @@ export class WalletClient<C extends WalletClientConfig = WalletClientConfig> imp
                     transactions: msg.transactions,
                 },
             };
-        } catch (e) {
-            console.log("could not parse sign-with-fak request", e);
-        }
+        } catch (_) {}
         throw new Error("Invalid URL");
     }
 

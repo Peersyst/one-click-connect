@@ -1,5 +1,5 @@
 {
-    "name": "@one-click-connect/dapp-sdk",
+    "name": "@one-click-connect/sdk",
     "version": "0.0.1-alpha.0",
     "description": "",
     "main": "./dist/index.js",
@@ -19,9 +19,7 @@
     "license": "ISC",
     "dependencies": {
         "borsh": "^1.0.0",
-        "@one-click-connect/sdk": "workspace:*",
-        "@one-click-connect/core": "workspace:*",
-        "@one-click-connect/dapp-core": "workspace:*"
+        "@one-click-connect/core": "workspace:*"
     },
     "devDependencies": {
         "@shared/eslint": "workspace:*",

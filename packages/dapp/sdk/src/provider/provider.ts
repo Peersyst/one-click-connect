@@ -1,6 +1,6 @@
 import { Transaction } from "../clients";
 import { FinalExecutionOutcome } from "near-api-js/lib/providers";
-import { Wallet } from "@one-click-connect/dapp-core";
+import { Provider } from "@one-click-connect/dapp-core";
 import { Permissions } from "@one-click-connect/core";
 import { Account, KeyPair, Near } from "near-api-js";
 import { KeyStore } from "near-api-js/lib/key_stores";
@@ -8,7 +8,7 @@ import { AccessKeyInfoView } from "near-api-js/lib/providers/provider";
 
 export type KeyPairString = `ed25519:${string}` | `secp256k1:${string}`;
 
-export class NearWallet implements Wallet<Transaction, FinalExecutionOutcome> {
+export class NearProvider implements Provider<Transaction, FinalExecutionOutcome> {
     constructor(
         private readonly near: Near,
         private readonly keyStore: KeyStore,
@@ -59,27 +59,35 @@ export class NearWallet implements Wallet<Transaction, FinalExecutionOutcome> {
 
         if (permission.FunctionCall) {
             const { receiver_id: allowedReceiverId, method_names: allowedMethods } = permission.FunctionCall;
-            if (allowedReceiverId === (transaction.receiverId ?? this.permissions.receiverId)) {
-                let allowed = true;
-
-                for (const action of transaction.actions) {
-                    if (
-                        !(
-                            action.functionCall &&
-                            (!action.functionCall.deposit || action.functionCall.deposit.toString() === "0") && // TODO: Should support charging amount smaller than allowance?
-                            (allowedMethods.length === 0 ||
-                                allowedMethods.includes("*") ||
-                                allowedMethods.includes(action.functionCall.methodName))
-                        )
-                    ) {
-                        allowed = false;
-                        break;
-                    }
-                }
-                return allowed;
-            }
+            return this.canExecute({ receiverId: allowedReceiverId, methodNames: allowedMethods }, transaction);
         }
         return false;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    async canExecute(permissions: Permissions, transaction: Transaction): Promise<boolean> {
+        const { receiverId: allowedReceiverId, methodNames: allowedMethods } = permissions;
+        if (allowedReceiverId === (transaction.receiverId ?? this.permissions.receiverId)) {
+            let allowed = true;
+
+            for (const action of transaction.actions) {
+                if (
+                    !(
+                        action.functionCall &&
+                        (!action.functionCall.deposit || action.functionCall.deposit.toString() === "0") && // TODO: Should support charging amount smaller than allowance?
+                        (allowedMethods.length === 0 ||
+                            allowedMethods.includes("*") ||
+                            allowedMethods.includes(action.functionCall.methodName))
+                    )
+                ) {
+                    allowed = false;
+                    break;
+                }
+            }
+            return allowed;
+        } else return false;
     }
 
     /**

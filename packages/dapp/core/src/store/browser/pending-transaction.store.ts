@@ -1,6 +1,6 @@
+import { Codec } from "@one-click-connect/core";
 import { BrowserStore } from ".";
 import { PendingTransactionStore } from "../../common";
-import { Codec } from "../../common";
 
 const PENDING_TRANSACTION_STORE_PREFIX = "pending-transaction:";
 
@@ -8,7 +8,7 @@ export class BrowserPendingTransactionStore<PendingTransaction>
     extends BrowserStore
     implements PendingTransactionStore<PendingTransaction>
 {
-    constructor(private readonly codec: Codec<PendingTransaction[], string>) {
+    constructor(private readonly codec: Codec<PendingTransaction, string>) {
         super(`${PENDING_TRANSACTION_STORE_PREFIX}`);
     }
 
@@ -44,7 +44,8 @@ export class BrowserPendingTransactionStore<PendingTransaction>
      * @param value An array of pending transaction objects to be stored.
      */
     private set(accountId: string, value: PendingTransaction[]): void {
-        this.setValue(this.codec.encode(value), `${accountId}:`);
+        const encodedValue = JSON.stringify(value.map(this.codec.encode));
+        this.setValue(encodedValue, `${accountId}:`);
     }
 
     /**
@@ -56,7 +57,7 @@ export class BrowserPendingTransactionStore<PendingTransaction>
     private get(accountId: string): PendingTransaction[] | null {
         const value = this.getValue(`${accountId}:`);
         if (value) {
-            return this.codec.decode(value);
+            return JSON.parse(value).map(this.codec.decode);
         }
         return null;
     }

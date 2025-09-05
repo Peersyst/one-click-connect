@@ -1,8 +1,9 @@
 import React, { createContext, useContext, useMemo } from "react";
 import { WalletClient } from "@one-click-connect/wallet";
+import { Transaction, TransactionCodec } from "@one-click-connect/sdk";
 
 interface NearDAppContextType {
-    client: WalletClient;
+    client: WalletClient<Transaction>;
 }
 
 const NearDAppContext = createContext<NearDAppContextType | null>(null);
@@ -23,7 +24,7 @@ export const NearWalletProvider: React.FC<NearWalletProviderProps> = ({ children
     const client = useMemo(() => {
         return new WalletClient({
             signingURL: window.location.origin + "/sign",
-        });
+        }, new TransactionCodec());
     }, []);
 
     const value = useMemo(

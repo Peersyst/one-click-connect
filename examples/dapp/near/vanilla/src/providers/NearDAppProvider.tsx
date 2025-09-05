@@ -45,6 +45,7 @@ export const NearDAppProvider: React.FC<NearDAppProviderProps> = ({ children }) 
                     {
                         receiverId: "guest-book.testnet",
                         methodNames: ["addMessage"],
+                        allowance: "0"
                     },
                 );
 

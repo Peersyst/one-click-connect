@@ -1,4 +1,6 @@
-export interface Wallet<Transaction, TransactionResult> {
+import { Permissions } from "@one-click-connect/core";
+
+export interface Provider<Transaction, TransactionResult> {
     /**
      * Checks if the accountId has the access key.
      * @param accountId The account id.
@@ -15,6 +17,14 @@ export interface Wallet<Transaction, TransactionResult> {
      * @returns A promise that resolves to a boolean indicating whether the access key can execute the transaction.
      */
     canAccessKeyExecute(accountId: string, accessKey: string, transaction: Transaction): Promise<boolean>;
+
+    /**
+     * Determines whether the given transaction can be executed with the given permissions.
+     * @param permissions The given permissions.
+     * @param transaction The transaction object that requires access key validation.
+     * @returns A promise that resolves to a boolean indicating whether the access key can execute the transaction.
+     */
+    canExecute(permissions: Permissions, transaction: Transaction): Promise<boolean>;
 
     /**
      * Generates a random access key.

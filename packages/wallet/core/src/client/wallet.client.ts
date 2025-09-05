@@ -1,11 +1,23 @@
-import { MsgAddLAK, MsgSignWithFAK, DAppRequest, SignInRequest, INearWalletClient, MsgSignIn, RequestType } from "@one-click-connect/core";
+import {
+    MsgAddLAK,
+    MsgSignWithFAK,
+    DAppRequest,
+    SignInRequest,
+    INearWalletClient,
+    MsgSignIn,
+    RequestType,
+    Codec,
+} from "@one-click-connect/core";
 import { WalletClientConfig } from "./wallet.client.config";
 import { ClientError, ClientErrorCodes } from "../common/errors";
 
-export class WalletClient<C extends WalletClientConfig = WalletClientConfig> implements INearWalletClient {
-    private config: C;
+export class WalletClient<Transaction, Config extends WalletClientConfig = WalletClientConfig> implements INearWalletClient {
+    private config: Config;
 
-    constructor(config: C) {
+    constructor(
+        config: Config,
+        protected readonly codec: Codec<Transaction, string>,
+    ) {
         this.config = config;
     }
 
@@ -37,7 +49,7 @@ export class WalletClient<C extends WalletClientConfig = WalletClientConfig> imp
             };
         } catch (_) {}
         try {
-            const msg = MsgSignWithFAK.fromURL(url);
+            const msg = MsgSignWithFAK.fromURL(url, this.codec);
             return {
                 type: RequestType.SIGN_WITH_FAK,
                 params: {
@@ -53,7 +65,7 @@ export class WalletClient<C extends WalletClientConfig = WalletClientConfig> imp
      * Get the config.
      * @returns The config.
      */
-    getConfig(): C {
+    getConfig(): Config {
         return this.config;
     }
 }

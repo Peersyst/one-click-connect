@@ -230,6 +230,9 @@ importers:
       '@one-click-connect/core':
         specifier: workspace:*
         version: link:../../../packages/shared/core
+      '@one-click-connect/sdk':
+        specifier: workspace:*
+        version: link:../../../packages/shared/sdk
       '@one-click-connect/wallet':
         specifier: workspace:*
         version: link:../../../packages/wallet/core
@@ -337,6 +340,9 @@ importers:
       '@one-click-connect/dapp-core':
         specifier: workspace:*
         version: link:../core
+      '@one-click-connect/sdk':
+        specifier: workspace:*
+        version: link:../../shared/sdk
       borsh:
         specifier: ^1.0.0
         version: 1.0.0
@@ -501,6 +507,46 @@ importers:
       eslint-plugin-react-hooks:
         specifier: ^4.6.2
         version: 4.6.2(eslint@8.57.1)
+
+  packages/shared/sdk:
+    dependencies:
+      '@one-click-connect/core':
+        specifier: workspace:*
+        version: link:../core
+      borsh:
+        specifier: ^1.0.0
+        version: 1.0.0
+    devDependencies:
+      '@shared/eslint':
+        specifier: workspace:*
+        version: link:../eslint
+      '@shared/test':
+        specifier: workspace:*
+        version: link:../test
+      '@shared/tsconfig':
+        specifier: workspace:*
+        version: link:../tsconfig
+      '@types/jest':
+        specifier: ^29.5.12
+        version: 29.5.14
+      '@types/node':
+        specifier: ^22.13.13
+        version: 22.15.19
+      jest:
+        specifier: ^29.7.0
+        version: 29.7.0(@types/node@22.15.19)(babel-plugin-macros@3.1.0)(ts-node@10.9.2(@swc/core@1.13.5)(@types/node@22.15.19)(typescript@5.9.2))
+      near-api-js:
+        specifier: 5.0.0
+        version: 5.0.0
+      ts-jest:
+        specifier: ^29.1.4
+        version: 29.2.5(@babel/core@7.26.10)(@jest/transform@29.7.0)(@jest/types@29.6.3)(babel-jest@29.7.0(@babel/core@7.26.10))(esbuild@0.24.2)(jest@29.7.0(@types/node@22.15.19)(babel-plugin-macros@3.1.0)(ts-node@10.9.2(@swc/core@1.13.5)(@types/node@22.15.19)(typescript@5.9.2)))(typescript@5.9.2)
+      tsup:
+        specifier: ^8.0.0
+        version: 8.3.5(@swc/core@1.13.5)(jiti@2.4.2)(postcss@8.5.6)(typescript@5.9.2)(yaml@2.7.0)
+      typescript:
+        specifier: ^5.7.3
+        version: 5.9.2
 
   packages/shared/test:
     devDependencies:
@@ -15103,7 +15149,7 @@ snapshots:
   '@near-js/utils@1.1.0':
     dependencies:
       '@near-js/types': 0.3.1
-      '@scure/base': 1.2.4
+      '@scure/base': 1.2.6
       depd: 2.0.0
       mustache: 4.0.0
 
@@ -16003,7 +16049,7 @@ snapshots:
       bn.js: 5.2.1
       borsh: 0.7.0
       js-sha256: 0.9.0
-      near-api-js: 5.0.0
+      near-api-js: 4.0.4
       parcel: 2.15.4
     transitivePeerDependencies:
       - '@swc/helpers'

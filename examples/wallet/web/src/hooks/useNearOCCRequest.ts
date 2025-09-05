@@ -32,6 +32,7 @@ export function useNearOCCRequest(): UseNearOCCRequestResult {
     return useMemo(() => {
         try {
             const { type, params } = client.parseDAppRequest(window.location.href);
+            console.log("type", type, "params", params);
             switch (type) {
                 case "add-lak":
                     return {
@@ -56,7 +57,8 @@ export function useNearOCCRequest(): UseNearOCCRequestResult {
                     throw Error("unknown request type");
             }
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        } catch (_: unknown) {
+        } catch (e: unknown) {
+            console.log(e);
             return {
                 isInitialTxRequest: false,
                 isFullAccessKeyRequest: false,

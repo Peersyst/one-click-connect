@@ -1,4 +1,5 @@
 import { MsgErrorCodes } from "../error";
+import { Codec } from "../codec";
 
 export enum MsgSignWithFAKQueryParams {
     INSTRUCTIONS = "instructions",
@@ -7,16 +8,21 @@ export enum MsgSignWithFAKQueryParams {
 /**
  * Message for signing a transaction with FAK.
  */
-export class MsgSignWithFAK {
-    transactions: unknown[];
+export class MsgSignWithFAK<Transaction> {
+    transactions: Transaction[];
     redirectURL: string;
 
     /**
      * Creates a new MsgSignWithFAK object.
+     * @param codec The codec to serialize and deserialize transaction.
      * @param transactions The transactions.
      * @param redirectURL The redirectURL.
      */
-    constructor(transactions: unknown[], redirectURL: string) {
+    constructor(
+        private readonly codec: Codec<Transaction, string>,
+        transactions: Transaction[],
+        redirectURL: string,
+    ) {
         this.transactions = transactions;
         this.redirectURL = redirectURL;
     }
@@ -24,9 +30,10 @@ export class MsgSignWithFAK {
     /**
      * Creates a new MsgSignWithFAK object from a URL.
      * @param url The URL to create the MsgSignWithFAK object from.
+     * @param codec The codec to deserialize transaction.
      * @returns A new MsgSignWithFAK object.
      */
-    static fromURL(url: string): MsgSignWithFAK {
+    static fromURL<Transaction>(url: string, codec: Codec<Transaction, string>): MsgSignWithFAK<Transaction> {
         const urlObj = new URL(url);
 
         const instructions = urlObj.searchParams.get(MsgSignWithFAKQueryParams.INSTRUCTIONS);
@@ -44,7 +51,7 @@ export class MsgSignWithFAK {
             throw new Error(MsgErrorCodes.INVALID_SIGN_WITH_FAK_REDIRECT_URL);
         }
 
-        return new MsgSignWithFAK(transactions, redirectUrl);
+        return new MsgSignWithFAK(codec, transactions.map(codec.decode), redirectUrl);
     }
 
     /**
@@ -56,7 +63,7 @@ export class MsgSignWithFAK {
         const urlObj = new URL(url);
 
         const instructions = {
-            transactions: this.transactions,
+            transactions: this.transactions.map(this.codec.encode),
             redirectUrl: this.redirectURL,
         };
 

@@ -14,9 +14,7 @@ const Sign: React.FC = () => {
     const [transaction, setTransaction] = useState<Transaction | null>(null);
     const { isInitialTxRequest, isFullAccessKeyRequest, data } = useNearOCCRequest();
     const { wallet, loading } = useWallet();
-
-    console.log(data);
-
+    console.log(isFullAccessKeyRequest);
     useEffect(() => {
         if (isInitialTxRequest) {
             setPermissions(data?.permissions);
@@ -36,9 +34,14 @@ const Sign: React.FC = () => {
             const connection = await near.connect({ networkId: "testnet", nodeUrl: "https://rpc.testnet.near.org", keyStore });
             const account = new Account(connection.connection, wallet.accountId);
 
-            console.log(PublicKey.fromString(publicKey!), permissions!.receiverId, permissions!.methodNames);
-            const res = await account.addKey(PublicKey.fromString(publicKey!), permissions!.receiverId, permissions!.methodNames);
-            console.log(res);
+            await account.addKey(PublicKey.fromString(publicKey!), permissions!.receiverId, permissions!.methodNames);
+            window.location.assign(redirectURL!);
+        } else {
+            const keyStore = new near.keyStores.InMemoryKeyStore();
+            await keyStore.setKey("testnet", wallet.accountId, wallet.keyPair!);
+            const connection = await near.connect({ networkId: "testnet", nodeUrl: "https://rpc.testnet.near.org", keyStore });
+            const account = new Account(connection.connection, wallet.accountId);
+            await account.signAndSendTransaction(transaction!);
             window.location.assign(redirectURL!);
         }
     }

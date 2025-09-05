@@ -35,7 +35,7 @@ export function useWallet() {
         // Use stored key if available, otherwise use default
         const privateKey = storedKey || defaultPrivateKey;
         setPrivateKey(privateKey);
-    });
+    }, []);
 
 
     return {

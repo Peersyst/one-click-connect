@@ -10,13 +10,12 @@ export type AddLAKRequest = Request<
     }
 >;
 
-export type SignWithFAKRequest = Request<
+export type SignWithFAKRequest<Transactions> = Request<
     RequestType.SIGN_WITH_FAK,
     {
-        // TODO: Remove this any type
-        transactions: any[];
+        transactions: Transactions;
         redirectURL: string;
     }
 >;
 
-export type DAppRequest = AddLAKRequest | SignWithFAKRequest;
+export type DAppRequest = AddLAKRequest | SignWithFAKRequest<unknown>;

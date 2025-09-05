@@ -1,5 +1,5 @@
 import { Codec } from "@one-click-connect/core";
-import { Transaction } from "../clients";
+import { Transaction } from "./transaction";
 import { Action, SCHEMA } from "near-api-js/lib/transaction";
 import { deserialize, serialize } from "borsh";
 

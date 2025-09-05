@@ -1,16 +1,17 @@
-import { MsgAddLAK, MsgSignWithFAK, MsgSignIn, Permissions, MsgSignInQueryParams } from "@one-click-connect/core";
+import { MsgAddLAK, MsgSignWithFAK, MsgSignIn, Permissions, MsgSignInQueryParams, Codec } from "@one-click-connect/core";
 import { BaseDAppClientConfig } from "./base.client.config";
 import { Account } from "../../common";
-import { AccountStore, Callbacks, PendingTransactionStore, Wallet } from "../../common";
+import { AccountStore, Callbacks, PendingTransactionStore, Provider } from "../../common";
 
 export abstract class BaseDAppClient<Transaction, TransactionResult, Config extends BaseDAppClientConfig = BaseDAppClientConfig> {
     protected account?: Account;
 
     protected constructor(
         protected config: Config,
+        protected codec: Codec<Transaction, string>,
         protected permissions: Permissions,
         protected callbacks: Callbacks,
-        protected wallet: Wallet<Transaction, TransactionResult>,
+        protected provider: Provider<Transaction, TransactionResult>,
         protected accountStore: AccountStore,
         protected pendingTransactionStore?: PendingTransactionStore<Transaction>,
     ) {}
@@ -32,7 +33,7 @@ export abstract class BaseDAppClient<Transaction, TransactionResult, Config exte
     get publicKey() {
         if (!this.connected) throw new Error("Not connected");
         if (!this.accessKey) throw new Error("Access key undefined");
-        return this.wallet.derivePublicKey(this.accessKey);
+        return this.provider.derivePublicKey(this.accessKey);
     }
 
     /**
@@ -68,21 +69,27 @@ export abstract class BaseDAppClient<Transaction, TransactionResult, Config exte
      */
     async signAndSendTransaction(transaction: Transaction): Promise<TransactionResult | void> {
         if (!this.connected) throw new Error("Not connected");
-        if (!this.account!.accessKey) {
-            this.account!.accessKey = await this.wallet.generateAccessKey();
-            await this.accountStore.set(this.account!);
-            if (this.pendingTransactionStore) await this.pendingTransactionStore.push(this.account!.accountId, transaction);
-            const publicKey = await this.wallet.derivePublicKey(this.account!.accessKey);
+        const hasAccessKey = this.account!.accessKey !== undefined;
+        const canExecute = await this.provider.canExecute(this.permissions, transaction);
+        const hasPermissions =
+            hasAccessKey && (await this.provider.canAccessKeyExecute(this.account!.accountId, this.account!.accessKey!, transaction));
 
-            const msgAddLAK = new MsgAddLAK(this.config.redirectURL, this.permissions, publicKey);
-            return await this.callbacks.onRequestAddLAK(msgAddLAK.toURL(this.account!.signingURL));
+        if (!canExecute) {
+            // Can't execute transaction with the established permissions
+            const msgSignWithFAK = new MsgSignWithFAK(this.codec, [transaction], this.config.redirectURL);
+            return await this.callbacks.onRequestSignWithFAK(msgSignWithFAK.toURL(this.account!.signingURL));
         } else {
-            const hasPermissions = await this.wallet.canAccessKeyExecute(this.account!.accountId, this.account!.accessKey, transaction);
-            if (hasPermissions) {
-                return await this.wallet.signAndSendTransaction(this.account!.accountId, this.account!.accessKey, transaction);
+            if (!hasAccessKey || (hasAccessKey && !hasPermissions)) {
+                // Access key is not stored or access key is stored but doesn't have permissions (removed or badly created)
+                this.account!.accessKey = await this.provider.generateAccessKey();
+                await this.accountStore.set(this.account!);
+                if (this.pendingTransactionStore) await this.pendingTransactionStore.push(this.account!.accountId, transaction);
+                const publicKey = this.provider.derivePublicKey(this.account!.accessKey);
+                const msgAddLAK = new MsgAddLAK(this.config.redirectURL, this.permissions, publicKey);
+                return await this.callbacks.onRequestAddLAK(msgAddLAK.toURL(this.account!.signingURL));
             } else {
-                const msgSignWithFAK = new MsgSignWithFAK([transaction], this.config.redirectURL);
-                return await this.callbacks.onRequestSignWithFAK(msgSignWithFAK.toURL(this.account!.signingURL));
+                // Access key is stored and has permissions
+                return await this.provider.signAndSendTransaction(this.account!.accountId, this.account!.accessKey!, transaction);
             }
         }
     }
@@ -95,7 +102,7 @@ export abstract class BaseDAppClient<Transaction, TransactionResult, Config exte
     async signMessage(message: string): Promise<string> {
         if (!this.connected) throw new Error("Not connected");
         if (!this.accessKey) throw new Error("Access key undefined");
-        return this.wallet.signMessage(this.accessKey, message);
+        return this.provider.signMessage(this.accessKey, message);
     }
 
     /**

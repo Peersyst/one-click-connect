@@ -3,7 +3,7 @@ import { AddLAKRequest, SignWithFAKRequest, WalletRequest } from "../request";
 /**
  * @description Interface for a client.
  */
-export interface INearDAppClient {
+export interface INearDAppClient<Transaction> {
     /**
      * Parse wallet request.
      * @param url The wallet request received.
@@ -22,5 +22,5 @@ export interface INearDAppClient {
      * @param params The params to sign with the Full Access Key.
      * @returns The request.
      */
-    requestSignWithFAK(params: SignWithFAKRequest["params"]): string;
+    requestSignWithFAK(params: SignWithFAKRequest<Transaction[]>["params"]): string;
 }

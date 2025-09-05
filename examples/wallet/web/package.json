@@ -11,6 +11,7 @@
     "dependencies": {
         "@one-click-connect/core": "workspace:*",
         "@one-click-connect/wallet": "workspace:*",
+        "@one-click-connect/sdk": "workspace:*",
         "bignumber.js": "^9.2.1",
         "buffer": "^6.0.3",
         "near-api-js": "^4.0.4",

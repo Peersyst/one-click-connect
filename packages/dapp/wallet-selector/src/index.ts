@@ -1,1 +1,1 @@
-export { setupOneClickConnect } from "./core/setup";
+export { setupOneClickConnect } from "./setup";

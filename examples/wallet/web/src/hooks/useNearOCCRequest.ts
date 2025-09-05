@@ -1,4 +1,3 @@
-import { PublicKey } from "near-api-js/lib/utils";
 import { useNearWallet } from "../providers/NearWalletProvider";
 import { FunctionCallPermission, Transaction } from "near-api-js/lib/transaction";
 import { useMemo } from "react";
@@ -10,7 +9,7 @@ export type UseNearOCCRequestResult =
           data: {
               permissions: FunctionCallPermission;
               redirectURL: string;
-              publicKey: PublicKey;
+              publicKey: string;
           };
       }
     | {
@@ -39,22 +38,22 @@ export function useNearOCCRequest(): UseNearOCCRequestResult {
                         isInitialTxRequest: true,
                         isFullAccessKeyRequest: false,
                         data: {
-                            // TODO: Remove this any
-                            permissions: (params as any).permissions,
+                            permissions: params.permissions as FunctionCallPermission,
                             redirectURL: params.redirectURL,
-                            publicKey: (params as any).publicKey },
+                            publicKey: params.publicKey
+                        },
                     };
                 case "sign-with-fak":
                     return {
                         isInitialTxRequest: false,
                         isFullAccessKeyRequest: true,
                         data: {
-
-                            // TODO: Remove this any
-                            transaction: (params as any).transactions[0],
+                            transaction: params.transactions[0],
                             redirectURL: params.redirectURL
                         },
                     };
+                default:
+                    throw Error("unknown request type");
             }
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
         } catch (_: unknown) {

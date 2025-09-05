@@ -1,8 +1,8 @@
-import { MsgAddLAK, MsgSignWithFAK, SignInParams, DAppRequest, INearWalletClient, MsgSignIn } from "@one-click-connect/core";
+import { MsgAddLAK, MsgSignWithFAK, DAppRequest, SignInRequest, INearWalletClient, MsgSignIn, RequestType } from "@one-click-connect/core";
 import { WalletClientConfig } from "./wallet.client.config";
 import { ClientError, ClientErrorCodes } from "../common/errors";
 
-export class WalletClient<C extends WalletClientConfig> implements INearWalletClient {
+export class WalletClient<C extends WalletClientConfig = WalletClientConfig> implements INearWalletClient {
     private config: C;
 
     constructor(config: C) {
@@ -12,13 +12,9 @@ export class WalletClient<C extends WalletClientConfig> implements INearWalletCl
     /**
      * @inheritDoc
      */
-    requestSignIn(params: SignInParams, dAppURL: string): string {
+    requestSignIn(params: SignInRequest["params"], dAppURL: string): string {
         if (!this.config.signingURL) {
             throw new ClientError(ClientErrorCodes.SIGNING_URL_NOT_SET);
-        }
-
-        if (this.config.relayerAPI) {
-            // TODO: Implement relaying with API
         }
 
         const msg = new MsgSignIn(params.accountID, this.config.signingURL, params.walletId, params.accessKey);
@@ -32,7 +28,7 @@ export class WalletClient<C extends WalletClientConfig> implements INearWalletCl
         try {
             const msg = MsgAddLAK.fromURL(url);
             return {
-                type: "add-lak",
+                type: RequestType.ADD_LAK,
                 params: {
                     redirectURL: msg.redirectURL,
                     permissions: msg.permissions,
@@ -45,7 +41,7 @@ export class WalletClient<C extends WalletClientConfig> implements INearWalletCl
         try {
             const msg = MsgSignWithFAK.fromURL(url);
             return {
-                type: "sign-with-fak",
+                type: RequestType.SIGN_WITH_FAK,
                 params: {
                     redirectURL: msg.redirectURL,
                     transactions: msg.transactions,

@@ -1,11 +1,14 @@
 import { MsgErrorCodes } from "../error";
 
+export enum MsgSignWithFAKQueryParams {
+    INSTRUCTIONS = "instructions",
+}
+
 /**
  * Message for signing a transaction with FAK.
  */
 export class MsgSignWithFAK {
-    // TODO: Remove this any type
-    transactions: any[];
+    transactions: unknown[];
     redirectURL: string;
 
     /**
@@ -13,7 +16,7 @@ export class MsgSignWithFAK {
      * @param transactions The transactions.
      * @param redirectURL The redirectURL.
      */
-    constructor(transactions: any[], redirectURL: string) {
+    constructor(transactions: unknown[], redirectURL: string) {
         this.transactions = transactions;
         this.redirectURL = redirectURL;
     }
@@ -26,14 +29,14 @@ export class MsgSignWithFAK {
     static fromURL(url: string): MsgSignWithFAK {
         const urlObj = new URL(url);
 
-        const instructions = urlObj.searchParams.get("instructions");
+        const instructions = urlObj.searchParams.get(MsgSignWithFAKQueryParams.INSTRUCTIONS);
         if (!instructions) {
             throw new Error(MsgErrorCodes.INVALID_SIGN_WITH_FAK_URL);
         }
         const instructionsDecoded = Buffer.from(instructions, "base64").toString("utf-8");
         const { transactions, redirectUrl } = JSON.parse(instructionsDecoded);
 
-        if (!transactions || Array.isArray(transactions) || transactions.length === 0) {
+        if (!transactions || !Array.isArray(transactions) || transactions.length === 0) {
             throw new Error(MsgErrorCodes.INVALID_SIGN_WITH_FAK_TRANSACTIONS);
         }
 
@@ -54,12 +57,12 @@ export class MsgSignWithFAK {
 
         const instructions = {
             transactions: this.transactions,
-            redirectUrl: window.location.href,
+            redirectUrl: this.redirectURL,
         };
 
         const base64Instructions = Buffer.from(JSON.stringify(instructions)).toString("base64");
 
-        urlObj.searchParams.set("instructions", base64Instructions);
+        urlObj.searchParams.set(MsgSignWithFAKQueryParams.INSTRUCTIONS, base64Instructions);
 
         return urlObj.toString();
     }

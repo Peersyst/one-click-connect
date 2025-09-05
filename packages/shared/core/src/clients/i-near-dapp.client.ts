@@ -1,4 +1,4 @@
-import { AddLAKParams, SignWithFAKParams, WalletRequest } from "../request";
+import { AddLAKRequest, SignWithFAKRequest, WalletRequest } from "../request";
 
 /**
  * @description Interface for a client.
@@ -15,12 +15,12 @@ export interface INearDAppClient {
      * @param params The params to add the Limit Access Key.
      * @returns The request.
      */
-    requestAddLAK(params: AddLAKParams): string;
+    requestAddLAK(params: AddLAKRequest["params"]): string;
 
     /**
      * Create a request to sign using a Full Access Key.
      * @param params The params to sign with the Full Access Key.
      * @returns The request.
      */
-    requestSignWithFAK(params: SignWithFAKParams): string;
+    requestSignWithFAK(params: SignWithFAKRequest["params"]): string;
 }

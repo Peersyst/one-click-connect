@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./Sign.css"; // Import CSS for styling
-import { Transaction } from "near-api-js/lib/transaction";
+import { FunctionCallPermission, Transaction } from "near-api-js/lib/transaction";
 import { useNearOCCRequest } from "../hooks/useNearOCCRequest";
 import * as near from "near-api-js";
 import { useWallet } from "../hooks/useWallet.ts";
@@ -8,17 +8,18 @@ import { PublicKey } from "near-api-js/lib/utils";
 import { Account } from "near-api-js";
 
 const Sign: React.FC = () => {
-    const [permissions, setPermissions] = useState<string | null>(null);
+    const [permissions, setPermissions] = useState<FunctionCallPermission | null>(null);
     const [redirectURL, setRedirectURL] = useState<string | null>(null);
     const [publicKey, setPublicKey] = useState<string | null>(null);
     const [transaction, setTransaction] = useState<Transaction | null>(null);
-    const [copyButtonText, setCopyButtonText] = useState("Copy Redirect URL");
     const { isInitialTxRequest, isFullAccessKeyRequest, data } = useNearOCCRequest();
     const { wallet, loading } = useWallet();
 
+    console.log(data);
+
     useEffect(() => {
         if (isInitialTxRequest) {
-            setPermissions(JSON.stringify(data?.permissions, (_, val) => (typeof val === "bigint" ? val.toString() : val), 2));
+            setPermissions(data?.permissions);
             setRedirectURL(data?.redirectURL);
             setPublicKey(data?.publicKey.toString());
         } else if (isFullAccessKeyRequest) {
@@ -26,23 +27,6 @@ const Sign: React.FC = () => {
             setRedirectURL(data?.redirectURL);
         }
     }, [isInitialTxRequest, isFullAccessKeyRequest, data]);
-
-    const onCopyRedirectUrl = async () => {
-        if (!redirectURL) {
-            return;
-        }
-
-        try {
-            await navigator.clipboard.writeText(redirectURL);
-            console.log("Redirect URL copied to clipboard:", redirectURL);
-            setCopyButtonText("Copied!");
-            setTimeout(() => setCopyButtonText("Copy Redirect URL"), 1500); // Reset text
-        } catch (err) {
-            console.error("Failed to copy Redirect URL: ", err);
-            setCopyButtonText("Copy Failed");
-            setTimeout(() => setCopyButtonText("Copy Redirect URL"), 1500);
-        }
-    };
 
     const onSign = async () => {
         if (isInitialTxRequest) {
@@ -52,7 +36,8 @@ const Sign: React.FC = () => {
             const connection = await near.connect({ networkId: "testnet", nodeUrl: "https://rpc.testnet.near.org", keyStore });
             const account = new Account(connection.connection, wallet.accountId);
 
-            const res = await account.addKey(PublicKey.fromString(publicKey!), (permissions as any).receiverId, (permissions as any).methodNames);
+            console.log(PublicKey.fromString(publicKey!), permissions!.receiverId, permissions!.methodNames);
+            const res = await account.addKey(PublicKey.fromString(publicKey!), permissions!.receiverId, permissions!.methodNames);
             console.log(res);
             window.location.assign(redirectURL!);
         }
@@ -70,7 +55,7 @@ const Sign: React.FC = () => {
                 <ul>
                     {permissions && (
                         <li>
-                            Permissions: <span className="param-value">{permissions}</span>
+                            Permissions: <span className="param-value">{JSON.stringify(permissions, null, 2)}</span>
                         </li>
                     )}
                     {redirectURL && (
@@ -95,12 +80,6 @@ const Sign: React.FC = () => {
 
                 {!loading && (
                     <button onClick={onSign} className="copy-button">Sign</button>
-                )}
-
-                {redirectURL && (
-                    <button onClick={onCopyRedirectUrl} className="copy-button">
-                        {copyButtonText}
-                    </button>
                 )}
             </div>
         </div>

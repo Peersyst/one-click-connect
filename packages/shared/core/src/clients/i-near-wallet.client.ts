@@ -1,4 +1,4 @@
-import { DAppRequest, SignInParams } from "../request";
+import { DAppRequest, SignInRequest } from "../request";
 
 /**
  * @description Interface for a wallet.
@@ -10,7 +10,7 @@ export interface INearWalletClient {
      * @param dAppURL The dAppUrl.
      * @returns The request.
      */
-    requestSignIn(params: SignInParams, dAppURL: string): string;
+    requestSignIn(params: SignInRequest["params"], dAppURL: string): string;
 
     /**
      * Parse dApp request.

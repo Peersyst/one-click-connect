@@ -1,7 +1,0 @@
-{
-    "extends": "@shared/tsconfig/browser-package",
-    "compilerOptions": {
-        "outDir": "./dist"
-    },
-    "include": ["src", "test"]
-}

@@ -6,14 +6,31 @@ import { useWallet } from "../hooks/useWallet.ts";
 // Placeholder data - replace with actual data fetching
 const DAPP_DATA = [
     {
-        name: "Cool DApp 1",
-        url: "http://localhost:3000", // Example URL for the vanilla dapp
+        name: "Example DApp",
+        url: "http://localhost:3002", // Example URL for the vanilla dapp
         imageUrl: "https://pages.near.org/wp-content/uploads/2023/11/NEAR_token.png",
     },
     {
         name: "GuestBook",
         url: "http://localhost:3000", // Example URL for the vanilla dapp
         imageUrl: "https://pages.near.org/wp-content/uploads/2023/11/NEAR_token.png",
+    },
+    {
+        name: "GuestBook (with LAK)",
+        url: "http://localhost:3000", // Example URL for the vanilla dapp
+        imageUrl: "https://pages.near.org/wp-content/uploads/2023/11/NEAR_token.png",
+        accessKey: "ed25519:5gozkMww8G8izWk8RhCu8TJsqn3KRMU6dfJuwvBmoHkyY5yx51T6ubE9WY4nvjCmZrbnKsSFUqPqUwcfZDdAXfV7",
+    },
+    {
+        name: "Meta Pool",
+        url: "https://www.metapool.app/", // Example URL for the vanilla dapp
+        imageUrl: "https://avatars.githubusercontent.com/u/112860635?s=200&v=4",
+    },
+    {
+        name: "Meta Pool (with LAK)",
+        url: "https://www.metapool.app/", // Example URL for the vanilla dapp
+        imageUrl: "https://avatars.githubusercontent.com/u/112860635?s=200&v=4",
+        accessKey: "ed25519:Pyfpjs1sSVJRzPHBdySayt7uCzv6KsSdLADhdnPT7mkMMrCzDJtLHte5qnodDUdowWEEicfxtggKJTEu9gDuudb",
     },
 ];
 
@@ -54,6 +71,8 @@ const Home: React.FC = () => {
                         {DAPP_DATA.map((dapp, index) => {
                             const dappUrl = client.requestSignIn({
                                 accountID: accountId!,
+                                accessKey: dapp.accessKey,
+                                walletId: "sweat-wallet",
                             }, dapp.url);
 
                             return (

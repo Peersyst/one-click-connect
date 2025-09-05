@@ -1,5 +1,5 @@
 {
-    "name": "@one-click-connect/wallet-core",
+    "name": "@one-click-connect/wallet",
     "version": "0.1.0-alpha.0",
     "main": "./dist/index.js",
     "types": "./dist/index.d.ts",

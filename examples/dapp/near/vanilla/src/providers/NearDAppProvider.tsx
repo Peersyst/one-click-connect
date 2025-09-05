@@ -1,8 +1,11 @@
-import React, { createContext, useContext, useMemo } from "react";
-import { ClientFactory, Client } from "@one-click-connect/browser-dapp";
+import React, { createContext, useContext, useEffect, useState } from "react";
+import { DAppClient } from "@one-click-connect/dapp-sdk";
+import { connect } from "near-api-js";
+import { InMemoryKeyStore } from "near-api-js/lib/key_stores";
 
 interface NearDAppContextType {
-    client: Client;
+    client: DAppClient | null;
+    isLoading: boolean;
 }
 
 const NearDAppContext = createContext<NearDAppContextType | null>(null);
@@ -20,18 +23,48 @@ interface NearDAppProviderProps {
 }
 
 export const NearDAppProvider: React.FC<NearDAppProviderProps> = ({ children }) => {
-    const client = useMemo(() => {
-        return ClientFactory.newClient({
-            redirectURL: window.location.origin + "/main",
-        });
+    const [client, setClient] = useState<DAppClient | null>(null);
+    const [isLoading, setIsLoading] = useState(true);
+
+    useEffect(() => {
+        const initializeClient = async () => {
+            try {
+                const keyStore = new InMemoryKeyStore();
+                const connection = await connect({
+                    networkId: "testnet",
+                    nodeUrl: "https://rpc.testnet.near.org",
+                    keyStore,
+                });
+
+                const newClient = new DAppClient(
+                    {
+                        redirectURL: window.location.origin + "/main",
+                    },
+                    connection,
+                    keyStore,
+                    {
+                        receiverId: "guest-book.testnet",
+                        methodNames: ["addMessage"],
+                    },
+                );
+
+                await newClient.connect(window.location.href, true);
+
+                setClient(newClient);
+            } catch (error) {
+                console.error("Failed to initialize NEAR client:", error);
+            } finally {
+                setIsLoading(false);
+            }
+        };
+
+        initializeClient();
     }, []);
 
-    const value = useMemo(
-        () => ({
-            client,
-        }),
-        [client],
-    );
+    const value = {
+        client,
+        isLoading
+    };
 
     return <NearDAppContext.Provider value={value}>{children}</NearDAppContext.Provider>;
 };

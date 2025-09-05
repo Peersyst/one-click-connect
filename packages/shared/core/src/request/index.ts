@@ -1,2 +1,3 @@
-export * from "./dapp-request";
-export * from "./wallet-request";
+export * from "./request";
+export * from "./dapp.request";
+export * from "./wallet.request";

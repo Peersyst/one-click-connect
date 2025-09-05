@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNearDApp } from "../providers/NearDAppProvider";
 import { useSearchParams } from "react-router-dom";
-import { FunctionCallPermission } from "near-api-js/lib/transaction";
 import "./Home.css";
 
 const Home: React.FC = () => {
@@ -11,7 +10,7 @@ const Home: React.FC = () => {
     const [signingUrl, setSigningUrl] = useState<string | null>(null);
     const [isSignedIn, setIsSignedIn] = useState(false);
     const [showModal, setShowModal] = useState(false);
-    const [copyButtonText, setCopyButtonText] = useState("Copy Sign URL");
+    const [copyButtonText] = useState("Copy Sign URL");
 
     useEffect(() => {
         const accountID = searchParams.get("accountID");
@@ -22,12 +21,12 @@ const Home: React.FC = () => {
             setSigningUrl(signingURL);
         }
         if (client) {
-            const account = client.getActiveAccount();
+            const account = client.accountId;
             if (account) {
-                setAccountId(account.accountID);
+                setAccountId(client.accountId);
                 setIsSignedIn(true);
             } else if (accountID && signingURL) {
-                const isSignedIn = client.isSignedIn(accountID, signingURL);
+                const isSignedIn = client.connected;
                 if (isSignedIn) {
                     setAccountId(accountID);
                     setIsSignedIn(true);
@@ -36,8 +35,8 @@ const Home: React.FC = () => {
         }
     }, [searchParams, client]);
 
-    const handleSignOut = () => {
-        client.signOut();
+    const handleSignOut = async () => {
+        await client?.disconnect();
         setAccountId(null);
         setSigningUrl(null);
         setIsSignedIn(false);
@@ -47,30 +46,7 @@ const Home: React.FC = () => {
         if (!accountId || !signingUrl) {
             return;
         }
-
-        const url = client.requestSignInitialTx({
-            accountID: accountId,
-            signingURL: signingUrl,
-            permissions: new FunctionCallPermission({
-                receiverId: "test.near",
-                methodNames: ["test"],
-                allowance: BigInt(0),
-            }),
-        });
-
-        try {
-            await navigator.clipboard.writeText(url);
-            console.log("Sign URL copied to clipboard:", url);
-            setCopyButtonText("Copied!");
-            setTimeout(() => {
-                setCopyButtonText("Copy Sign URL");
-                setShowModal(false); // Optionally close modal after copy
-            }, 1500); // Reset text after 1.5 seconds
-        } catch (err) {
-            console.error("Failed to copy URL: ", err);
-            setCopyButtonText("Copy Failed");
-            setTimeout(() => setCopyButtonText("Copy Sign URL"), 1500);
-        }
+        setShowModal(false); // Optionally close modal after copy
     };
 
     return (

@@ -1,14 +1,22 @@
-import { FunctionCallPermission } from "near-api-js/lib/transaction";
-import { PublicKey } from "near-api-js/lib/utils";
 import { MsgErrorCodes } from "../error";
+
+export type Permissions = {
+    receiverId: string;
+    methodNames: string[];
+    allowance?: bigint | string;
+};
+
+export enum MsgAddLAKQueryParams {
+    INSTRUCTIONS = "instructions",
+}
 
 /**
  * Message for signing a limited access key.
  */
 export class MsgAddLAK {
     redirectURL: string;
-    permissions: FunctionCallPermission;
-    publicKey: PublicKey;
+    permissions: Permissions;
+    publicKey: string;
 
     /**
      * Creates a new MsgAddLak object.
@@ -16,7 +24,7 @@ export class MsgAddLAK {
      * @param permissions The permissions.
      * @param publicKey The public key.
      */
-    constructor(redirectURL: string, permissions: FunctionCallPermission, publicKey: PublicKey) {
+    constructor(redirectURL: string, permissions: Permissions, publicKey: string) {
         this.redirectURL = redirectURL;
         this.permissions = permissions;
         this.publicKey = publicKey;
@@ -30,7 +38,7 @@ export class MsgAddLAK {
     static fromURL(url: string): MsgAddLAK {
         const urlObj = new URL(url);
 
-        const instructions = urlObj.searchParams.get("instructions");
+        const instructions = urlObj.searchParams.get(MsgAddLAKQueryParams.INSTRUCTIONS);
         if (!instructions) {
             throw new Error(MsgErrorCodes.INVALID_ADD_LAK_URL);
         }
@@ -51,17 +59,20 @@ export class MsgAddLAK {
         if (!limitedAccessKey.methodNames || !Array.isArray(limitedAccessKey.methodNames)) {
             throw new Error(MsgErrorCodes.INVALID_ADD_LAK_LIMITED_ACCESS_KEY_METHOD_NAMES);
         }
-        if (limitedAccessKey.allowance && typeof limitedAccessKey.allowance !== "bigint") {
+        if (
+            limitedAccessKey.allowance &&
+            typeof limitedAccessKey.allowance !== "bigint" &&
+            typeof limitedAccessKey.allowance !== "string"
+        ) {
             throw new Error(MsgErrorCodes.INVALID_ADD_LAK_LIMITED_ACCESS_KEY_ALLOWANCE);
         }
-        const permissions: FunctionCallPermission = {
+        const permissions: Permissions = {
             receiverId: limitedAccessKey.contractId,
             methodNames: limitedAccessKey.methodNames,
             allowance: limitedAccessKey.allowance,
         };
-        const publicKey = PublicKey.fromString(limitedAccessKey.publicKey);
 
-        return new MsgAddLAK(redirectUrl, permissions, publicKey);
+        return new MsgAddLAK(redirectUrl, permissions, limitedAccessKey.publicKey);
     }
 
     /**
@@ -73,7 +84,7 @@ export class MsgAddLAK {
         const urlObj = new URL(url);
 
         const instructions = {
-            redirectUrl: window.location.href,
+            redirectUrl: this.redirectURL,
             limitedAccessKey: {
                 publicKey: this.publicKey.toString(),
                 contractId: this.permissions.receiverId,
@@ -84,7 +95,7 @@ export class MsgAddLAK {
 
         const base64Instructions = Buffer.from(JSON.stringify(instructions)).toString("base64");
 
-        urlObj.searchParams.set("instructions", base64Instructions);
+        urlObj.searchParams.set(MsgAddLAKQueryParams.INSTRUCTIONS, base64Instructions);
 
         return urlObj.toString();
     }

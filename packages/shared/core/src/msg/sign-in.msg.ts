@@ -1,5 +1,9 @@
 import { MsgErrorCodes } from "../error";
 
+export enum MsgSignInQueryParams {
+    CONNECTION = "connection",
+}
+
 /**
  * Message for signing in to the app.
  * @example
@@ -35,7 +39,7 @@ export class MsgSignIn {
      */
     static fromURL(url: string): MsgSignIn {
         const urlObj = new URL(url);
-        const connectionParam = urlObj.searchParams.get("connection");
+        const connectionParam = urlObj.searchParams.get(MsgSignInQueryParams.CONNECTION);
         if (!connectionParam) {
             throw new Error(MsgErrorCodes.INVALID_SIGN_IN_URL);
         }
@@ -46,7 +50,7 @@ export class MsgSignIn {
             throw new Error(MsgErrorCodes.INVALID_SIGN_IN_ACCOUNT_ID);
         }
 
-        if (!walletTransactionUrl || URL.canParse(walletTransactionUrl)) {
+        if (!walletTransactionUrl || !URL.canParse(walletTransactionUrl)) {
             throw new Error(MsgErrorCodes.INVALID_SIGN_IN_WALLET_TRANSACTION_URL);
         }
 
@@ -67,7 +71,7 @@ export class MsgSignIn {
             walletTransactionUrl: this.signingURL,
             secretKey: this.accessKey,
         });
-        urlObj.searchParams.set("connection", Buffer.from(connection).toString("base64"));
+        urlObj.searchParams.set(MsgSignInQueryParams.CONNECTION, Buffer.from(connection).toString("base64"));
         return urlObj.toString();
     }
 }

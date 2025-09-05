@@ -9,6 +9,7 @@
         "preview": "vite preview"
     },
     "dependencies": {
+        "@one-click-connect/core": "workspace:*",
         "@one-click-connect/wallet": "workspace:*",
         "bignumber.js": "^9.2.1",
         "buffer": "^6.0.3",

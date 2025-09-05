@@ -1,6 +1,6 @@
-import { Transaction } from "../clients";
 import { FinalExecutionOutcome } from "near-api-js/lib/providers";
 import { Provider } from "@one-click-connect/dapp-core";
+import { Transaction } from "@one-click-connect/sdk";
 import { Permissions } from "@one-click-connect/core";
 import { Account, KeyPair, Near } from "near-api-js";
 import { KeyStore } from "near-api-js/lib/key_stores";

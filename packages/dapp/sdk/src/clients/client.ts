@@ -5,7 +5,7 @@ import { NearProvider } from "../provider";
 import { Near } from "near-api-js";
 import { BaseDAppClientConfig } from "@one-click-connect/dapp-core";
 import { KeyStore } from "near-api-js/lib/key_stores";
-import { TransactionCodec } from "../codec/transaction.codec";
+import { TransactionCodec } from "@one-click-connect/sdk";
 import { Transaction } from "@one-click-connect/sdk";
 
 export class DAppClient extends BrowserDAppClient<Transaction, FinalExecutionOutcome, BaseDAppClientConfig> {

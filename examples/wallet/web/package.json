@@ -9,9 +9,9 @@
         "preview": "vite preview"
     },
     "dependencies": {
-        "@one-click-connect/core": "workspace:*",
-        "@one-click-connect/wallet": "workspace:*",
-        "@one-click-connect/sdk": "workspace:*",
+        "@one-click-connect/core": "0.1.0",
+        "@one-click-connect/wallet": "0.1.0",
+        "@one-click-connect/sdk": "0.1.0",
         "bignumber.js": "^9.2.1",
         "buffer": "^6.0.3",
         "near-api-js": "^4.0.4",

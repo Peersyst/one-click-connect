@@ -9,7 +9,7 @@
         "preview": "vite preview"
     },
     "dependencies": {
-        "@one-click-connect/dapp-sdk": "workspace:*",
+        "@one-click-connect/dapp-sdk": "0.1.0",
         "bignumber.js": "^9.2.1",
         "buffer": "^6.0.3",
         "near-api-js": "^5.0.0",

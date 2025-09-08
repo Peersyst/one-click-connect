@@ -11,7 +11,7 @@
     "dependencies": {
         "@one-click-connect/browser-dapp": "0.1.0-alpha.5",
         "@near-wallet-selector/near-mobile-wallet": "^9.3.0",
-        "@one-click-connect/wallet-selector": "workspace:*",
+        "@one-click-connect/wallet-selector": "0.1.0",
         "@reown/appkit": "^1.6.9",
         "@reown/appkit-adapter-wagmi": "^1.6.9",
         "@near-wallet-selector/core": "^9.3.0",

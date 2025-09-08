@@ -1,11 +1,10 @@
 {
     "name": "@one-click-connect/wallet-selector",
-    "version": "1.0.1",
+    "version": "0.1.0",
     "description": "OneClick Connect Wallet Selector Plugin",
     "main": "./dist/index.js",
     "types": "./dist/index.d.ts",
     "module": "./dist/index.mjs",
-
     "scripts": {
         "build": "tsup",
         "prebundle": "rimraf .turbo dist",

@@ -9,14 +9,17 @@
         "preview": "vite preview"
     },
     "dependencies": {
-        "@one-click-connect/wallet": "0.1.0-alpha.5",
+        "@one-click-connect/core": "workspace:*",
+        "@one-click-connect/wallet": "workspace:*",
+        "@one-click-connect/sdk": "workspace:*",
         "bignumber.js": "^9.2.1",
         "buffer": "^6.0.3",
         "near-api-js": "^4.0.4",
         "react": "^19.0.0",
         "react-dom": "^19.0.0",
         "react-router-dom": "^7.5.0",
-        "vite-plugin-node-polyfills": "^0.23.0"
+        "vite-plugin-node-polyfills": "^0.23.0",
+        "js-sha256": "^0.11.1"
     },
     "devDependencies": {
         "@originjs/vite-plugin-commonjs": "^1.0.3",

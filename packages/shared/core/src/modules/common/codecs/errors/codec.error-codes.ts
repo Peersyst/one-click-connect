@@ -1,4 +1,0 @@
-export enum CodecErrorCodes {
-    ERROR_DECODING_URL = "ERROR_DECODING_URL",
-    ERROR_ENCODING_URL = "ERROR_ENCODING_URL",
-}

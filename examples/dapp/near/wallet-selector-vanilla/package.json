@@ -1,0 +1,45 @@
+{
+    "name": "@occ-examples/near-wallet-selector-vanilla",
+    "private": true,
+    "version": "0.0.0",
+    "type": "module",
+    "scripts": {
+        "dev": "vite",
+        "lint": "eslint .",
+        "preview": "vite preview"
+    },
+    "dependencies": {
+        "@one-click-connect/browser-dapp": "0.1.0-alpha.5",
+        "@near-wallet-selector/near-mobile-wallet": "^9.3.0",
+        "@one-click-connect/wallet-selector": "workspace:*",
+        "@reown/appkit": "^1.6.9",
+        "@reown/appkit-adapter-wagmi": "^1.6.9",
+        "@near-wallet-selector/core": "^9.3.0",
+        "@near-wallet-selector/modal-ui-js": "^9.3.0",
+        "@keypom/one-click-connect": "^1.0.1",
+        "wagmi": "^2.12.17",
+        "@wagmi/connectors": "^5.9.6",
+        "@wagmi/core": "^2.20.1",
+        "bignumber.js": "^9.2.1",
+        "buffer": "^6.0.3",
+        "near-api-js": "^4.0.4",
+        "react": "^19.0.0",
+        "react-dom": "^19.0.0",
+        "react-router-dom": "^7.5.0",
+        "vite-plugin-node-polyfills": "^0.23.0"
+    },
+    "devDependencies": {
+        "@eslint/js": "^8.57.0",
+        "@originjs/vite-plugin-commonjs": "^1.0.3",
+        "@types/react": "^19.0.10",
+        "@types/react-dom": "^19.0.4",
+        "@vitejs/plugin-react": "^4.3.4",
+        "eslint": "^8.57.0",
+        "eslint-plugin-react-hooks": "^5.2.0",
+        "eslint-plugin-react-refresh": "^0.4.19",
+        "globals": "^16.0.0",
+        "typescript": "~5.7.2",
+        "typescript-eslint": "^8.26.1",
+        "vite": "^6.3.0"
+    }
+}

@@ -1,4 +1,3 @@
-import { PublicKey } from "near-api-js/lib/utils";
 import { useNearWallet } from "../providers/NearWalletProvider";
 import { FunctionCallPermission, Transaction } from "near-api-js/lib/transaction";
 import { useMemo } from "react";
@@ -10,7 +9,7 @@ export type UseNearOCCRequestResult =
           data: {
               permissions: FunctionCallPermission;
               redirectURL: string;
-              publicKey: PublicKey;
+              publicKey: string;
           };
       }
     | {
@@ -32,22 +31,34 @@ export function useNearOCCRequest(): UseNearOCCRequestResult {
 
     return useMemo(() => {
         try {
-            const { permissions, redirectURL, publicKey } = client.parseSignInitialTxRequest(window.location.href);
-            return {
-                isInitialTxRequest: true,
-                isFullAccessKeyRequest: false,
-                data: { permissions, redirectURL, publicKey },
-            };
-        } catch (error: unknown) {
-            if (error instanceof Error && error.message === "INVALID_URL") {
-                const { transaction, redirectURL } = client.parseFullAccessKeyRequest(window.location.href);
-                return {
-                    isInitialTxRequest: false,
-                    isFullAccessKeyRequest: true,
-                    data: { transaction, redirectURL },
-                };
+            const { type, params } = client.parseDAppRequest(window.location.href);
+            console.log("type", type, "params", params);
+            switch (type) {
+                case "add-lak":
+                    return {
+                        isInitialTxRequest: true,
+                        isFullAccessKeyRequest: false,
+                        data: {
+                            permissions: params.permissions as FunctionCallPermission,
+                            redirectURL: params.redirectURL,
+                            publicKey: params.publicKey
+                        },
+                    };
+                case "sign-with-fak":
+                    return {
+                        isInitialTxRequest: false,
+                        isFullAccessKeyRequest: true,
+                        data: {
+                            transaction: params.transactions[0],
+                            redirectURL: params.redirectURL
+                        },
+                    };
+                default:
+                    throw Error("unknown request type");
             }
-
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        } catch (e: unknown) {
+            console.log(e);
             return {
                 isInitialTxRequest: false,
                 isFullAccessKeyRequest: false,

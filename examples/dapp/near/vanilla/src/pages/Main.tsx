@@ -1,18 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useNearDApp } from "../providers/NearDAppProvider";
-import { KeyPair } from "near-api-js/lib/utils";
-import { Transaction } from "near-api-js/lib/transaction";
+import { transactions } from "near-api-js";
 
 const Main: React.FC = () => {
     const { client } = useNearDApp();
     const [showModal, setShowModal] = useState(false);
-    const [activeAccount, setActiveAccount] = useState<{ keypair: KeyPair; accountID: string; signingURL: string } | undefined>(undefined);
+    const [activeAccount, setActiveAccount] = useState<{ accountID: string; } | undefined>(undefined);
 
     useEffect(() => {
         const fetchAccount = () => {
-            const account = client.getActiveAccount();
-            setActiveAccount(account);
-            console.log("Active Account:", account);
+            setActiveAccount({ accountID: client!.accountId });
         };
 
         if (client) {
@@ -20,28 +17,36 @@ const Main: React.FC = () => {
         }
     }, [client]);
 
-    const onCopySignFakUrl = async () => {
-        if (!activeAccount) {
-            return;
-        }
-
-        console.log("Signing URL:", activeAccount.signingURL);
-        const url = client.requestSignWithFullAccessKey({
-            transaction: Transaction.decode(
-                Buffer.from(
-                    "DAAAAG1vY2tTaWduZXJJZACcdRJ+JQOaKfqxr8M0e4Ylfcz1E107wi1yLO+td5FwvAEAAAAAAAAADgAAAG1vY2tSZWNlaXZlcklko7RnCT5MjkhJMV2ASLYPwYZorzhqPrGdadCYH6KZGxQAAAAA",
-                    "base64",
+    const onSignLAK = async () => {
+        const result = await client?.signAndSendTransaction({
+            receiverId: "guest-book.testnet",
+            actions: [
+                transactions.functionCall(
+                    "addMessage",
+                    {
+                        text: "Hello, World!",
+                    },
+                    100000000000000n,
+                    0n,
                 ),
-            ),
-            signingURL: activeAccount.signingURL,
+            ]
         });
 
-        try {
-            await navigator.clipboard.writeText(url);
-            console.log("Sign URL copied to clipboard:", url);
+        if (result) {
             setShowModal(false);
-        } catch (err) {
-            console.error("Failed to copy URL: ", err);
+        }
+    };
+
+    const onSignFAK = async () => {
+        const result = await client?.signAndSendTransaction({
+            receiverId: "occdemo.testnet",
+            actions: [
+                transactions.transfer(1000000000000000000000n),
+            ]
+        });
+
+        if (result) {
+            setShowModal(false);
         }
     };
 
@@ -57,7 +62,7 @@ const Main: React.FC = () => {
                         <p>
                             Connected Account: <strong>{activeAccount.accountID}</strong>
                         </p>
-                        <button onClick={() => setShowModal(true)}>Sign with Full Access Key</button>
+                        <button onClick={() => setShowModal(true)}>Sign transaction</button>
                     </>
                 ) : (
                     <p>No account is currently connected.</p>
@@ -66,12 +71,14 @@ const Main: React.FC = () => {
             {showModal && (
                 <div className="modal-overlay">
                     <div className="modal">
-                        <h2>Copy Signing URL</h2>
-                        <p>Copy the URL needed to sign the transaction with the full access key.</p>
+                        <h2>Sign</h2>
+                        <p>Sign a transaction with a limited or full access key.</p>
                         <div className="modal-buttons">
-                            <button onClick={() => setShowModal(false)}>Cancel</button>
-                            <button onClick={onCopySignFakUrl} className="sign-button">
-                                Copy
+                            <button onClick={onSignLAK} className="sign-button">
+                                Sign using LAK
+                            </button>
+                            <button onClick={onSignFAK} className="sign-button">
+                                Sign using FAK
                             </button>
                         </div>
                     </div>

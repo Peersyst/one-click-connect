@@ -5,5 +5,6 @@
         "rootDir": "src"
     },
     "include": ["src"],
-    "exclude": ["dist", "jest.config.ts", "test"]
+    "exclude": ["dist",
+        "jest.config.js", "test"]
 }

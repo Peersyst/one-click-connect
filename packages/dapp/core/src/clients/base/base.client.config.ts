@@ -1,3 +1,3 @@
-import { DAppClientConfig } from "../../common/config";
+import { DAppClientConfig } from "../../common";
 
-export type NearDAppClientConfig = DAppClientConfig;
+export type BaseDAppClientConfig = DAppClientConfig;

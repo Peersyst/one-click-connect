@@ -12,6 +12,7 @@ import { SignAndSendTransactionParams, SignAndSendTransactionsParams } from "./t
 import { FunctionCallPermission } from "near-api-js/lib/transaction";
 import { DAppClient } from "@one-click-connect/dapp-sdk";
 import { createAction } from "@near-wallet-selector/wallet-utils";
+import { ErrorCodes } from "./errors";
 
 export class Wallet implements Omit<InstantLinkWallet, "id" | "type" | "metadata"> {
     constructor(
@@ -49,7 +50,7 @@ export class Wallet implements Omit<InstantLinkWallet, "id" | "type" | "metadata
      * @inheritDoc
      */
     verifyOwner = (_: VerifyOwnerParams): Promise<VerifiedOwner | void> => {
-        throw new Error("Method not implemented.");
+        throw new Error(ErrorCodes.METHOD_NOT_IMPLEMENTED);
     };
 
     /**
@@ -62,7 +63,7 @@ export class Wallet implements Omit<InstantLinkWallet, "id" | "type" | "metadata
             receiverId: params.receiverId ?? this.permissions.receiverId,
             actions,
         });
-        if (!result) throw new Error("unreachable code");
+        if (!result) throw new Error(ErrorCodes.UNREACHABLE);
         return result;
     };
 

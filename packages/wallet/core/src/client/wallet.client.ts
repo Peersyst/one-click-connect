@@ -58,7 +58,7 @@ export class WalletClient<Transaction, Config extends WalletClientConfig = Walle
                 },
             };
         } catch (_) {}
-        throw new Error("Invalid URL");
+        throw new Error(ClientErrorCodes.INVALID_URL);
     }
 
     /**

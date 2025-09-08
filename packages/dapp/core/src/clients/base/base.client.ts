@@ -1,6 +1,6 @@
 import { MsgAddLAK, MsgSignWithFAK, MsgSignIn, Permissions, MsgSignInQueryParams, Codec } from "@one-click-connect/core";
 import { BaseDAppClientConfig } from "./base.client.config";
-import { Account } from "../../common";
+import { Account, ErrorCodes } from "../../common";
 import { AccountStore, Callbacks, PendingTransactionStore, Provider } from "../../common";
 
 export abstract class BaseDAppClient<Transaction, TransactionResult, Config extends BaseDAppClientConfig = BaseDAppClientConfig> {
@@ -21,18 +21,18 @@ export abstract class BaseDAppClient<Transaction, TransactionResult, Config exte
     }
 
     get accountId() {
-        if (!this.connected) throw new Error("Not connected");
+        if (!this.connected) throw new Error(ErrorCodes.NOT_CONNECTED);
         return this.account!.accountId;
     }
 
     get accessKey() {
-        if (!this.connected) throw new Error("Not connected");
+        if (!this.connected) throw new Error(ErrorCodes.NOT_CONNECTED);
         return this.account!.accessKey;
     }
 
     get publicKey() {
-        if (!this.connected) throw new Error("Not connected");
-        if (!this.accessKey) throw new Error("Access key undefined");
+        if (!this.connected) throw new Error(ErrorCodes.NOT_CONNECTED);
+        if (!this.accessKey) throw new Error(ErrorCodes.NO_ACCESS_KEY);
         return this.provider.derivePublicKey(this.accessKey);
     }
 
@@ -55,7 +55,7 @@ export abstract class BaseDAppClient<Transaction, TransactionResult, Config exte
             account = await this.accountStore.get();
         }
         if (!account) {
-            throw new Error("Could not sign in using One Click Connect, no msgSignIn detected and no account stored");
+            throw new Error(ErrorCodes.COULD_NOT_CONNECT);
         }
         this.account = account;
         if (executePendingTransactions) await this.executePendingTransactions();
@@ -68,7 +68,7 @@ export abstract class BaseDAppClient<Transaction, TransactionResult, Config exte
      * @returns The transaction result or void if executed a callback.
      */
     async signAndSendTransaction(transaction: Transaction): Promise<TransactionResult | void> {
-        if (!this.connected) throw new Error("Not connected");
+        if (!this.connected) throw new Error(ErrorCodes.NOT_CONNECTED);
         const hasAccessKey = this.account!.accessKey !== undefined;
         const canExecute = await this.provider.canExecute(this.permissions, transaction);
         const hasPermissions =
@@ -100,8 +100,8 @@ export abstract class BaseDAppClient<Transaction, TransactionResult, Config exte
      * @returns A promise that resolves to the signed message as a string.
      */
     async signMessage(message: string): Promise<string> {
-        if (!this.connected) throw new Error("Not connected");
-        if (!this.accessKey) throw new Error("Access key undefined");
+        if (!this.connected) throw new Error(ErrorCodes.NOT_CONNECTED);
+        if (!this.accessKey) throw new Error(ErrorCodes.NO_ACCESS_KEY);
         return this.provider.signMessage(this.accessKey, message);
     }
 
@@ -109,11 +109,11 @@ export abstract class BaseDAppClient<Transaction, TransactionResult, Config exte
      * Executes any pending transactions stored in the pending transaction store.
      */
     async executePendingTransactions(): Promise<void> {
-        if (!this.connected) throw new Error("Not connected");
+        if (!this.connected) throw new Error(ErrorCodes.NOT_CONNECTED);
         if (!this.pendingTransactionStore) return;
         let pendingTransaction: Transaction | null = await this.pendingTransactionStore.pop(this.account!.accountId);
         while (pendingTransaction) {
-            if (!this.account?.accessKey) throw new Error("Access key undefined");
+            if (!this.account?.accessKey) throw new Error(ErrorCodes.NO_ACCESS_KEY);
             // NOTE: We wait for certain seconds to make sure transaction gets included in the blockchain
             await new Promise((resolve) => setTimeout(resolve, 1500));
             await this.signAndSendTransaction(pendingTransaction);

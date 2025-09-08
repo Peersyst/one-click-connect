@@ -18,8 +18,8 @@
     "author": "",
     "license": "ISC",
     "dependencies": {
-        "@one-click-connect/dapp-sdk": "workspace:*",
-        "@one-click-connect/core": "workspace:*",
+        "@one-click-connect/dapp-sdk": "0.1.0",
+        "@one-click-connect/core": "0.1.0",
         "@near-wallet-selector/core": "8.9.5",
         "@near-wallet-selector/wallet-utils": "8.9.5"
     },

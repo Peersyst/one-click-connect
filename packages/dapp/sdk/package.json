@@ -19,9 +19,9 @@
     "license": "ISC",
     "dependencies": {
         "borsh": "^1.0.0",
-        "@one-click-connect/sdk": "workspace:*",
-        "@one-click-connect/core": "workspace:*",
-        "@one-click-connect/dapp-core": "workspace:*"
+        "@one-click-connect/sdk": "0.1.0",
+        "@one-click-connect/core": "0.1.0",
+        "@one-click-connect/dapp-core": "0.1.0"
     },
     "devDependencies": {
         "@shared/eslint": "workspace:*",

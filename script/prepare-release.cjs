@@ -2,7 +2,6 @@
 
 const fs = require('fs');
 const path = require('path');
-const { execSync } = require('child_process');
 
 // Get the version from command line arguments
 const version = process.argv[2];
@@ -67,43 +66,12 @@ function findPackageJsonFiles(dir) {
     return results;
 }
 
-// Update a package.json file
-function updatePackageJson(packageJsonPath) {
-    const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
-    const originalVersion = packageJson.version;
-
-    // Update the version
-    packageJson.version = version;
-
-    // Update workspace dependencies
-    const dependencyTypes = ['dependencies', 'devDependencies', 'peerDependencies', 'optionalDependencies'];
-
-    for (const depType of dependencyTypes) {
-        if (packageJson[depType]) {
-            for (const [name, depVersion] of Object.entries(packageJson[depType])) {
-                if (depVersion === 'workspace:*' || depVersion.startsWith('workspace:')) {
-                    packageJson[depType][name] = version;
-                }
-            }
-        }
-    }
-
-    // Save the updated package.json
-    fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 4) + '\n');
-
-    // Get relative path for cleaner output
-    const relativePath = path.relative(rootDir, packageJsonPath);
-
-    console.log(`Updated ${relativePath}:`);
-    console.log(`  - Version: ${originalVersion} → ${version}`);
-    console.log(`  - Replaced workspace:* dependencies with version ${version}`);
-}
-
 // Main execution
 try {
     console.log(`Updating packages to version ${version}...`);
     console.log('Ignoring packages:', ignoredPackages);
 
+    // Step 1: Find all package.json files and build a set of package names we're updating
     const packageJsonFiles = findPackageJsonFiles(packagesDir);
 
     if (packageJsonFiles.length === 0) {
@@ -113,8 +81,58 @@ try {
 
     console.log(`Found ${packageJsonFiles.length} package.json files to update`);
 
+    // Step 2: Build a set of package names being updated
+    const packagesToUpdate = new Set();
+
     for (const packageJsonPath of packageJsonFiles) {
-        updatePackageJson(packageJsonPath);
+        const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
+        if (packageJson.name) {
+            packagesToUpdate.add(packageJson.name);
+        }
+    }
+
+    console.log(`Package names being updated: ${Array.from(packagesToUpdate).join(', ')}`);
+
+    // Step 3: Update each package
+    for (const packageJsonPath of packageJsonFiles) {
+        const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
+        const originalVersion = packageJson.version;
+
+        // Update the version
+        packageJson.version = version;
+
+        // Update workspace dependencies that reference our packages
+        const dependencyTypes = ['dependencies', 'devDependencies', 'peerDependencies', 'optionalDependencies'];
+        let dependenciesUpdated = 0;
+
+        for (const depType of dependencyTypes) {
+            if (packageJson[depType]) {
+                for (const [name, depVersion] of Object.entries(packageJson[depType])) {
+                    // Only update if:
+                    // 1. The dependency uses workspace syntax
+                    // 2. The dependency name is in our list of packages being updated
+                    if (
+                        (depVersion === 'workspace:*' || depVersion.startsWith('workspace:')) &&
+                        packagesToUpdate.has(name)
+                    ) {
+                        packageJson[depType][name] = version;
+                        dependenciesUpdated++;
+                    }
+                }
+            }
+        }
+
+        // Save the updated package.json
+        fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 4) + '\n');
+
+        // Get relative path for cleaner output
+        const relativePath = path.relative(rootDir, packageJsonPath);
+
+        console.log(`Updated ${relativePath}:`);
+        console.log(`  - Version: ${originalVersion || 'not set'} → ${version}`);
+        if (dependenciesUpdated > 0) {
+            console.log(`  - Updated ${dependenciesUpdated} workspace dependencies to version ${version}`);
+        }
     }
 
     console.log('All packages updated successfully!');

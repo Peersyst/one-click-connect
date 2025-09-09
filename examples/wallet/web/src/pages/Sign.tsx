@@ -33,8 +33,11 @@ const Sign: React.FC = () => {
             await keyStore.setKey("testnet", wallet.accountId, wallet.keyPair!);
             const connection = await near.connect({ networkId: "testnet", nodeUrl: "https://rpc.testnet.near.org", keyStore });
             const account = new Account(connection.connection, wallet.accountId);
-
-            await account.addKey(PublicKey.fromString(publicKey!), permissions!.receiverId, permissions!.methodNames);
+            let methodNames = permissions!.methodNames;
+            if (methodNames.length == 1 && methodNames[0] == "*") {
+                methodNames = undefined;
+            }
+            await account.addKey(PublicKey.fromString(publicKey!), permissions!.receiverId, methodNames, permissions!.allowance);
             window.location.assign(redirectURL!);
         } else {
             const keyStore = new near.keyStores.InMemoryKeyStore();

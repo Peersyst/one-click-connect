@@ -1,5 +1,6 @@
 # @one-click-connect/core
 
-## Overview
+A core library providing essential utilities and interfaces for the One Click Connect packages.
 
-This package is the core package for the One-Click Connect core components. This packag is private and must not be published to any npm registry.
+## License
+[MIT License](../../../LICENSE)

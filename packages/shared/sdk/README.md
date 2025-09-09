@@ -1,5 +1,6 @@
-# @one-click-connect/dapp
+# @one-click-connect/sdk
 
-## Overview
+A core library providing implementations for the One Click Connect SDK.
 
-This package is the main package for the One-Click Connect DApp.
+## License
+[MIT License](../../../LICENSE)
